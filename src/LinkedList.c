@@ -13,7 +13,7 @@
   //NewLinked->count = 0;
 
   return NewLinked;
-}*/
+}
 
 ListItem *CreateListItem(void *data)
 {
@@ -33,7 +33,7 @@ ListItem *CreateListItem(void *data)
   //temp_item = temp_item->next;
 
   return NewList;
-}
+}*/
 
 //find the last node
 //put in data
@@ -76,17 +76,16 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
-  ListItem *toDelete;
+  ListItem *NewList = malloc(sizeof(ListItem));
+  ListItem *Delete;
 
     if(list == NULL)
       return 1;
     else
     {
-        toDelete = list;
-        list = list->next;
-
-        // Clears the memory occupied by first node
-        //free(toDelete);
+        Delete = list;
+        NewList = NewList->next;
+        list->count--;
     }
-  
+
 }

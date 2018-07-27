@@ -10,8 +10,7 @@ void tearDown(void){}
 //       next--                     next------^  next--/
 //tail---^                  tail-----------------^
 //count = 1                 count = 2
-
-void test_LinkedListAddToTail_given_expect_item_inserted(void)
+void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -35,7 +34,7 @@ void test_LinkedListAddToTail_given_expect_item_inserted(void)
 //tail--       tail----^    /
 //     /
 //count = 0    count = 1
-void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -48,6 +47,28 @@ void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_ite
     TEST_ASSERT_EQUAL(addr, list.tail);
     TEST_ASSERT_EQUAL(NULL, item.next);
     TEST_ASSERT_EQUAL(1, list.count);
+}
+
+//before                             after
+//head->item1    item2               head->item2    item1
+//      next-----^  next--/                next--/  next--/
+//tail->item2                        tail->item2
+//count = 2                          count = 1
+void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
+{
+  int value1 = 23, value2 = 9;
+  int *addr;
+  ListItem item2 = {(void *)&value2, NULL};
+  ListItem item1 = {(void *)&value1, &item2};
+  LinkedList list = {&item1, &item2, 2};
+
+  addr = LinkedListRemoveFromHead(&list);
+
+  TEST_ASSERT_EQUAL(&item2, list.head);
+  TEST_ASSERT_EQUAL(&item2, list.tail);
+  TEST_ASSERT_EQUAL(NULL, item2.next);
+  TEST_ASSERT_EQUAL(NULL, item1.next);
+  TEST_ASSERT_EQUAL(1, list.count);
 }
 
 //starting from linked list with item 1, add item 2 into it
