@@ -5,7 +5,7 @@ typedef struct ListItem ListItem;
 struct ListItem{
   void *data;
   ListItem *next;
-  //ListItem *prev;
+  ListItem *prev;
 };
 
 typedef struct LinkedList LinkedList;
@@ -15,11 +15,19 @@ struct LinkedList{
   int count;
 };
 
-//void LinkedListAddToHead(LinkedList *list, ListItem *ItemToAdd);
-int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
 ListItem *LinkedListRemoveFromHead(LinkedList *list);
-//ListItem *LinkedListRemoveFromTail(LinkedList *list);
 ListItem *CreateListItem(void *data);
 LinkedList *CreateLinkedList();
+ListItem *(*FuncPtr)(void data);
+ListItem *createListItem(void data);
+int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
+void ProcessKeyPress(char key);
+void ProcessLine (void(*FuncPtr)(void *obj, char *line), void *obj);
+void Processbackspace();
+void MoveLeft();
+void MoveRight();
+char recallPrevious();
+char recallNext();
+void PrintTillIndex(int Index);
 
 #endif // _LINKEDLIST_H

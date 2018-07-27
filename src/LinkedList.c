@@ -3,51 +3,32 @@
 #include <malloc.h>
 
 #define Max_Value 20             //limit the size of count
+#define MAX_BUFFER_SIZE 4096
 
-/*LinkedList *CreateLinkedList()
+char cmdBuffer; 
+
+ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
-  LinkedList *NewLinked = malloc(sizeof(LinkedList*));
+  int *NewList;
 
-  NewLinked->head = NULL;
-  NewLinked->tail = NULL;
-  //NewLinked->count = 0;
-
-  return NewLinked;
+  if(list == NULL)
+    return 1;
+  else
+  {
+      NewList = list->head->next;
+      list->head->next = NULL;          //assign first item->next to NULL
+      list->head = NewList;             //change the head
+      list->count--;                    //decrease count
+  }
 }
-
-ListItem *CreateListItem(void *data)
-{
-  ListItem *NewList = (ListItem*)malloc(sizeof(ListItem*));
-  ListItem *temp_item;
-  void *temp_data = data;
-
-  if(NewList == NULL)
-    printf("Error creating a new node.\n");
-
-  NewList->data = temp_data;
-  NewList->next = NULL;
-
-  //NewList->prev = NULL;
-  //temp_item = NewList;
-  //temp_item->next = NewList;           //link previous node
-  //temp_item = temp_item->next;
-
-  return NewList;
-}*/
 
 //find the last node
 //put in data
 //next -> NULL
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
-  //LinkedList *NewLinked = malloc(sizeof(LinkedList));
-  //list = CreateLinkedList();
-
   ListItem *NewList = malloc(sizeof(ListItem));
-  //NewList = CreateListItem(ItemToAdd);
-  //list = NewList;
 
-  //ListItem* NewList =  CreateListItem(ItemToAdd);
   ListItem *travel = list;
 
   if(list->head == NULL)
@@ -74,18 +55,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   return NewList;
 }
 
-ListItem *LinkedListRemoveFromHead(LinkedList *list)
+void ProcessKeyPress(char key)
 {
-  ListItem *NewList = malloc(sizeof(ListItem));
-  ListItem *Delete;
-
-    if(list == NULL)
-      return 1;
-    else
-    {
-        Delete = list;
-        NewList = NewList->next;
-        list->count--;
-    }
 
 }

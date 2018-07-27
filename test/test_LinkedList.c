@@ -7,10 +7,10 @@ void tearDown(void){}
 
 //before                     after
 //head-->item1               head-->item1     item2
-//       next--                     next------^  next--/
+//       next--/                    next------^  next--/
 //tail---^                  tail-----------------^
 //count = 1                 count = 2
-void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -34,7 +34,7 @@ void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
 //tail--       tail----^    /
 //     /
 //count = 0    count = 1
-void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -71,25 +71,17 @@ void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expec
   TEST_ASSERT_EQUAL(1, list.count);
 }
 
-//starting from linked list with item 1, add item 2 into it
 //before             after
-//head-->item1       head -->item2   item1
-//       next--              next--> next--
-//tail---^            tail-----------^
-//
-//count = 1          count = 2
-/*void test_LinkedListAddToHead_given_expect_item_inserted(void)
+//{'\0'}             {item,'\0'}
+void test_ProcessKeyPress_given_input_expect_item_inserted(void)
 {
-    int value1 = 1, value2 = 2;
-    ListItem *item1 = {NULL, (void *)&value1};
-    ListItem *item2 = {NULL, (void *)&value2};
-    LinkedList list = {item1, NULL, 1};
+  int value = 9;
+  int *addr;
+  ListItem item = {(void *)&value, NULL};   //data    next
+  LinkedList list = {0,0,0};                //head tail count
 
-    LinkedListAddToHead(&list,item2);
+  addr = ProcessKeyPress(&item);
 
-    TEST_ASSERT_EQUAL(item2, list.head);
-    TEST_ASSERT_EQUAL(item1, list.tail);
-    TEST_ASSERT_EQUAL(item1, item2->next);
-    TEST_ASSERT_EQUAL(NULL, item1->next);
-    TEST_ASSERT_EQUAL(2, list.count);
-}*/
+  TEST_ASSERT_EQUAL(1,list.count);
+  TEST_ASSERT_EQUAL(0,item.data);
+}
