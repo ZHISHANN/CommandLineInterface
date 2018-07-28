@@ -10,7 +10,7 @@ void tearDown(void){}
 //       next--/                    next------^  next--/
 //tail---^                  tail-----------------^
 //count = 1                 count = 2
-void test_LinkedListAddToTail_given_expect_item_inserted(void)
+void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -34,7 +34,7 @@ void test_LinkedListAddToTail_given_expect_item_inserted(void)
 //tail--       tail----^    /
 //     /
 //count = 0    count = 1
-void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -54,7 +54,7 @@ void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_ite
 //      next-----^  next--/                next--/  next--/
 //tail->item2                        tail->item2
 //count = 2                          count = 1
-void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
+void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
 {
   int value1 = 23, value2 = 9;
   int *addr;
@@ -71,17 +71,25 @@ void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expec
   TEST_ASSERT_EQUAL(1, list.count);
 }
 
-//before             after
-//{'\0'}             {item,'\0'}
+//overwrite data
+//before                after
+//head-->item           head-->item
+//    next--/               next--/
+//    data = 0              data = 9
+//tail-->item               tail-->item
+//count = 0                 count = 0
 void test_ProcessKeyPress_given_input_expect_item_inserted(void)
 {
   int value = 9;
   int *addr;
-  ListItem item = {(void *)&value, NULL};   //data    next
+  ListItem item = {(void *)&value, 0};      //data    next
   LinkedList list = {0,0,0};                //head tail count
 
-  addr = ProcessKeyPress(&item);
+  addr = ProcessKeyPress(&list, &item);
+  ListItem *check_data;
+  check_data = &addr;
 
-  TEST_ASSERT_EQUAL(1,list.count);
-  TEST_ASSERT_EQUAL(0,item.data);
+  TEST_ASSERT_EQUAL(0,list.count);          //check the index
+  TEST_ASSERT_EQUAL(9,check_data->data);           //check the content
+  TEST_ASSERT_EQUAL(0,item.next);
 }

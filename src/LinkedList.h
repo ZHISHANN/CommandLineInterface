@@ -1,11 +1,12 @@
 #ifndef _LINKEDLIST_H
 #define _LINKEDLIST_H
 
+#define Max_Value 20             //limit the size of count
+
 typedef struct ListItem ListItem;
 struct ListItem{
   void *data;
   ListItem *next;
-  ListItem *prev;
 };
 
 typedef struct LinkedList LinkedList;
@@ -16,13 +17,11 @@ struct LinkedList{
 };
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list);
-ListItem *CreateListItem(void *data);
-LinkedList *CreateLinkedList();
-ListItem *(*FuncPtr)(void data);
-ListItem *createListItem(void data);
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
-void ProcessKeyPress(char key);
+ListItem *(*FuncPtr)(void data);
+ListItem *CreateListItem(void data);
 void ProcessLine (void(*FuncPtr)(void *obj, char *line), void *obj);
+int *ProcessKeyPress(LinkedList *list, ListItem *ItemToAdd);
 void Processbackspace();
 void MoveLeft();
 void MoveRight();

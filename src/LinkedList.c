@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#define Max_Value 20             //limit the size of count
-#define MAX_BUFFER_SIZE 4096
-
-char cmdBuffer; 
-
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
   int *NewList;
@@ -55,7 +50,14 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   return NewList;
 }
 
-void ProcessKeyPress(char key)
+int *ProcessKeyPress(LinkedList *list, ListItem *ItemToAdd)
 {
+  ListItem *NewList = malloc(sizeof(ListItem));
+
+  if(list->head = 0)
+  {
+      LinkedListAddToTail(list,ItemToAdd);
+      //NewList->next = 0;
+  }
 
 }
