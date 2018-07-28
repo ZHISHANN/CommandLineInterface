@@ -54,7 +54,7 @@ int *ProcessKeyPress(LinkedList *list, ListItem *ItemToAdd)
 {
   ListItem *NewList = malloc(sizeof(ListItem));
 
-  if(list->head = 0)
+  if(NewList->next->data == 0)
   {
       LinkedListAddToTail(list,ItemToAdd);
       //NewList->next = 0;

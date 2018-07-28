@@ -8,9 +8,9 @@ void tearDown(void){}
 //before                     after
 //head-->item1               head-->item1     item2
 //       next--/                    next------^  next--/
-//tail---^                  tail-----------------^
-//count = 1                 count = 2
-void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
+//tail---^                   tail-----------------^
+//count = 1                  count = 2
+void test_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -24,6 +24,7 @@ void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
     TEST_ASSERT_EQUAL(addr, list.tail);
     TEST_ASSERT_EQUAL(NULL, item2.next);
     TEST_ASSERT_EQUAL(addr, item1.next);
+    //TEST_ASSERT_EQUAL(9,item2.data);          //check the content
     TEST_ASSERT_EQUAL(2, list.count);
 }
 
@@ -34,7 +35,7 @@ void xtest_LinkedListAddToTail_given_expect_item_inserted(void)
 //tail--       tail----^    /
 //     /
 //count = 0    count = 1
-void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -74,22 +75,23 @@ void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expe
 //overwrite data
 //before                after
 //head-->item           head-->item
-//    next--/               next--/
-//    data = 0              data = 9
-//tail-->item               tail-->item
-//count = 0                 count = 0
-void test_ProcessKeyPress_given_input_expect_item_inserted(void)
+//    next-->0               next-->0
+//    data = 1               data = 9
+//tail-->item                tail-->item
+//count = 1                  count = 2
+/*void test_ProcessKeyPress_given_input_expect_item_inserted(void)
 {
-  int value = 9;
+  int value1 = 1, value2 = 9;
   int *addr;
-  ListItem item = {(void *)&value, 0};      //data    next
-  LinkedList list = {0,0,0};                //head tail count
+  ListItem item1 = {(void *)&value1, 0};      //data    next
+  ListItem item2 = {(void *)&value2, 0};
+  LinkedList list = {&item1,,1};                //head tail count
 
-  addr = ProcessKeyPress(&list, &item);
+  addr = ProcessKeyPress(&list, &item2);
   ListItem *check_data;
   check_data = &addr;
 
   TEST_ASSERT_EQUAL(0,list.count);          //check the index
-  TEST_ASSERT_EQUAL(9,check_data->data);           //check the content
-  TEST_ASSERT_EQUAL(0,item.next);
-}
+
+  TEST_ASSERT_EQUAL(0,item2.next);
+}*/
