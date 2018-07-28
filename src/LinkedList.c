@@ -1,6 +1,20 @@
 #include "LinkedList.h"
 #include <stdio.h>
-#include <malloc.h>
+#include <string.h>
+#include <stdarg.h>
+#include <ctype.h>
+
+ListItem *CreateListItem(void *data)
+{
+  ListItem *NewList = malloc(sizeof(ListItem*));
+  char *temp_data = data;
+
+  NewList->data = temp_data;
+  NewList->next = NULL;
+  NewList->prev = NULL;
+
+  return NewList;
+}
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
@@ -50,14 +64,61 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   return NewList;
 }
 
-int *ProcessKeyPress(LinkedList *list, ListItem *ItemToAdd)
+/*HistoryBuffer *buffer(int length)
 {
-  ListItem *NewList = malloc(sizeof(ListItem));
+  HistoryBuffer *historyBuffer;
+  historyBuffer->curent_index = 0;
+  historyBuffer->previous_index = 0;
+  historyBuffer->next_index = 0;
+  historyBuffer->length = length;
 
-  if(NewList->next->data == 0)
+  return historyBuffer;
+}*/
+
+//copy the string to another place
+char *processKeyPress(char *key)
+{
+  char *string;
+  string = malloc(strlen(key)+1);
+
+  strcpy(string,key);
+
+  return string;
+}
+
+//get the index of the end of string
+int indexOfString(char *string)
+{
+  int len;
+
+  len = strlen(string);
+  return len;
+}
+
+void processBackspace(char *line)
+{
+  while(line != NULL)
   {
-      LinkedListAddToTail(list,ItemToAdd);
-      //NewList->next = 0;
+    
   }
+}
+
+void MoveLeft()
+{
+
+}
+
+void MoveRight()
+{
+
+}
+
+char recallPrevious()
+{
+
+}
+
+char recallNext()
+{
 
 }
