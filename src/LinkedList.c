@@ -43,7 +43,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   if(list->head == NULL)
   {
       list->head = NewList;
-      NewList->data = *(int*)(ItemToAdd->data); // Link the data part
+      NewList->data = ItemToAdd->data; // Link the data part
       NewList->next = NULL;
       list->count++;
       list->tail = NewList;
@@ -54,7 +54,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
     while(travel->next != NULL)
         travel = travel->next;
 
-    NewList->data = *(int*)(ItemToAdd->data); // Link the data part
+    NewList->data = ItemToAdd->data; // Link the data part
     NewList->next = NULL;
     list->count++;
     list->head->next = NewList;
@@ -63,17 +63,6 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   }
   return NewList;
 }
-
-/*HistoryBuffer *buffer(int length)
-{
-  HistoryBuffer *historyBuffer;
-  historyBuffer->curent_index = 0;
-  historyBuffer->previous_index = 0;
-  historyBuffer->next_index = 0;
-  historyBuffer->length = length;
-
-  return historyBuffer;
-}*/
 
 //copy the string to another place
 char *processKeyPress(char *key)
@@ -87,20 +76,45 @@ char *processKeyPress(char *key)
 }
 
 //get the index of the end of string
-int indexOfString(char *string)
+int indexOfString(Line *line)
 {
-  int len;
+  int len = strlen(line);
 
-  len = strlen(string);
-  return len;
+  if (line != NULL)
+  {
+    line->index = len;
+    line->last_index = len + 1;
+  }
+
+  return line;
 }
 
-void processBackspace(char *line)
+void processBackspace()
 {
-  while(line != NULL)
-  {
-    
-  }
+  Line *line;
+  int endofinput;
+
+	if(line == '\0')
+	{
+		endofinput = strlen(line->buffer);
+		line->buffer[endofinput-1] = '\0';
+	}
+
+  indexOfString(line->buffer);
+  //processKeyPress(line->buffer);
+
+}
+
+void printBufferTill(char buffer[], int length)
+{
+	int i;
+	
+	printf("\r");
+
+	for(i=0; i<length;i++)
+	{
+		printf("%c", buffer[i]);
+	}
 }
 
 void MoveLeft()

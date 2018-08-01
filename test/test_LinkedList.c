@@ -14,7 +14,7 @@ void tearDown(void){}
 //       next--/                    next------^  next--/
 //tail---^                   tail-----------------^
 //count = 1                  count = 2
-void xtest_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -41,7 +41,7 @@ void xtest_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
 //tail--       tail----^    /
 //     /
 //count = 0    count = 1
-void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -61,15 +61,14 @@ void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_it
 //      next-----^  next--/                next--/  next--/
 //tail->item2                        tail->item2
 //count = 2                          count = 1
-void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
+void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
 {
   int value1 = 23, value2 = 9;
-  int *addr;
   ListItem item2 = {(void *)&value2, NULL};
   ListItem item1 = {(void *)&value1, &item2};
   LinkedList list = {&item1, &item2, 2};
 
-  addr = LinkedListRemoveFromHead(&list);
+  LinkedListRemoveFromHead(&list);
 
   TEST_ASSERT_EQUAL(&item2, list.head);
   TEST_ASSERT_EQUAL(&item2, list.tail);
@@ -78,11 +77,23 @@ void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expe
   TEST_ASSERT_EQUAL(1, list.count);
 }
 
-void xtest_processKeyPress_given_empty_list_expect_string_inserted(void)
+void test_processKeyPress_given_empty_list_expect_string_inserted(void)
 {
   char *key = "hello";
+  int *addr;
   char *string = processKeyPress(key);
+  LinkedList list = {NULL, NULL, 0};
+  ListItem item = {(void *)&string, NULL};
+  Line line = {(void *)&string, 0, 0};
 
+  addr = LinkedListAddToTail(&list,&item);
+  indexOfString(&line);
+
+  TEST_ASSERT_EQUAL(5, line.index);    //got problem heres
+  TEST_ASSERT_EQUAL(6, line.last_index);
+  TEST_ASSERT_EQUAL(addr, list.head);
+  TEST_ASSERT_EQUAL(addr, list.tail);
+  TEST_ASSERT_EQUAL(NULL, item.next);
   TEST_ASSERT_EQUAL_STRING("hello",string);
 }
 
@@ -91,12 +102,12 @@ void xtest_processKeyPress_given_empty_list_expect_string_inserted(void)
 //"happy"              "happ"
 void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 {
-  char buffer[1024] = "happy";
+  char *buffer = "happy";
 
-  Line line = {buffer,NULL,NULL};
+  Line line = {(void *)&buffer, 0, 0};
 
-  processBackspace(&line);
+  processBackspace();
 
-  TEST_ASSERT_EQUAL(NULL,line.last_index);
-  TEST_ASSERT_EQUAL(3,line.index);
+  TEST_ASSERT_EQUAL(5, line.last_index);
+  TEST_ASSERT_EQUAL(4, line.index);
 }

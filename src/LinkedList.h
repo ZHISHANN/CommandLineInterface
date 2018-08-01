@@ -20,7 +20,7 @@ struct LinkedList{
 
 typedef struct Line Line;
 struct Line{
-  char *buffer;
+  void *buffer;
   int index;
   int last_index;
 };
@@ -39,14 +39,14 @@ ListItem *(*FuncPtr)(void data);
 ListItem *CreateListItem(void * data);
 HistoryBuffer *buffer(int length);
 //void ProcessLine (void(*FuncPtr)(void *obj, char *line), void *obj);
-char *ProcessKeyPress(char *key);
-//void Processbackspace();
-char *processBackspace(char *string, int enter);
+char *processKeyPress(char *key);
+void processBackspace();
 void MoveLeft();
 void MoveRight();
 char recallPrevious();
 char recallNext();
-void PrintTillIndex(int Index);
-int indexOfString(char *string);
+//void PrintTillIndex(int Index);
+void printBufferTill(char buffer[], int length)
+int indexOfString(Line *line);
 
 #endif // _LINKEDLIST_H
