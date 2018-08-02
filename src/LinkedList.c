@@ -99,13 +99,11 @@ void processBackspace(Line *line)
   temp_index->last_index = endofinput + 1;
   line->last_index = endofinput;
   line->index = endofinput;
-  //line->index--;
 
 	if(temp_index->last_index == '\0')
-	{
 		line->last_index = '\0';
-    line->index--;
-	}
+
+  line->index--;
 }
 
 /*void printBufferTill(char buffer[], int length)
@@ -151,6 +149,8 @@ char recallNext(LinkedList *list)
 
   if(item->next == NULL)
     item->next = list->head;
+  else
+    item = item->next;
 
   return item;
 }

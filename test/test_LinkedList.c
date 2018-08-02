@@ -14,7 +14,7 @@ void tearDown(void){}
 //       next--/                    next------^  next--/
 //tail---^                   tail-------------^
 //count = 1                  count = 2
-void xtest_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
 {
     int value1 = 1, value2 = 2;
     int *addr;
@@ -41,7 +41,7 @@ void xtest_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
 //tail--/       tail----^
 //     /
 //count = 0     count = 1
-void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
+void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     int value = 1;
     int *addr;
@@ -61,7 +61,7 @@ void xtest_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_it
 //      next-----^  next--/                next--/
 //tail->item2                        tail->item2
 //count = 2                          count = 1
-void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
+void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expected_left_item2(void)
 {
   int value1 = 23, value2 = 9;
   ListItem item2 = {(void *)&value2, NULL};
@@ -77,7 +77,7 @@ void xtest_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expe
   TEST_ASSERT_EQUAL(1, list.count);
 }
 
-void xtest_processKeyPress_given_empty_list_expect_string_inserted(void)
+void test_processKeyPress_given_empty_list_expect_string_inserted(void)
 {
   char *key = "hello";
   int *addr;
@@ -114,35 +114,71 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 
 /* recall previous 1 time
 * before                            after
-* head->item1         item2        head->item1      item2
-*      next-----------^  next--/         next-------^  next--/
-*      prev->item2       prev--/         prev->item2   prev->item1
+* head->item1         item2         head->item1      item2
+*      next-----------^  next--/          next-------^  next--/
+*      prev--/           prev--/          prev->item2   prev->item1
 * tail->item2                       tail->item2
 */
-void xtest_recallPrevious_given_item1_and_item2_then_recall_previous_1_time_expect_item2_then_item1_display(void)
+void test_recallPrevious_given_item1_and_item2_then_recall_previous_1_time_expect_item1_display(void)
 {
   char *buffer1 = "hello";
   char *buffer2 = "hi";
   ListItem item2 = {(void *)&buffer2, NULL, NULL};
-  ListItem item1 = {(void *)&buffer1, &item2, &item2};
+  ListItem item1 = {(void *)&buffer1, &item2, NULL};
   LinkedList list = {&item1, &item2, 2};
 
-  recallPrevious(&list);
-
   TEST_ASSERT_EQUAL(recallPrevious(&list), item2.prev);
-  TEST_ASSERT_EQUAL(&item2, item1.prev);
+  TEST_ASSERT_EQUAL(recallPrevious(&list), item1.prev);
 }
 
-void xtest_recallNext_given_item1_and_item2_then_recallNext_at_item1_expect_item1_then_item2_display(void)
+/* recall previous 1 time
+* before                                         after
+* head->item1      item2         item3           head->item1      item2          item3
+*      next--------^  next-------^  next--/            next-------^  next--------^  next--/
+*      prev--/        prev--/       prev--/            prev->item3   prev->item1    prev->item2
+* tail->item3                                    tail->item3
+*/
+void test_recallPrevious_given_item1_item2_item3_then_recall_previous_1_time_expect_item2_display(void)
+{
+  char *buffer1 = "hello";
+  char *buffer2 = "hi";
+  char *buffer3 = "hey";
+  ListItem item3 = {(void *)&buffer3, NULL, NULL};
+  ListItem item2 = {(void *)&buffer2, &item3, NULL};
+  ListItem item1 = {(void *)&buffer1, &item2, NULL};
+  LinkedList list = {&item1, &item3, 3};
+
+  TEST_ASSERT_EQUAL(recallPrevious(&list), item1.prev);
+  TEST_ASSERT_EQUAL(recallPrevious(&list), item2.prev);
+  TEST_ASSERT_EQUAL(recallPrevious(&list), item3.prev);
+}
+
+void test_recallNext_given_item1_and_item2_recallNext_at_item1_expect_item1_then_item2_display(void)
 {
   char *buffer1 = "hello";
   char *buffer2 = "hi";
   ListItem item2 = {(void *)&buffer2, NULL, NULL};
-  ListItem item1 = {(void *)&buffer1, &item2, &item2};
+  ListItem item1 = {(void *)&buffer1, &item2, NULL};
   LinkedList list = {&item1, &item2, 2};
 
   recallNext(&list);
 
   TEST_ASSERT_EQUAL(&item1, item2.next);
   TEST_ASSERT_EQUAL(&item2, item1.next);
+}
+
+void test_recallNext_given_item1_item2_item3_recallNext_expect_item1_display(void)
+{
+  char *buffer1 = "hello";
+  char *buffer2 = "hi";
+  char *buffer3 = "hey";
+  ListItem item3 = {(void *)&buffer3, NULL, NULL};
+  ListItem item2 = {(void *)&buffer2, &item3, NULL};
+  ListItem item1 = {(void *)&buffer1, &item2, NULL};
+  LinkedList list = {&item1, &item3, 3};
+
+  recallNext(&list);
+
+  TEST_ASSERT_EQUAL(&item1, item3.next);
+  TEST_ASSERT_EQUAL(&item3, item2.next);
 }
