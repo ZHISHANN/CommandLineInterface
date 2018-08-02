@@ -27,15 +27,15 @@ struct Line{
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list);
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
-ListItem *(*FuncPtr)(void data);
+//ListItem *(*FuncPtr)(void data);
 ListItem *CreateListItem(void *data);
 //void ProcessLine (void(*FuncPtr)(void *obj, char *line), void *obj);
 char *processKeyPress(char *key);
 void processBackspace(Line *line);
 void MoveLeft();
 void MoveRight();
-char *recallPrevious(LinkedList *list);
-char recallNext();
+char recallPrevious(LinkedList *list);
+char recallNext(LinkedList *list);
 //void PrintTillIndex(int Index);
 //void printBufferTill(char buffer[], int length)
 int indexOfString(Line *line);

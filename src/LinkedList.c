@@ -99,10 +99,11 @@ void processBackspace(Line *line)
   temp_index->last_index = endofinput + 1;
   line->last_index = endofinput;
   line->index = endofinput;
+  //line->index--;
 
 	if(temp_index->last_index == '\0')
 	{
-		line->index = '\0';
+		line->last_index = '\0';
     line->index--;
 	}
 }
@@ -129,21 +130,27 @@ void MoveRight()
 
 }
 
-char *recallPrevious(LinkedList *list)
+char recallPrevious(LinkedList *list)
 {
-  ListItem *NewList = malloc(sizeof(ListItem));
+  ListItem *item = list->tail;
 
-  ListItem *travel = list;
-
-  list->head = NewList;
-
-  if(NewList->head->prev == NULL)
-    NewList->prev = list->tail;
+  //reach the head
+  if(item->prev == list->head)
+    item->prev = list->tail;
   else
-    NewList->prev =
+    item = item->prev;
+
+  return item;
 }
 
-char recallNext()
+char recallNext(LinkedList *list)
 {
+  ListItem *item = list->head;
 
+  item = item->next;
+
+  if(item->next == NULL)
+    item->next = list->head;
+
+  return item;
 }
