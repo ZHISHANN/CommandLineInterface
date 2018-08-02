@@ -43,7 +43,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   if(list->head == NULL)
   {
       list->head = NewList;
-      NewList->data = ItemToAdd->data; // Link the data part
+      NewList->data = *(int *)ItemToAdd->data; // Link the data part
       NewList->next = NULL;
       list->count++;
       list->tail = NewList;
@@ -54,7 +54,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
     while(travel->next != NULL)
         travel = travel->next;
 
-    NewList->data = ItemToAdd->data; // Link the data part
+    NewList->data = *(int *)ItemToAdd->data; // Link the data part
     NewList->next = NULL;
     list->count++;
     list->head->next = NewList;
@@ -78,44 +78,46 @@ char *processKeyPress(char *key)
 //get the index of the end of string
 int indexOfString(Line *line)
 {
-  int len = strlen(line);
+  line->buffer = *(int *)line->buffer;
+  int len = strlen(line->buffer);
 
   if (line != NULL)
   {
     line->index = len;
     line->last_index = len + 1;
   }
-
   return line;
 }
 
-void processBackspace()
+void processBackspace(Line *line)
 {
-  Line *line;
+  line->buffer = *(int *)line->buffer;
   int endofinput;
+  endofinput = strlen(line->buffer);
+  Line *temp_index = line;
 
-	if(line == '\0')
+  temp_index->last_index = endofinput + 1;
+  line->last_index = endofinput;
+  line->index = endofinput;
+
+	if(temp_index->last_index == '\0')
 	{
-		endofinput = strlen(line->buffer);
-		line->buffer[endofinput-1] = '\0';
+		line->index = '\0';
+    line->index--;
 	}
-
-  indexOfString(line->buffer);
-  //processKeyPress(line->buffer);
-
 }
 
-void printBufferTill(char buffer[], int length)
+/*void printBufferTill(char buffer[], int length)
 {
 	int i;
-	
+
 	printf("\r");
 
 	for(i=0; i<length;i++)
 	{
 		printf("%c", buffer[i]);
 	}
-}
+}*/
 
 void MoveLeft()
 {
@@ -127,9 +129,18 @@ void MoveRight()
 
 }
 
-char recallPrevious()
+char *recallPrevious(LinkedList *list)
 {
+  ListItem *NewList = malloc(sizeof(ListItem));
 
+  ListItem *travel = list;
+
+  list->head = NewList;
+
+  if(NewList->head->prev == NULL)
+    NewList->prev = list->tail;
+  else
+    NewList->prev =
 }
 
 char recallNext()

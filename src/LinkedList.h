@@ -25,28 +25,19 @@ struct Line{
   int last_index;
 };
 
-typedef struct HistoryBuffer HistoryBuffer;
-struct HistoryBuffer{
-  int current_index;
-  int previous_index;
-  int next_index;
-  int length;
-};
-
 ListItem *LinkedListRemoveFromHead(LinkedList *list);
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
 ListItem *(*FuncPtr)(void data);
-ListItem *CreateListItem(void * data);
-HistoryBuffer *buffer(int length);
+ListItem *CreateListItem(void *data);
 //void ProcessLine (void(*FuncPtr)(void *obj, char *line), void *obj);
 char *processKeyPress(char *key);
-void processBackspace();
+void processBackspace(Line *line);
 void MoveLeft();
 void MoveRight();
-char recallPrevious();
+char *recallPrevious(LinkedList *list);
 char recallNext();
 //void PrintTillIndex(int Index);
-void printBufferTill(char buffer[], int length)
+//void printBufferTill(char buffer[], int length)
 int indexOfString(Line *line);
 
 #endif // _LINKEDLIST_H
