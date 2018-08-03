@@ -34,10 +34,11 @@ char *processKeyPress(char *key);
 void processBackspace(Line *line);
 void MoveLeft();
 void MoveRight();
-char recallPrevious(LinkedList *list);
-char recallNext(LinkedList *list);
+void *recallPrevious(LinkedList *list);
+void *recallNext();
 //void PrintTillIndex(int Index);
 //void printBufferTill(char buffer[], int length)
 int indexOfString(Line *line);
+void resetRecalledItem(LinkedList *list);
 
 #endif // _LINKEDLIST_H

@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include <ctype.h>
 
+ListItem *recalledItem = NULL;
+
 ListItem *CreateListItem(void *data)
 {
   ListItem *NewList = malloc(sizeof(ListItem*));
@@ -128,29 +130,30 @@ void MoveRight()
 
 }
 
-char recallPrevious(LinkedList *list)
+void *recallPrevious(LinkedList *list)
 {
-  ListItem *item = list->tail;
+  ListItem *newItem = (struct ListItem *)malloc(sizeof(struct ListItem));
+  newItem = list->tail;
 
   //reach the head
-  if(item->prev == list->head)
-    item->prev = list->tail;
+  if(newItem->prev == list->head)
+    newItem->prev = list->tail;
   else
-    item = item->prev;
+    newItem = newItem->prev;
 
-  return item;
+  return newItem;
 }
 
-char recallNext(LinkedList *list)
+void *recallNext()
 {
-  ListItem *item = list->head;
+  ListItem *recalledItem;
 
-  item = item->next;
+  recalledItem = recalledItem->next;
 
-  if(item->next == NULL)
-    item->next = list->head;
-  else
-    item = item->next;
+  return recalledItem;
+}
 
-  return item;
+void resetRecalledItem(LinkedList *list)
+{
+  recalledItem = list->head;
 }

@@ -161,13 +161,17 @@ void test_recallNext_given_item1_and_item2_recallNext_at_item1_expect_item1_then
   ListItem item1 = {(void *)&buffer1, &item2, NULL};
   LinkedList list = {&item1, &item2, 2};
 
-  recallNext(&list);
+  item2.next = &item1;
+  ListItem recalledItem = item1;
 
-  TEST_ASSERT_EQUAL(&item1, item2.next);
-  TEST_ASSERT_EQUAL(&item2, item1.next);
+  TEST_ASSERT_EQUAL(item1.data, recallNext());
+  TEST_ASSERT_EQUAL(item2.data, recallNext());
+  TEST_ASSERT_EQUAL(item1.data, recallNext());
+  //TEST_ASSERT_EQUAL(recallNext(&list), item2.next);
+  //TEST_ASSERT_EQUAL(recallNext(&list), item1.next);
 }
 
-void test_recallNext_given_item1_item2_item3_recallNext_expect_item1_display(void)
+void xtest_recallNext_given_item1_item2_item3_recallNext_expect_item1_display(void)
 {
   char *buffer1 = "hello";
   char *buffer2 = "hi";
@@ -177,8 +181,11 @@ void test_recallNext_given_item1_item2_item3_recallNext_expect_item1_display(voi
   ListItem item1 = {(void *)&buffer1, &item2, NULL};
   LinkedList list = {&item1, &item3, 3};
 
-  recallNext(&list);
+  item3.next = &item1;
+  ListItem recalledItem = item1;
 
-  TEST_ASSERT_EQUAL(&item1, item3.next);
-  TEST_ASSERT_EQUAL(&item3, item2.next);
+  TEST_ASSERT_EQUAL(item1.data, recallNext());
+  TEST_ASSERT_EQUAL(item2.data, recallNext());
+  TEST_ASSERT_EQUAL(item3.data, recallNext());
+  TEST_ASSERT_EQUAL(item1.data, recallNext());
 }
