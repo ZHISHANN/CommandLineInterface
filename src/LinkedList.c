@@ -1,4 +1,5 @@
 #include "LinkedList.h"
+#include "CLI.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -22,7 +23,7 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
   int *NewList;
 
-  if(list == NULL)
+  if(list->head == NULL)
     return 1;
   else
   {
@@ -45,10 +46,10 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   if(list->head == NULL)
   {
       list->head = NewList;
+      list->tail = NewList;
       NewList->data = *(int *)ItemToAdd->data; // Link the data part
       NewList->next = NULL;
       list->count++;
-      list->tail = NewList;
   }
   else
   {
@@ -56,25 +57,14 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
     while(travel->next != NULL)
         travel = travel->next;
 
+    list->tail = NewList;
     NewList->data = *(int *)ItemToAdd->data; // Link the data part
-    NewList->next = NULL;
+    NewList->next = NewList;
     list->count++;
     list->head->next = NewList;
     travel->next = NewList;   //link the address
-    list->tail = NewList;
   }
   return NewList;
-}
-
-//copy the string to another place
-char *processKeyPress(char *key)
-{
-  char *string;
-  string = malloc(strlen(key)+1);
-
-  strcpy(string,key);
-
-  return string;
 }
 
 //get the index of the end of string
@@ -88,69 +78,59 @@ int indexOfString(Line *line)
     line->index = len;
     line->last_index = len + 1;
   }
+  else
+    return line;
+    
   return line;
 }
 
-void processBackspace(Line *line)
-{
-  line->buffer = *(int *)line->buffer;
-  int endofinput;
-  endofinput = strlen(line->buffer);
-  Line *temp_index = line;
-
-  temp_index->last_index = endofinput + 1;
-  line->last_index = endofinput;
-  line->index = endofinput;
-
-	if(temp_index->last_index == '\0')
-		line->last_index = '\0';
-
-  line->index--;
-}
-
-/*void printBufferTill(char buffer[], int length)
-{
-	int i;
-
-	printf("\r");
-
-	for(i=0; i<length;i++)
-	{
-		printf("%c", buffer[i]);
-	}
-}*/
-
-void MoveLeft()
-{
-
-}
-
-void MoveRight()
-{
-
-}
-
-void *recallPrevious(LinkedList *list)
+char *recallPrevious(LinkedList *list)
 {
   ListItem *newItem = (struct ListItem *)malloc(sizeof(struct ListItem));
   newItem = list->tail;
 
   //reach the head
   if(newItem->prev == list->head)
+  {
     newItem->prev = list->tail;
+    newItem->data = *(int *)list->tail->data;
+  }
   else
+  {
     newItem = newItem->prev;
+    newItem->data = *(int *)newItem->prev->data; //here got problem
+  }
 
-  return newItem;
+  return newItem->data;
 }
 
-void *recallNext()
+char *recallNext(LinkedList *list)
 {
-  ListItem *recalledItem;
+  ListItem *newList;
+  //int count = 0;
 
-  recalledItem = recalledItem->next;
+  //check the head
+  if (list->head == NULL)
+    return NULL;
 
-  return recalledItem;
+  if (newList->next == NULL)
+  {
+    newList->next = list->head;
+    newList->data = *(int *)list->head->data;
+    //newList = list->head->next;
+  }
+  else //if (newList->next == list->head)
+  {
+    newList = list->head->next;
+    newList->data = *(int *)list->head->next;
+  }
+    /*else
+    {
+      newList = newList->next;
+      newList->data = *(int *)newList->next;
+      count++;
+    }*/
+	return newList->data;
 }
 
 void resetRecalledItem(LinkedList *list)
