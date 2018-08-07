@@ -13,7 +13,7 @@ char *processKeyPress(char *key);
 void processBackspace(line *Line);
 void moveLeft(line *Line);
 void moveRight(line *Line);
-void printBufferTill(line *Line)
+void printBufferTill(char buffer[], int length);
 //ListItem *(*FuncPtr)(void data);
 
 #endif // _CLI_H

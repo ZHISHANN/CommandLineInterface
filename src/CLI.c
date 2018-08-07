@@ -33,13 +33,11 @@ void processBackspace(line *Line)
   Line->index--;
 }
 
-void printBufferTill(line *Line)
+void printBufferTill(char buffer[], int length)
 {
 	int i;
 
-	printf("\r");
-
-	for(i=0; i<length;i++)
+	for(i=0; i<=length ;i++)
 	{
 		printf("%c", buffer[i]);
 	}

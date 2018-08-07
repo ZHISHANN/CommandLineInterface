@@ -102,4 +102,16 @@ void test_moveRight_given_happy_and_move_right_1_time_at_index_5(void)
   TEST_ASSERT_EQUAL(5, Line.index);
 }
 
-void test_printTillIndex_
+void test_printTillIndex_given_happy_should_print_happy(void)
+{
+  char buffer[] = "happy";
+
+  printBufferTill(buffer,5);
+}
+
+void test_printTillIndex_given_happy_and_smlie_should_print_happy(void)
+{
+  char buffer[] = "happy  smile";
+
+  printBufferTill(buffer,5);
+}
