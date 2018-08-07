@@ -108,10 +108,3 @@ void test_printTillIndex_given_happy_should_print_happy(void)
 
   printBufferTill(buffer,5);
 }
-
-void test_printTillIndex_given_happy_and_smlie_should_print_happy(void)
-{
-  char buffer[] = "happy  smile";
-
-  printBufferTill(buffer,5);
-}

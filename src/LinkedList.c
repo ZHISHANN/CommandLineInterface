@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
+#include <malloc.h>
 
 ListItem *recalledItem = NULL;
 
@@ -80,28 +81,18 @@ int indexOfString(Line *line)
   }
   else
     return line;
-    
+
   return line;
 }
 
 char *recallPrevious(LinkedList *list)
 {
-  ListItem *newItem = (struct ListItem *)malloc(sizeof(struct ListItem));
-  newItem = list->tail;
+  if(recalledItem == NULL)
+    recalledItem = list->head;
 
-  //reach the head
-  if(newItem->prev == list->head)
-  {
-    newItem->prev = list->tail;
-    newItem->data = *(int *)list->tail->data;
-  }
-  else
-  {
-    newItem = newItem->prev;
-    newItem->data = *(int *)newItem->prev->data; //here got problem
-  }
+  recalledItem = recalledItem->prev;
 
-  return newItem->data;
+  return (char *)(recalledItem->data);
 }
 
 char *recallNext(LinkedList *list)
