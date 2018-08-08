@@ -8,6 +8,6 @@
 #define KEY_BACKSPACE	 	   8
 
 void backspaceOnConsole();
-void displayContent(char buffer);
+void displayContent(char buffer[]);
 
 #endif // _KEYANDCONSOLE_H

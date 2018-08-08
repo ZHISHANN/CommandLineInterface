@@ -77,3 +77,14 @@ void moveRight(line *Line)
   else
     Line->index++;
 }
+
+void writeToBuffer(line *Line, char ch)
+{
+  strdup(ch,Line->buffer);
+  indexOfString(ch);
+}
+
+void clearBuffer(line *Line)
+{
+
+}

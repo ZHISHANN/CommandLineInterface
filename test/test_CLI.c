@@ -173,3 +173,37 @@ void test_printTillIndex_given_happy_should_print_happy(void)
 
   printBufferTill(buffer,5);
 }
+
+void test_writeToBuffer_given_happy_expect_happy_write_to_buffer(void)
+{
+  char *buffer = "happy";
+  char *string_return;
+  line Line = {NULL,0,0};
+
+  string_return = writeToBuffer(&Line, buffer);
+
+  TEST_ASSERT_EQUAL_STRING("happy",string_return);
+  TEST_ASSERT_EQUAL(5,Line->last_index);
+  TEST_ASSERT_EQUAL(5,Line->index);
+}
+
+void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer,5,5};
+
+  clearBuffer(&Line);
+
+  TEST_ASSERT_EQUAL(0,Line->index);
+}
+
+void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer,5,5};
+
+  clearBuffer(&Line);
+  clearConsoleLine(Line->index);
+
+  TEST_ASSERT_EQUAL(0,Line->index);
+}

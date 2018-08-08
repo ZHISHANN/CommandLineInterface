@@ -31,7 +31,7 @@
     - -:test/support
   :source:
     - src/**
-    - vendor/ceedling/vendor/c_exception/lib
+    - vendor/ceedling/vendor/c_exception/lib/*
   :support:
     - test/support
 

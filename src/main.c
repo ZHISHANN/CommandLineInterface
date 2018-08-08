@@ -3,11 +3,11 @@
 #include <stdint.h>
 #include <conio.h>
 
-int get_main()
+int main()
 {
   printf("Hello\n");
   uint8_t ac, c = 'h';
-  c = getch();
+  c = getch(); //button pressed
 
   if (c == 224 || c == 0)
     ac = getch();
