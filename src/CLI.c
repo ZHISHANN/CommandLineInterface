@@ -20,8 +20,7 @@ char *processKeyPress(char *key)
 void processBackspace(line *Line)
 {
   char *buff = (char *)Line->buffer;
-  int endofinput;
-  endofinput = strlen(Line->buffer);
+  int endofinput = strlen(Line->buffer);
   line *temp_index = Line;
 
   if(Line->index == 0)
@@ -80,11 +79,19 @@ void moveRight(line *Line)
 
 void writeToBuffer(line *Line, char ch)
 {
-  strdup(ch,Line->buffer);
-  indexOfString(ch);
+
 }
 
 void clearBuffer(line *Line)
 {
+  Line->index = 0;
+}
 
+void clearConsoleLine(int num)
+{
+  while(num != 0)
+  {
+    processBackspace();
+    num--;
+  }
 }

@@ -14,6 +14,8 @@ void processBackspace(line *Line);
 void moveLeft(line *Line);
 void moveRight(line *Line);
 void printBufferTill(char buffer[], int length);
+void writeToBuffer(line *Line, char ch);
+void clearBuffer(line *Line);
 //ListItem *(*FuncPtr)(void data);
 
 #endif // _CLI_H
