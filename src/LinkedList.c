@@ -48,7 +48,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   {
       list->head = NewList;
       list->tail = NewList;
-      NewList->data = *(int *)ItemToAdd->data; // Link the data part
+      NewList->data = (char *)ItemToAdd->data; // Link the data part
       NewList->next = NULL;
       list->count++;
   }
@@ -59,7 +59,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
         travel = travel->next;
 
     list->tail = NewList;
-    NewList->data = *(int *)ItemToAdd->data; // Link the data part
+    NewList->data = (char *)ItemToAdd->data; // Link the data part
     NewList->next = NewList;
     list->count++;
     list->head->next = NewList;
@@ -71,7 +71,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 //get the index of the end of string
 int indexOfString(Line *line)
 {
-  line->buffer = *(int *)line->buffer;
+  int buff = *(int *)line->buffer;
   int len = strlen(line->buffer);
 
   if (line != NULL)
@@ -97,31 +97,12 @@ char *recallPrevious(LinkedList *list)
 
 char *recallNext(LinkedList *list)
 {
-  ListItem *newList;
-  //int count = 0;
+  if(recalledItem == NULL)
+    recalledItem = list->tail;
 
-  //check the head
-  if (list->head == NULL)
-    return NULL;
+  recalledItem = recalledItem->next;
 
-  if (newList->next == NULL)
-  {
-    newList->next = list->head;
-    newList->data = *(int *)list->head->data;
-    //newList = list->head->next;
-  }
-  else //if (newList->next == list->head)
-  {
-    newList = list->head->next;
-    newList->data = *(int *)list->head->next;
-  }
-    /*else
-    {
-      newList = newList->next;
-      newList->data = *(int *)newList->next;
-      count++;
-    }*/
-	return newList->data;
+  return (char *)(recalledItem->data);
 }
 
 void resetRecalledItem(LinkedList *list)

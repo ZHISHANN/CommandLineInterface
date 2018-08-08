@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
+#include <malloc.h>
 
 //copy the string to another place
 char *processKeyPress(char *key)
@@ -18,16 +19,19 @@ char *processKeyPress(char *key)
 
 void processBackspace(line *Line)
 {
-  Line->buffer = *(int *)Line->buffer;
+  char *buff = (char *)Line->buffer;
   int endofinput;
   endofinput = strlen(Line->buffer);
   line *temp_index = Line;
 
-  temp_index->last_index = endofinput + 1;
-  Line->last_index = endofinput;
-  Line->index = endofinput;
-
-	if(temp_index->last_index == '\0')
+  if(Line->index == 0)
+  {
+    temp_index->last_index = endofinput + 1;
+    Line->last_index = endofinput;
+    Line->index = endofinput;
+  }
+  else
+	 if(temp_index->last_index == '\0')
 		Line->last_index = '\0';
 
   Line->index--;
@@ -45,14 +49,16 @@ void printBufferTill(char buffer[], int length)
 
 void moveLeft(line *Line)
 {
-  Line->buffer = *(int *)Line->buffer;
-  int endofinput;
-  endofinput = strlen(Line->buffer);
+  char *buff = (char *)Line->buffer;
+  int endofinput = strlen(Line->buffer);
 
-  Line->last_index = endofinput;
-  Line->index = endofinput;
+  if (Line->index == 0)
+  {
+    Line->last_index = endofinput;
+    Line->index = endofinput;
+  }
 
-  if (Line->index == 1)
+  if (Line->index <= 1)
     Line->index = 1;
   else
     Line->index--;
@@ -60,11 +66,11 @@ void moveLeft(line *Line)
 
 void moveRight(line *Line)
 {
-  Line->buffer = *(int *)Line->buffer;
-  int endofinput;
-  endofinput = strlen(Line->buffer);
+  char *buff = (char *)Line->buffer;
+  int endofinput = strlen(Line->buffer);
 
-  Line->last_index = endofinput;
+  if (Line->index == 0)
+    Line->last_index = endofinput;
 
   if (Line->index >= Line->last_index)
     Line->index = endofinput;

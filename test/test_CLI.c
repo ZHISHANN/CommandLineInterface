@@ -11,14 +11,14 @@ void setUp(void){}
 
 void tearDown(void){}
 
-void test_processKeyPress_given_empty_list_expect_string_inserted(void)
+void test_processKeyPress_given_item1_expect_string_copied(void)
 {
-  char *key = "hello";
+  char *item1 = "hello";
   int *addr;
-  char *string = processKeyPress(key);
+  char *string = processKeyPress(item1);
   LinkedList list = {NULL, NULL, 0};
-  ListItem item = {(void *)&string, NULL};
-  line Line = {(void *)&string, 0, 0};
+  ListItem item = {(void *)string, NULL};
+  line Line = {(void *)string, 0, 0};
 
   addr = LinkedListAddToTail(&list,&item);
   indexOfString(&Line);
@@ -38,7 +38,7 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 {
   char *buffer = "happy";
 
-  line Line = {(void *)&buffer, 0, 0};
+  line Line = {(void *)buffer, 0, 0};
 
   processBackspace(&Line);
 
@@ -46,10 +46,10 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
   TEST_ASSERT_EQUAL(4, Line.index);
 }
 
-void xtest_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
+void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
 {
   char *buffer = "happy";
-  line Line = {(void *)&buffer, 0, 0};
+  line Line = {(void *)buffer, 0, 0};
 
   processBackspace(&Line);
   processBackspace(&Line);
@@ -58,10 +58,23 @@ void xtest_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
   TEST_ASSERT_EQUAL(3, Line.index);
 }
 
+void test_processBackspace_given_happy_and_backspace_3_time_expect_ha(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer, 0, 0};
+
+  processBackspace(&Line);
+  processBackspace(&Line);
+  processBackspace(&Line);
+
+  TEST_ASSERT_EQUAL(5, Line.last_index);
+  TEST_ASSERT_EQUAL(2, Line.index);
+}
+
 void test_moveLeft_given_happy_and_move_left_1_time(void)
 {
   char *buffer = "happy";
-  line Line = {(void *)&buffer, 0, 0};
+  line Line = {(void *)buffer, 0, 0};
 
   moveLeft(&Line);
 
@@ -69,10 +82,41 @@ void test_moveLeft_given_happy_and_move_left_1_time(void)
   TEST_ASSERT_EQUAL(4, Line.index);
 }
 
+void test_moveLeft_given_happy_and_move_left_5_time(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer, 0, 0};
+
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+
+  TEST_ASSERT_EQUAL(5, Line.last_index);
+  TEST_ASSERT_EQUAL(1, Line.index);
+}
+
+void test_moveLeft_given_happy_and_move_left_6_time(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer, 0, 0};
+
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+  moveLeft(&Line);
+
+  TEST_ASSERT_EQUAL(5, Line.last_index);
+  TEST_ASSERT_EQUAL(1, Line.index);
+}
+
 void test_moveLeft_given_h_and_move_left_1_time(void)
 {
   char *buffer = "h";
-  line Line = {(void *)&buffer, 0, 0};
+  line Line = {(void *)buffer, 0, 0};
 
   moveLeft(&Line);
 
@@ -83,19 +127,40 @@ void test_moveLeft_given_h_and_move_left_1_time(void)
 void test_moveRight_given_happy_and_move_right_1_time(void)
 {
   char *buffer = "happy";
-  line Line = {(void *)&buffer, 1, 0};
+  line Line = {(void *)buffer, 0, 0};
 
+  moveRight(&Line);
   moveRight(&Line);
 
   TEST_ASSERT_EQUAL(5, Line.last_index);
   TEST_ASSERT_EQUAL(2, Line.index);
 }
 
-void test_moveRight_given_happy_and_move_right_1_time_at_index_5(void)
+void test_moveRight_given_happy_and_move_right_5_time(void)
 {
   char *buffer = "happy";
-  line Line = {(void *)&buffer, 5, 0};
+  line Line = {(void *)buffer, 0, 0};
 
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
+
+  TEST_ASSERT_EQUAL(5, Line.last_index);
+  TEST_ASSERT_EQUAL(5, Line.index);
+}
+
+void test_moveRight_given_happy_and_move_right_6_time(void)
+{
+  char *buffer = "happy";
+  line Line = {(void *)buffer, 0, 0};
+
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
+  moveRight(&Line);
   moveRight(&Line);
 
   TEST_ASSERT_EQUAL(5, Line.last_index);

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdarg.h>
-#include "unity.h"
 #include "CException.h"
 
 void throwSimpleError(int errorCode, char *errorMsg) {
