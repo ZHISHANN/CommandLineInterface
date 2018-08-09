@@ -9,14 +9,14 @@ void setUp(void){}
 
 void tearDown(void){}
 
-/*void xtest_Release(void)
+void test_Release(void)
 {
   line Line = {NULL,0,0};
-    uint8_t c = '\n';
-    c = getch();
+  uint8_t c = '\n';
+  c = getch();
 
-    if (c == 13)
-      writeToBuffer(&Line,c);
+  if (c == 13)
+    writeToBuffer(&Line,c);
 
   TEST_ASSERT_EQUAL('\n',Line.buffer);
-}*/
+}
