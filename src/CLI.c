@@ -19,11 +19,10 @@ char *processKeyPress(char *key)
 
 void processBackspace(line *Line)
 {
-  char *buff = (char *)Line->buffer;
   int endofinput = strlen(Line->buffer);
   line *temp_index = Line;
 
-  if(Line->index == 0)
+  if(Line->index == 0 && Line->last_index == 0)
   {
     temp_index->last_index = endofinput + 1;
     Line->last_index = endofinput;
@@ -34,6 +33,9 @@ void processBackspace(line *Line)
 		Line->last_index = '\0';
 
   Line->index--;
+
+  if(Line->index <= 0)
+    Line->index = 0;
 }
 
 void printBufferTill(char buffer[], int length)
@@ -48,50 +50,53 @@ void printBufferTill(char buffer[], int length)
 
 void moveLeft(line *Line)
 {
-  char *buff = (char *)Line->buffer;
   int endofinput = strlen(Line->buffer);
 
-  if (Line->index == 0)
+  if (Line->index == 0 && Line->last_index == 0)
   {
     Line->last_index = endofinput;
     Line->index = endofinput;
   }
 
-  if (Line->index <= 1)
-    Line->index = 1;
+  if (Line->index <= 0)
+    Line->index = 0;
   else
     Line->index--;
 }
 
 void moveRight(line *Line)
 {
-  char *buff = (char *)Line->buffer;
-  int endofinput = strlen(Line->buffer);
-
-  if (Line->index == 0)
-    Line->last_index = endofinput;
+  if (Line->index == 0 && Line->last_index == 0)
+    Line->last_index = strlen(Line->buffer);
 
   if (Line->index >= Line->last_index)
-    Line->index = endofinput;
+    Line->index = Line->last_index;
   else
     Line->index++;
 }
 
-void writeToBuffer(line *Line, char ch)
+/*void writeToBuffer(line *Line, char ch)
 {
+  Line->buffer = ch;
 
-}
+  int endofinput = strlen(Line->buffer);
+  endofinput += 1;
+  Line->last_index = endofinput;
+  Line->last_index = '\0';
+}*/
 
 void clearBuffer(line *Line)
 {
+  int length = strlen(Line->buffer);
+  Line->last_index = length;
   Line->index = 0;
 }
 
-void clearConsoleLine(int num)
+void clearConsoleLine(line *Line, int num)
 {
   while(num != 0)
   {
-    processBackspace();
+    processBackspace(Line);
     num--;
   }
 }

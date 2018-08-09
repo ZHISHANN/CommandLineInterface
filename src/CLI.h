@@ -1,9 +1,11 @@
 #ifndef _CLI_H
 #define _CLI_H
 
+#include "UserDefined.h"
+
 typedef struct line line;
 struct line{
-  void *buffer;
+  char buffer[BUFFER_SIZE];
   int index;
   int last_index;
 };
@@ -16,6 +18,7 @@ void moveRight(line *Line);
 void printBufferTill(char buffer[], int length);
 void writeToBuffer(line *Line, char ch);
 void clearBuffer(line *Line);
+void clearConsoleLine(line *Line, int num);
 //ListItem *(*FuncPtr)(void data);
 
 #endif // _CLI_H

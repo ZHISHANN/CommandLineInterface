@@ -1,28 +1,22 @@
 #include "unity.h"
+#include "CLI.h"
+#include "KeyAndConsole.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <conio.h>
 
-void setUp(void)
+void setUp(void){}
+
+void tearDown(void){}
+
+/*void xtest_Release(void)
 {
-}
+  line Line = {NULL,0,0};
+    uint8_t c = '\n';
+    c = getch();
 
-void tearDown(void)
-{
-}
+    if (c == 13)
+      writeToBuffer(&Line,c);
 
-void test_Release(void)
-{
-
-    printf("Hello\n");
-    uint8_t ac, c = 'h';
-    c = getch(); //button pressed
-
-    if (c == 224 || c == 0)
-      ac = getch();
-
-    printf("%c (%d) has been pressed\n",c,c);
-    if (c == 224 || c == 0)
-      printf("%c (%d) the actual character pressed\n",ac ,ac);
-
-}
+  TEST_ASSERT_EQUAL('\n',Line.buffer);
+}*/

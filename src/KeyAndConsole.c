@@ -1,7 +1,7 @@
 #include "KeyAndConsole.h"
 #include "LinkedList.h"
 #include "CLI.h"
-#include "main.h"
+//#include "main.h"
 #include <stdio.h>
 
 void backspaceOnConsole()

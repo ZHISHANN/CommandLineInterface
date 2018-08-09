@@ -6,6 +6,7 @@
 #define ARROW_LEFT 			  75
 #define KEY_INSERT 	 		  82
 #define KEY_BACKSPACE	 	   8
+#define ENTER             13
 
 void backspaceOnConsole();
 void displayContent(char buffer[]);
