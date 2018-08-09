@@ -69,20 +69,19 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 }
 
 //get the index of the end of string
-int indexOfString(Line *line)
+int indexOfString(line *Line)
 {
-  int buff = *(int *)line->buffer;
-  int len = strlen(line->buffer);
+  int len = strlen(Line->buffer);
 
-  if (line != NULL)
+  if (Line != NULL)
   {
-    line->index = len;
-    line->last_index = len + 1;
+    Line->index = len;
+    Line->last_index = len + 1;
   }
   else
-    return line;
+    return Line;
 
-  return line;
+  return Line;
 }
 
 char *recallPrevious(LinkedList *list)

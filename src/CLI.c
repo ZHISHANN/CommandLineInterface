@@ -20,19 +20,17 @@ char *processKeyPress(char *key)
 void processBackspace(line *Line)
 {
   int endofinput = strlen(Line->buffer);
-  line *temp_index = Line;
+  //line *temp_index = Line;
 
   if(Line->index == 0 && Line->last_index == 0)
   {
-    temp_index->last_index = endofinput + 1;
+    //temp_index->last_index = endofinput + 1;
     Line->last_index = endofinput;
     Line->index = endofinput;
   }
-  else
-	 if(temp_index->last_index == '\0')
-		Line->last_index = '\0';
 
   Line->index--;
+  Line->buffer[Line->index] = '\0';
 
   if(Line->index <= 0)
     Line->index = 0;
@@ -75,21 +73,20 @@ void moveRight(line *Line)
     Line->index++;
 }
 
-/*void writeToBuffer(line *Line, char ch)
+void writeToBuffer(line *Line, char ch)
 {
-  Line->buffer = ch;
-
-  int endofinput = strlen(Line->buffer);
-  endofinput += 1;
-  Line->last_index = endofinput;
+  Line->buffer[Line->index] = ch;
+  Line->index++;
   Line->last_index = '\0';
-}*/
+}
 
 void clearBuffer(line *Line)
 {
-  int length = strlen(Line->buffer);
-  Line->last_index = length;
-  Line->index = 0;
+  while(Line->index != 0)
+  {
+    Line->index--;
+    Line->buffer[Line->index] = NULL;
+  }
 }
 
 void clearConsoleLine(line *Line, int num)
