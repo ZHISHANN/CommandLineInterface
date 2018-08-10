@@ -3,9 +3,6 @@
 
 #include "CLI.h"
 
-#define Max_Value 20             //limit the size of count
-#define MAX_BUFFER_SIZE 4096
-
 typedef struct ListItem ListItem;
 struct ListItem{
   void *data;

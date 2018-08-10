@@ -16,22 +16,29 @@ void test_processKeyPress_given_item1_expect_string_copied(void)
   int *addr;
   char *buffer = "hello";
   LinkedList list = {NULL, NULL, 0};
-
   char *string = processKeyPress(buffer);
-  ListItem item = {(void *)string, NULL};
 
-  line Line = {string,0,0};
+  TEST_ASSERT_EQUAL_STRING("hello",string);
 
-  addr = LinkedListAddToTail(&list,&item);
-  indexOfString(&Line);
+  //ListItem item = {(void *)string, NULL};
+  //line Line = {string,0,0};
+  //addr = LinkedListAddToTail(&list,&item);
+  //indexOfString(&Line);
 
   //TEST_ASSERT_EQUAL(5, Line.index);
   //TEST_ASSERT_EQUAL(6, Line.last_index);
-  TEST_ASSERT_EQUAL(addr, list.head);
-  TEST_ASSERT_EQUAL(addr, list.tail);
-  TEST_ASSERT_EQUAL(NULL, item.next);
-  TEST_ASSERT_EQUAL_STRING("hello",string);
+  //TEST_ASSERT_EQUAL(addr, list.head);
+  //TEST_ASSERT_EQUAL(addr, list.tail);
+  //TEST_ASSERT_EQUAL(NULL, item.next);
 }
+
+/*void test_processLine_given_cool_expect_cool_inside_linked_list(void)
+{
+  char *input = "cool";
+  processLine(&input);
+
+  TEST_ASSERT_EQUAL_STRING("cool",.data);
+}*/
 
 //backspace for 1 time
 //before               after
@@ -169,7 +176,7 @@ void test_printTillIndex_given_happy_should_print_happy(void)
 
 void test_writeToBuffer_given_empty_list_expect_happy_write_to_buffer(void)
 {
-  line Line = {NULL,0,0};
+  line Line = {'\0',0,0};
 
   writeToBuffer(&Line, 's');
   writeToBuffer(&Line, 'm');
@@ -181,7 +188,7 @@ void test_writeToBuffer_given_empty_list_expect_happy_write_to_buffer(void)
   //printf("index : %d\n",Line.index);
   TEST_ASSERT_EQUAL_STRING("smile",Line.buffer);
   //printf("last index : %s",Line.last_index);
-  TEST_ASSERT_EQUAL_STRING(NULL,Line.buffer[Line.last_index]);
+  TEST_ASSERT_NULL(Line.buffer[Line.last_index]);
   TEST_ASSERT_EQUAL(6,Line.last_index);
   TEST_ASSERT_EQUAL(5,Line.index);
 }
@@ -199,7 +206,7 @@ void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_bu
   printf("buffer : %s\n",Line.buffer);
 
   TEST_ASSERT_EQUAL_STRING("hellosmile", Line.buffer);
-  TEST_ASSERT_EQUAL_STRING(NULL,Line.buffer[Line.last_index]);
+  TEST_ASSERT_NULL(Line.buffer[Line.last_index]);
   TEST_ASSERT_EQUAL(11, Line.last_index);
   TEST_ASSERT_EQUAL(10, Line.index);
 }
@@ -214,7 +221,7 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
   TEST_ASSERT_NULL(Line.buffer[0]);
 }
 
-void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
+/*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
 {
   line Line = {"happy",5,6};
 
@@ -225,9 +232,9 @@ void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
 
 void test_clearConsoleLine_given_NULL_expect_clear_in_console_line(void)
 {
-  line Line = {NULL,0,0};
+  line Line = {'\0',0,0};
 
   clearConsoleLine(&Line, Line.last_index);
 
   TEST_ASSERT_EQUAL(0,Line.index);
-}
+}*/

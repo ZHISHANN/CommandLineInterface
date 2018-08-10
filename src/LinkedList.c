@@ -8,18 +8,6 @@
 
 ListItem *recalledItem = NULL;
 
-ListItem *CreateListItem(void *data)
-{
-  ListItem *NewList = malloc(sizeof(ListItem*));
-  char *temp_data = data;
-
-  NewList->data = temp_data;
-  NewList->next = NULL;
-  NewList->prev = NULL;
-
-  return NewList;
-}
-
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
   int *NewList;
@@ -44,11 +32,16 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 
   ListItem *travel = list;
 
+  if(list->count == 1)
+    list->head->next = NewList;
+  else
+    NewList->next = NewList;
+
   if(list->head == NULL)
   {
       list->head = NewList;
       list->tail = NewList;
-      NewList->data = (char *)ItemToAdd->data; // Link the data part
+      NewList->data = (char *)(ItemToAdd->data); // Link the data part
       NewList->next = NULL;
       list->count++;
   }
@@ -58,12 +51,11 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
     while(travel->next != NULL)
         travel = travel->next;
 
-    list->tail = NewList;
-    NewList->data = (char *)ItemToAdd->data; // Link the data part
-    NewList->next = NewList;
+    NewList->data = (char *)(ItemToAdd->data); // Link the data part
+    NewList->next = NULL;
     list->count++;
-    list->head->next = NewList;
-    travel->next = NewList;   //link the address
+    travel->next = NULL;   //link the address
+    list->tail = NewList;
   }
   return NewList;
 }

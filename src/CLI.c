@@ -7,7 +7,7 @@
 #include <malloc.h>
 
 //copy the string to another place
-char *processKeyPress(char *key)
+char *processKeyPress(char *key)//processLine
 {
   char *string;
   string = malloc(strlen(key)+1);
@@ -15,6 +15,15 @@ char *processKeyPress(char *key)
   strcpy(string,key);
 
   return string;
+}
+
+void processLine(line *Line)
+{
+  //ListItem item = {(void *)Line,0,0};
+  LinkedList list = {NULL, 0, 0};
+  char *input = strdup(Line->buffer);
+  LinkedListAddToTail(&list, input);
+
 }
 
 void processBackspace(line *Line)
@@ -81,18 +90,6 @@ void writeToBuffer(line *Line, char ch)
 
 void clearBuffer(line *Line)
 {
-  while(Line->index != 0)
-  {
-    Line->index--;
-    Line->buffer[Line->index] = NULL;
-  }
-}
-
-void clearConsoleLine(line *Line, int num)
-{
-  while(num != 0)
-  {
-    processBackspace(Line);
-    num--;
-  }
+  Line->index = 0;
+  Line->buffer[0] = '\0';
 }

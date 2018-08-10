@@ -31,7 +31,7 @@
     - -:test/support
   :source:
     - src/**
-    - vendor/ceedling/vendor/c_exception/lib/*
+    - vendor/ceedling/vendor/c_exception/lib/**
   :support:
     - test/support
 
@@ -42,6 +42,7 @@
   :commmon: &common_defines []
   :test:
     - *common_defines
+    - CEXCEPTION_USE_CONFIG_FILE
     - TEST
   :test_preprocess:
     - *common_defines
