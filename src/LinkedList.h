@@ -21,7 +21,7 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list);
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
 char *recallPrevious(LinkedList *list);
 char *recallNext(LinkedList *list);
-int indexOfString(line *Line);
+//int indexOfString(line *Line);
 void resetRecalledItem(LinkedList *list);
 ListItem *CreateListItem(void *data);
 

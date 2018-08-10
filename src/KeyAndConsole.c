@@ -11,7 +11,7 @@ void backspaceOnConsole()
 
 void displayContent(line *Line)
 {
-  printf("\r%s\n",Line->buffer);
+  printf("\r%s\n",Line->buffer[Line->index]);
 }
 
 void clearConsoleLine(line *Line, int num)

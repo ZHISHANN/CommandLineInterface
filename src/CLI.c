@@ -19,11 +19,10 @@ char *processKeyPress(char *key)//processLine
 
 void processLine(line *Line)
 {
-  //ListItem item = {(void *)Line,0,0};
-  LinkedList list = {NULL, 0, 0};
   char *input = strdup(Line->buffer);
-  LinkedListAddToTail(&list, input);
-
+  ListItem item = {(void *)input, NULL};
+  LinkedList list = {&item, NULL, 0};
+  int *addr = LinkedListAddToTail(&item, &input);
 }
 
 void processBackspace(line *Line)

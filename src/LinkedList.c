@@ -61,7 +61,7 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 }
 
 //get the index of the end of string
-int indexOfString(line *Line)
+/*int indexOfString(line *Line)
 {
   int len = strlen(Line->buffer);
 
@@ -74,7 +74,7 @@ int indexOfString(line *Line)
     return Line;
 
   return Line;
-}
+}*/
 
 char *recallPrevious(LinkedList *list)
 {

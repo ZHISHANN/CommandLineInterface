@@ -11,11 +11,11 @@ void setUp(void){}
 
 void tearDown(void){}
 
-void test_processKeyPress_given_item1_expect_string_copied(void)
+/*void test_processKeyPress_given_item1_expect_string_copied(void)
 {
-  int *addr;
+  //int *addr;
   char *buffer = "hello";
-  LinkedList list = {NULL, NULL, 0};
+  //LinkedList list = {NULL, NULL, 0};
   char *string = processKeyPress(buffer);
 
   TEST_ASSERT_EQUAL_STRING("hello",string);
@@ -30,15 +30,15 @@ void test_processKeyPress_given_item1_expect_string_copied(void)
   //TEST_ASSERT_EQUAL(addr, list.head);
   //TEST_ASSERT_EQUAL(addr, list.tail);
   //TEST_ASSERT_EQUAL(NULL, item.next);
-}
+}*/
 
-/*void test_processLine_given_cool_expect_cool_inside_linked_list(void)
+void test_processLine_given_cool_expect_cool_inside_linked_list(void)
 {
-  char *input = "cool";
+  line input = {"cool"};
   processLine(&input);
 
-  TEST_ASSERT_EQUAL_STRING("cool",.data);
-}*/
+  TEST_ASSERT_EQUAL_STRING("cool",input.buffer);
+}
 
 //backspace for 1 time
 //before               after
