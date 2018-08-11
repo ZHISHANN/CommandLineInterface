@@ -9,10 +9,10 @@ void tearDown(void){}
 
 void test_getTypedChars(void)
 {
-  getTypedChars();
+  getMoveKey();
 }
 
-void xtest_getSpecialKey(void)
+void test_moveRightOnConsole(void)
 {
-  getSpecialKey();
+
 }

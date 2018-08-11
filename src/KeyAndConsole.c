@@ -25,7 +25,35 @@ void clearConsoleLine(int num)
   }
 }
 
+void moveLeftOnConsole()
+{
+  printf("\b");
+}
+
+void moveRightOnConsole(Line *line)
+{
+  printf("%c",line->buffer[line->index]);
+}
+
 void getTypedChars(void)
+{
+  uint8_t c;
+  Line line = {{'\0'},0,0};
+
+  do{
+    c = getch();
+    if(c != ENTER)
+    {
+      writeToBuffer(&line, c);
+      displayContent(&line);
+    } else {
+      clearConsoleLine(line.index);
+      clearBuffer(&line);
+    }
+  }while(c != ENTER);
+}
+
+void getBackspace(void)
 {
   uint8_t c;
   Line line = {{'\0'},0,0};
@@ -38,7 +66,6 @@ void getTypedChars(void)
       {
         backspaceOnConsole();
         writeToBuffer(&line, c);
-        displayContent(&line);
       }
       else {
         writeToBuffer(&line, c);
@@ -51,15 +78,42 @@ void getTypedChars(void)
   }while(c != ENTER);
 }
 
-void getSpecialKey(void)
+void getMoveKey(void)
 {
-  /*uint8_t c;
-  Line line = {{'s','m','i','l','e'},5};
-  displayContent(&line);
-  c = getch();
+  uint8_t c, ac;
+  Line line = {{'\0'},0,0};
 
   do{
-      moveLeft(&line);
-  }
-  while(c == ARROW_LEFT);*/
+    c = getch();
+
+    if(c != ENTER)
+    {
+      if()
+      {
+        moveLeftOnConsole();
+        moveLeft(&line);
+      }
+      else if ()
+      {
+        moveRightOnConsole(&line);
+        moveRight(&line);
+      }
+      else
+      {
+        writeToBuffer(&line, c);
+        displayContent(&line);
+      }
+    }
+    else
+    {
+      clearConsoleLine(line.index);
+      clearBuffer(&line);
+    }
+  }while(c != ENTER);
+}
+
+int isEscapeKey(int code)
+{
+  if (code == 224 || code == 0)
+    return 1;
 }

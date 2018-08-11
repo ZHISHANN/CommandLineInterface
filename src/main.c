@@ -8,23 +8,13 @@
 
 void getTypedChars(void);
 void getKeyPressed(void);
-void getSpecialKey(void);
+void getMoveLeftKey(void);
 
 int main()
 {
   printf("Hello\n");
-  getTypedChars();
+  //getBackspace();
+  getMoveKey();
+  //getTypedChars();
   //getSpecialKey();
 }
-
-/*void getKeyPressed(void)  {
-  uint8_t ac, c = '\n';
-  c = getch(); //button pressed
-
-  if (c == 13 || c == 0)
-    ac = getch();
-
-  printf("%c (%d) has been pressed\n",c,c);
-  if (c == 13 || c == 0)
-    printf("%c (%d) the actual character pressed\n",ac ,ac);
-}*/
