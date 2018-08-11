@@ -19,10 +19,10 @@ char *processKeyPress(char *key)//processLine
 
 void processLine(Line *line)
 {
-  char *input = strdup(line->buffer);
+  /*char *input = strdup(line->buffer);
   ListItem item = {(void *)input, NULL};
   LinkedList list = {&item, NULL, 0};
-  int *addr = LinkedListAddToTail(&item, &input);
+  int *addr = LinkedListAddToTail(&item, &input);*/
 }
 
 void processBackspace(Line *line)
@@ -54,14 +54,6 @@ void printBufferTill(char buffer[], int length)
 
 void moveLeft(Line *line)
 {
-  int endofinput = strlen(line->buffer);
-
-  if (line->index == 0 && line->last_index == 0)
-  {
-    line->last_index = endofinput;
-    line->index = endofinput;
-  }
-
   if (line->index <= 0)
     line->index = 0;
   else
@@ -83,12 +75,18 @@ void writeToBuffer(Line *line, char ch)
 {
   line->buffer[line->index] = ch;
   line->index++;
-  line->last_index = strlen(line->buffer) + 1;
-  line->buffer[line->last_index] = '\0';
+  line->buffer[line->index] = '\0';
+  line->last_index = line->index;
 }
 
+//update last index
+//when index move to front
+//to remember the length of the buffer
+//for clear buffer function
+//to know how many to clear
 void clearBuffer(Line *line)
 {
+  line->last_index = line->index;
   line->index = 0;
-  line->buffer[0] = '\0';
+  line->buffer[line->index] = '\0';
 }

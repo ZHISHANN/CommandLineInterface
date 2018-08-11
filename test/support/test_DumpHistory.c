@@ -11,8 +11,3 @@ void test_getTypedChars(void)
 {
   getTypedChars();
 }
-
-void xtest_getSpecialKey(void)
-{
-  getSpecialKey();
-}

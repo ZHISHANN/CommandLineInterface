@@ -66,7 +66,7 @@ void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
   TEST_ASSERT_EQUAL(3, line.index);
 }
 
-void test_processBackspace_given_happy_and_backspace_3_time_expect_ha(void)
+void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
 {
   Line line = {"dam", 0, 0};
 
@@ -81,17 +81,17 @@ void test_processBackspace_given_happy_and_backspace_3_time_expect_ha(void)
 
 void test_moveLeft_given_happy_and_move_left_1_time(void)
 {
-  Line line = {"happy", 0, 0};
+  Line line = {{'h','e','l','l','o'}, 5};
 
   moveLeft(&line);
 
-  TEST_ASSERT_EQUAL(5, line.last_index);
+  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(4, line.index);
 }
 
 void test_moveLeft_given_happy_and_move_left_5_time(void)
 {
-  Line line = {"happy", 0, 0};
+  Line line = {{'s','m','i','l','e'}, 5};
 
   moveLeft(&line);
   moveLeft(&line);
@@ -99,13 +99,13 @@ void test_moveLeft_given_happy_and_move_left_5_time(void)
   moveLeft(&line);
   moveLeft(&line);
 
-  TEST_ASSERT_EQUAL(5, line.last_index);
+  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
 void test_moveLeft_given_happy_and_move_left_6_time(void)
 {
-  Line line = {"happy", 0, 0};
+  Line line = {{'h','a','p','p','y'},5};
 
   moveLeft(&line);
   moveLeft(&line);
@@ -114,17 +114,7 @@ void test_moveLeft_given_happy_and_move_left_6_time(void)
   moveLeft(&line);
   moveLeft(&line);
 
-  TEST_ASSERT_EQUAL(5, line.last_index);
-  TEST_ASSERT_EQUAL(0, line.index);
-}
-
-void test_moveLeft_given_h_and_move_left_1_time(void)
-{
-  Line line = {"h", 0, 0};
-
-  moveLeft(&line);
-
-  TEST_ASSERT_EQUAL(1, line.last_index);
+  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
@@ -187,16 +177,16 @@ void test_writeToBuffer_given_empty_list_expect_happy_write_to_buffer(void)
 
   //printf("buffer : %s\n",Line.buffer);
   //printf("index : %d\n",Line.index);
-  TEST_ASSERT_EQUAL_STRING("smile",line.buffer);
   //printf("last index : %s",Line.last_index);
-  TEST_ASSERT_NULL(line.buffer[line.last_index]);
-  TEST_ASSERT_EQUAL(6,line.last_index);
+  TEST_ASSERT_EQUAL_STRING("smile",line.buffer);
+  TEST_ASSERT_EQUAL(0,line.buffer[line.index]);
   TEST_ASSERT_EQUAL(5,line.index);
+  TEST_ASSERT_EQUAL(5,line.last_index);
 }
 
 void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_buffer(void)
 {
-  Line line = {"hello",5,6};
+  Line line = {{'h','e','l','l','o'},5,6};
 
   writeToBuffer(&line, 's');
   writeToBuffer(&line, 'm');
@@ -207,24 +197,26 @@ void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_bu
   printf("buffer : %s\n",line.buffer);
 
   TEST_ASSERT_EQUAL_STRING("hellosmile", line.buffer);
-  TEST_ASSERT_NULL(line.buffer[line.last_index]);
-  TEST_ASSERT_EQUAL(11, line.last_index);
+  TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
   TEST_ASSERT_EQUAL(10, line.index);
+  TEST_ASSERT_EQUAL(10,line.last_index);
 }
 
 void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
 {
-  Line line = {"happy",5,6};
+  Line line = {{'h','e','l','l','o'},5};
 
+  printf("before clear buffer : %s\n",line.buffer);
   clearBuffer(&line);
-  printf("buffer : %s",line.buffer);
+  printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
-  TEST_ASSERT_NULL(line.buffer[0]);
+  TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
+  TEST_ASSERT_EQUAL(5,line.last_index);
 }
 
 void test_displayContent(void)
 {
-  Line line = {'\0',0,0};
+  Line line = {{'\0'},0,0};
 
   writeToBuffer(&line, 's');
   displayContent(&line);
