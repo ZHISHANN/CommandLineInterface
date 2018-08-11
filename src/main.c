@@ -7,6 +7,7 @@
 
 void getTypedChars(void);
 void getKeyPressed(void);
+void getSpecialKey(void);
 
 int main()
 {
@@ -28,18 +29,22 @@ int main()
 
 void getTypedChars(void)
 {
-  char c;
-  line Line = {{0},0,2};
+  uint8_t c;
+  Line line = {'\0',1,1};
   do{
-  c = getch();
-  if(c != ENTER)
-  {
-    writeToBuffer(&Line, c);
-    displayContent(&Line);
-  } else {
-    clearConsoleLine(&Line,Line.index);
-    clearBuffer(&Line);
-  }
-}while(c != ENTER);
+    c = getch();
+    if(c != ENTER)
+    {
+      writeToBuffer(&line, c);
+      displayContent(&line);
+    } else {
+      clearConsoleLine(line.index);
+      clearBuffer(&line);
+    }
+  }while(c != ENTER);
+}
 
+void getSpecialKey(void)
+{
+  
 }

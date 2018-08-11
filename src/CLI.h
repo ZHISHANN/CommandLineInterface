@@ -4,21 +4,21 @@
 #include "UserDefined.h"
 //#include "LinkedList.h"
 
-typedef struct line line;
-struct line{
+typedef struct Line Line;
+struct Line{
   char buffer[BUFFER_SIZE];
   int index;
   int last_index;
 };
 
 char *processKeyPress(char *key);
-void processBackspace(line *Line);
-void moveLeft(line *Line);
-void moveRight(line *Line);
+void processBackspace(Line *line);
+void moveLeft(Line *line);
+void moveRight(Line *line);
 void printBufferTill(char buffer[], int length);
-void writeToBuffer(line *Line, char ch);
-void clearBuffer(line *Line);
+void writeToBuffer(Line *line, char ch);
+void clearBuffer(Line *line);
 //void clearConsoleLine(line *Line, int num);
-void processLine(line *Line);
+void processLine(Line *line);
 
 #endif // _CLI_H

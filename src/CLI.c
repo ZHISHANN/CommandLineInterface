@@ -17,29 +17,29 @@ char *processKeyPress(char *key)//processLine
   return string;
 }
 
-void processLine(line *Line)
+void processLine(Line *line)
 {
-  char *input = strdup(Line->buffer);
+  char *input = strdup(line->buffer);
   ListItem item = {(void *)input, NULL};
   LinkedList list = {&item, NULL, 0};
   int *addr = LinkedListAddToTail(&item, &input);
 }
 
-void processBackspace(line *Line)
+void processBackspace(Line *line)
 {
-  int endofinput = strlen(Line->buffer);
+  int endofinput = strlen(line->buffer);
 
-  if(Line->index == 0 && Line->last_index == 0)
+  if(line->index == 0 && line->last_index == 0)
   {
-    Line->last_index = endofinput;
-    Line->index = endofinput;
+    line->last_index = endofinput;
+    line->index = endofinput;
   }
 
-  Line->index--;
-  Line->buffer[Line->index] = '\0';
+  line->index--;
+  line->buffer[line->index] = '\0';
 
-  if(Line->index <= 0)
-    Line->index = 0;
+  if(line->index <= 0)
+    line->index = 0;
 }
 
 void printBufferTill(char buffer[], int length)
@@ -52,43 +52,43 @@ void printBufferTill(char buffer[], int length)
 	}
 }
 
-void moveLeft(line *Line)
+void moveLeft(Line *line)
 {
-  int endofinput = strlen(Line->buffer);
+  int endofinput = strlen(line->buffer);
 
-  if (Line->index == 0 && Line->last_index == 0)
+  if (line->index == 0 && line->last_index == 0)
   {
-    Line->last_index = endofinput;
-    Line->index = endofinput;
+    line->last_index = endofinput;
+    line->index = endofinput;
   }
 
-  if (Line->index <= 0)
-    Line->index = 0;
+  if (line->index <= 0)
+    line->index = 0;
   else
-    Line->index--;
+    line->index--;
 }
 
-void moveRight(line *Line)
+void moveRight(Line *line)
 {
-  if (Line->index == 0 && Line->last_index == 0)
-    Line->last_index = strlen(Line->buffer);
+  if (line->index == 0 && line->last_index == 0)
+    line->last_index = strlen(line->buffer);
 
-  if (Line->index >= Line->last_index)
-    Line->index = Line->last_index;
+  if (line->index >= line->last_index)
+    line->index = line->last_index;
   else
-    Line->index++;
+    line->index++;
 }
 
-void writeToBuffer(line *Line, char ch)
+void writeToBuffer(Line *line, char ch)
 {
-  Line->buffer[Line->index] = ch;
-  Line->index++;
-  Line->last_index = strlen(Line->buffer) + 1;
-  Line->buffer[Line->last_index] = '\0';
+  line->buffer[line->index] = ch;
+  line->index++;
+  line->last_index = strlen(line->buffer) + 1;
+  line->buffer[line->last_index] = '\0';
 }
 
-void clearBuffer(line *Line)
+void clearBuffer(Line *line)
 {
-  Line->index = 0;
-  Line->buffer[0] = '\0';
+  line->index = 0;
+  line->buffer[0] = '\0';
 }

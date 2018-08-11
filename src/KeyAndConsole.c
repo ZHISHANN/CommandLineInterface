@@ -9,12 +9,12 @@ void backspaceOnConsole()
   printf("\b \b");
 }
 
-void displayContent(line *Line)
+void displayContent(Line *line)
 {
-  printf("\r%s\n",Line->buffer[Line->index]);
+  printf("\r%s",line->buffer);
 }
 
-void clearConsoleLine(line *Line, int num)
+void clearConsoleLine(int num)
 {
   while(num != 0)
   {

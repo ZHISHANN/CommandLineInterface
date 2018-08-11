@@ -11,7 +11,7 @@
 #define ENTER             13
 
 void backspaceOnConsole();
-void displayContent(line *Line);
-void clearConsoleLine(line *Line, int num);
+void displayContent(Line *line);
+void clearConsoleLine(int num);
 
 #endif // _KEYANDCONSOLE_H
