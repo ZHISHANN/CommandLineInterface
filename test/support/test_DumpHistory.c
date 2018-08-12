@@ -7,7 +7,7 @@ void setUp(void){}
 
 void tearDown(void){}
 
-void test_getTypedChars(void)
+void test_DumpHistory(void)
 {
-  getTypedChars();
+
 }

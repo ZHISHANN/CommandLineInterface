@@ -7,12 +7,7 @@ void setUp(void){}
 
 void tearDown(void){}
 
-void test_getTypedChars(void)
+void xtest_getKeyPressed(void)
 {
-  getMoveKey();
-}
-
-void test_moveRightOnConsole(void)
-{
-
+  getKeyPressed();
 }

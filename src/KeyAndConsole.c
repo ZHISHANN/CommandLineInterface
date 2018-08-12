@@ -35,50 +35,7 @@ void moveRightOnConsole(Line *line)
   printf("%c",line->buffer[line->index]);
 }
 
-void getTypedChars(void)
-{
-  uint8_t c;
-  Line line = {{'\0'},0,0};
-
-  do{
-    c = getch();
-    if(c != ENTER)
-    {
-      writeToBuffer(&line, c);
-      displayContent(&line);
-    } else {
-      clearConsoleLine(line.index);
-      clearBuffer(&line);
-    }
-  }while(c != ENTER);
-}
-
-void getBackspace(void)
-{
-  uint8_t c;
-  Line line = {{'\0'},0,0};
-
-  do{
-    c = getch();
-    if(c != ENTER)
-    {
-      if(c == KEY_BACKSPACE)
-      {
-        backspaceOnConsole();
-        writeToBuffer(&line, c);
-      }
-      else {
-        writeToBuffer(&line, c);
-        displayContent(&line);
-      }
-    } else {
-      clearConsoleLine(line.index);
-      clearBuffer(&line);
-    }
-  }while(c != ENTER);
-}
-
-void getMoveKey(void)
+void getKeyPressed(void)
 {
   uint8_t c, ac;
   Line line = {{'\0'},0,0};
@@ -88,16 +45,33 @@ void getMoveKey(void)
 
     if(c != ENTER)
     {
-      if()
+      if(isEscapeKey(c))
       {
-        moveLeftOnConsole();
-        moveLeft(&line);
+        ac = getch();
+        if(ac == ARROW_LEFT)
+        {
+          moveLeftOnConsole();
+          moveLeft(&line);
+        }
+        if(ac == ARROW_RIGHT)
+        {
+          moveRightOnConsole(&line);
+          moveRight(&line);
+        }
       }
-      else if ()
+      else if(c == KEY_BACKSPACE)
       {
-        moveRightOnConsole(&line);
-        moveRight(&line);
+        backspaceOnConsole();
+        processBackspace(&line);
       }
+      /*else if(c == ARROW_UP)
+      {
+        recallPrevious();
+      }
+      else if(c == ARROW_DOWN)
+      {
+        recallNext();
+      }*/
       else
       {
         writeToBuffer(&line, c);
@@ -106,6 +80,7 @@ void getMoveKey(void)
     }
     else
     {
+      //processLine(&line);
       clearConsoleLine(line.index);
       clearBuffer(&line);
     }
@@ -116,4 +91,6 @@ int isEscapeKey(int code)
 {
   if (code == 224 || code == 0)
     return 1;
+  else
+    return 0;
 }

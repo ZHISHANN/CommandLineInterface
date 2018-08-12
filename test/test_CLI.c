@@ -46,7 +46,7 @@ void test_processLine_given_cool_expect_cool_inside_linked_list(void)
 //"happy"              "happ"
 void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 {
-  Line line = {"happy", 0, 0};
+  Line line = {"happy", 5, 5};
 
   processBackspace(&line);
 
@@ -57,7 +57,7 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 
 void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
 {
-  Line line = {"happy", 0, 0};
+  Line line = {"happy", 5, 5};
 
   processBackspace(&line);
   processBackspace(&line);
@@ -68,7 +68,7 @@ void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
 
 void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
 {
-  Line line = {"dam", 0, 0};
+  Line line = {"dam", 3, 3};
 
   processBackspace(&line);
   processBackspace(&line);
