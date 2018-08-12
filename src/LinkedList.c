@@ -8,6 +8,17 @@
 
 ListItem *recalledItem = NULL;
 
+ListItem *CreateListItem(void *data)
+{
+  ListItem *NewList = malloc(sizeof(ListItem*));
+
+  NewList->data = data;
+  NewList->next = NULL;
+  NewList->prev = NULL;
+
+  return NewList;
+}
+
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
   int *NewList;
@@ -99,4 +110,11 @@ char *recallNext(LinkedList *list)
 void resetRecalledItem(LinkedList *list)
 {
   recalledItem = list->head;
+}
+
+void LinkedListInit(LinkedList *list)
+{
+  list->head = NULL;
+  list->tail = NULL;
+  list->count = 0;
 }

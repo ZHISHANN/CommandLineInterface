@@ -1,7 +1,7 @@
 #ifndef _LINKEDLIST_H
 #define _LINKEDLIST_H
 
-#include "CLI.h"
+//#include "CLI.h"
 
 typedef struct ListItem ListItem;
 struct ListItem{
@@ -24,6 +24,6 @@ char *recallNext(LinkedList *list);
 //int indexOfString(line *Line);
 void resetRecalledItem(LinkedList *list);
 ListItem *CreateListItem(void *data);
-
+void LinkedListInit(LinkedList *list);
 
 #endif // _LINKEDLIST_H

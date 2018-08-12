@@ -2,7 +2,7 @@
 #define _CLI_H
 
 #include "UserDefined.h"
-//#include "LinkedList.h"
+#include "LinkedList.h"
 
 typedef struct Line Line;
 struct Line{
@@ -18,7 +18,6 @@ void moveRight(Line *line);
 void printBufferTill(char buffer[], int length);
 void writeToBuffer(Line *line, char ch);
 void clearBuffer(Line *line);
-//void clearConsoleLine(line *Line, int num);
-void processLine(Line *line);
+void processLine(LinkedList *list, Line *line);
 
 #endif // _CLI_H

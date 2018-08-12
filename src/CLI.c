@@ -1,40 +1,32 @@
 #include "CLI.h"
 #include "LinkedList.h"
+#include "UserDefined.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include <malloc.h>
 
-//copy the string to another place
-/*char *processKeyPress(char *key)//processLine
-{
-  char *string;
-  string = malloc(strlen(key)+1);
-
-  strcpy(string,key);
-
-  return string;
-}*/
-
-void processLine(Line *line)
+void processLine(LinkedList *list, Line *line)
 {
   char *input = strdup(line->buffer);
+  ListItem *item = CreateListItem((void *)input);
+  LinkedListAddToTail(item,input);
+
+  if(list->count > Max_History)
+  {
+    list->head = list->head->next;
+    //list->next = NULL;
+    list->count--;
+  }
+  /*char *input = strdup(line->buffer);
   ListItem item = {(void *)input, NULL};
   LinkedList list = {&item, NULL, 0};
-  int *addr = LinkedListAddToTail(&item, &input);
+  int *addr = LinkedListAddToTail(&item, &input);*/
 }
 
 void processBackspace(Line *line)
 {
-  //int endofinput = strlen(line->buffer);
-
-  /*if(line->index == 0 && line->last_index == 0)
-  {
-    line->last_index = endofinput;
-    line->index = endofinput;
-  }*/
-
   line->index--;
   line->buffer[line->index] = '\0';
 

@@ -33,13 +33,13 @@ void tearDown(void){}
   //TEST_ASSERT_EQUAL(NULL, item.next);
 }*/
 
-void test_processLine_given_cool_expect_cool_inside_linked_list(void)
+/*void xtest_processLine_given_cool_expect_cool_inside_linked_list(void)
 {
   Line input = {"cool"};
   processLine(&input);
 
   TEST_ASSERT_EQUAL_STRING("cool",input.buffer);
-}
+}*/
 
 //backspace for 1 time
 //before               after
@@ -221,6 +221,18 @@ void test_displayContent(void)
   writeToBuffer(&line, 's');
   displayContent(&line);
 }
+
+/*void test_processLine(void)
+{
+  ListItem history;
+  Line line;
+  strcpy(line.buffer, "hello");
+  line.index = 5;
+  LinkedListInit(&history);
+  processLine(&history, &line);
+
+  TEST_ASSERT_EQUAL(line.buffer, history.data);
+}*/
 
 /*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
 {

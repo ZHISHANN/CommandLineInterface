@@ -25,6 +25,17 @@ void clearConsoleLine(int num)
   }
 }
 
+void insertTab(Line *line)
+{
+  int num = 0;
+
+  while(num <= 4)
+  {
+    writeToBuffer(line, ' ');
+    num++;
+  }
+}
+
 void moveLeftOnConsole()
 {
   printf("\b");
@@ -63,6 +74,11 @@ void getKeyPressed(void)
       {
         backspaceOnConsole();
         processBackspace(&line);
+      }
+      else if(c == KEY_TAB)
+      {
+        insertTab(&line);
+        displayContent(&line);
       }
       /*else if(c == ARROW_UP)
       {
