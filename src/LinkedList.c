@@ -21,16 +21,17 @@ ListItem *CreateListItem(void *data)
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
-  int *NewList;
+  LinkedList *NewList;
 
   if(list->head == NULL)
-    return 1;
+    printf("Deletion is not possible..");
   else
   {
-      NewList = list->head->next;
-      list->head->next = NULL;          //assign first item->next to NULL
-      list->head = NewList;             //change the head
-      list->count--;                    //decrease count
+    NewList = list->head->next;
+    list->head->next = NULL;          //assign first item->next to NULL
+    list->head = NewList;             //change the head
+    list->tail->next = list->head;
+    list->count--;                   //decrease count
   }
 }
 
@@ -40,33 +41,32 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
   ListItem *NewList = malloc(sizeof(ListItem));
-
-  ListItem *travel = list;
+  ListItem *temp_list = malloc(sizeof(ListItem));
+  ListItem *temp = malloc(sizeof(ListItem));
 
   if(list->count == 1)
     list->head->next = NewList;
-  else
-    NewList->next = NewList;
 
   if(list->head == NULL)
   {
       list->head = NewList;
       list->tail = NewList;
-      NewList->data = (char *)(ItemToAdd->data); // Link the data part
-      NewList->next = NULL;
+      NewList->data = ItemToAdd->data; // Link the data part
+      NewList->next = NewList;
+      //NewList = NewList->next;
+      NewList->prev = list->tail;
       list->count++;
   }
   else
   {
-    // Traverse to the last node
-    /*while(travel->next != NULL) {
-        travel = travel->next;
-    }*/
-    list->tail = NewList;
-    NewList->data = (char *)(ItemToAdd->data); // Link the data part
-    NewList->next = NULL;
-    list->count++;
-    travel->next = NULL;   //link the address
+     if(list->tail->next == NULL)
+      list->tail->next = NewList;
+
+     NewList->prev = list->tail;
+     list->tail = NewList;
+     NewList->data = ItemToAdd->data; // Link the data part
+     NewList->next = list->head;
+     list->count++;
   }
   return NewList;
 }

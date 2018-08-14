@@ -76,12 +76,12 @@ void getKeyPressed(void)
           writeToBuffer(&line, ac);
           displayContent(&line);
         }
-        else if(ac == ARROW_DOWN)
+        /*else if(ac == ARROW_DOWN)
         {
           recallNext(&list);
           writeToBuffer(&line, ac);
           displayContent(&line);
-        }
+        }*/
       }
       else if(c == KEY_BACKSPACE)
       {
