@@ -10,6 +10,27 @@ void setUp(void){}
 
 void tearDown(void){}
 
+void test_LinkedListAddToTail_given_next_character_expect_item_inserted(void)
+{
+    char *buffer1 = "hello";
+    char *buffer2 = "hi";
+    int *addr;
+    ListItem item1 = {(void *)buffer1, NULL};
+    ListItem item2 = {(void *)buffer2, NULL};
+    LinkedList list = {&item1, NULL, 1};
+
+    addr = LinkedListAddToTail(&list,&item2);
+
+    TEST_ASSERT_EQUAL(&item1, list.head);
+    //TEST_ASSERT_EQUAL(addr, list.tail);
+    TEST_ASSERT_EQUAL(NULL, item2.next);
+    TEST_ASSERT_EQUAL(addr, item1.next);
+    TEST_ASSERT_EQUAL_STRING("hi", item1.next->data);
+    TEST_ASSERT_EQUAL(2, list.count);
+
+    printf("next data : %s",item1.next->data);
+}
+
 void test_LinkedListAddToTail_given_3_character_expect_next_item_inserted(void)
 {
     char *buffer1 = "hello";
@@ -23,16 +44,16 @@ void test_LinkedListAddToTail_given_3_character_expect_next_item_inserted(void)
 
     addr = LinkedListAddToTail(&list,&item3);
 
+    TEST_ASSERT_EQUAL(&item1, list.head);
+    //TEST_ASSERT_EQUAL(addr, list.tail);
+    TEST_ASSERT_EQUAL(NULL, item3.next);
+    TEST_ASSERT_EQUAL_STRING("hey", item3.data);
+    TEST_ASSERT_EQUAL(3, list.count);
+
     //printf("item3 next : %d\n",item3.next);
     //printf("item2 next : %s\n",item2.next);
     //printf("list tail : %d\n",list.tail);
     //printf("addr : %s",addr);
-
-    TEST_ASSERT_EQUAL(&item1, list.head);
-    TEST_ASSERT_EQUAL(addr, list.tail);
-    TEST_ASSERT_EQUAL(NULL, item3.next);
-    TEST_ASSERT_EQUAL_STRING("hey", item3.data);
-    TEST_ASSERT_EQUAL(3, list.count);
 }
 
 //before                               after
@@ -52,7 +73,7 @@ void test_LinkedListAddToTail_given_2_value_expect_next_item_inserted(void)
     addr = LinkedListAddToTail(&list,&item3);
 
     TEST_ASSERT_EQUAL(&item1, list.head);
-    TEST_ASSERT_EQUAL(addr, list.tail);
+    //TEST_ASSERT_EQUAL(addr, list.tail);
     TEST_ASSERT_EQUAL(NULL, item3.next);
     TEST_ASSERT_EQUAL(3, list.count);
 }
@@ -73,7 +94,7 @@ void test_LinkedListAddToTail_given_next_value_expect_item_inserted(void)
     addr = LinkedListAddToTail(&list,&item2);
 
     TEST_ASSERT_EQUAL(&item1, list.head);
-    TEST_ASSERT_EQUAL(addr, list.tail);
+    //TEST_ASSERT_EQUAL_STRING(list.tail, item2.next);
     TEST_ASSERT_EQUAL(NULL, item2.next);
     TEST_ASSERT_EQUAL(addr, item1.next);
     TEST_ASSERT_EQUAL(2, list.count);

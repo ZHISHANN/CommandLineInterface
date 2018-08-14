@@ -59,14 +59,14 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   else
   {
     // Traverse to the last node
-    while(travel->next != NULL)
+    /*while(travel->next != NULL) {
         travel = travel->next;
-
+    }*/
+    list->tail = NewList;
     NewList->data = (char *)(ItemToAdd->data); // Link the data part
     NewList->next = NULL;
     list->count++;
     travel->next = NULL;   //link the address
-    list->tail = NewList;
   }
   return NewList;
 }

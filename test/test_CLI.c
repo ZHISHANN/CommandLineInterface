@@ -234,7 +234,7 @@ void test_processLine(void)
   TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->data);
 }
 
-void test_processLine_given_2_line_expect_bot_insert_to_linkedlist(void)
+void test_processLine_given_2_line_expect_both_insert_to_linkedlist(void)
 {
   LinkedList history;
   Line line1, line2;
@@ -245,6 +245,7 @@ void test_processLine_given_2_line_expect_bot_insert_to_linkedlist(void)
   LinkedListInit(&history);
   processLine(&history, &line1);
   processLine(&history, &line2);
+  printf("history data : %s\n",history.head->data);
   printf("history data : %s",history.head->next->data);
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
 }
