@@ -11,18 +11,14 @@ void processLine(LinkedList *list, Line *line)
 {
   char *input = strdup(line->buffer);
   ListItem *item = CreateListItem((void *)input);
-  LinkedListAddToTail(item,input);
+  LinkedListAddToTail(list,item);
 
-  if(list->count > Max_History)
+  /*if(list->count > Max_History)
   {
     list->head = list->head->next;
     //list->next = NULL;
     list->count--;
-  }
-  /*char *input = strdup(line->buffer);
-  ListItem item = {(void *)input, NULL};
-  LinkedList list = {&item, NULL, 0};
-  int *addr = LinkedListAddToTail(&item, &input);*/
+  }*/
 }
 
 void processBackspace(Line *line)

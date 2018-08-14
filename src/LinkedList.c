@@ -12,7 +12,7 @@ ListItem *CreateListItem(void *data)
 {
   ListItem *NewList = malloc(sizeof(ListItem*));
 
-  NewList->data = data;
+  NewList->data = (void *)(data);
   NewList->next = NULL;
   NewList->prev = NULL;
 

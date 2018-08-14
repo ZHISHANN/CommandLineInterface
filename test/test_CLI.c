@@ -222,17 +222,32 @@ void test_displayContent(void)
   displayContent(&line);
 }
 
-/*void test_processLine(void)
+void test_processLine(void)
 {
-  ListItem history;
+  LinkedList history;
   Line line;
   strcpy(line.buffer, "hello");
   line.index = 5;
   LinkedListInit(&history);
   processLine(&history, &line);
+  printf("history data : %s",history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->data);
+}
 
-  TEST_ASSERT_EQUAL(line.buffer, history.data);
-}*/
+void test_processLine_given_2_line_expect_bot_insert_to_linkedlist(void)
+{
+  LinkedList history;
+  Line line1, line2;
+  strcpy(line1.buffer, "hello");
+  line1.index = 5;
+  strcpy(line2.buffer, "world");
+  line2.index = 5;
+  LinkedListInit(&history);
+  processLine(&history, &line1);
+  processLine(&history, &line2);
+  printf("history data : %s",history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
+}
 
 /*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
 {
