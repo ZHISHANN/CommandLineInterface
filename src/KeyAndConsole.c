@@ -49,7 +49,8 @@ void moveRightOnConsole(Line *line)
 void getKeyPressed(void)
 {
   uint8_t c, ac;
-  Line line = {{'\0'},0,0};
+  Line line = {{'\0'}, 0, 0};
+  LinkedList list = {NULL, NULL, 0};
 
   do{
     c = getch();
@@ -64,10 +65,22 @@ void getKeyPressed(void)
           moveLeftOnConsole();
           moveLeft(&line);
         }
-        if(ac == ARROW_RIGHT)
+        else if(ac == ARROW_RIGHT)
         {
           moveRightOnConsole(&line);
           moveRight(&line);
+        }
+        else if(ac == ARROW_UP)
+        {
+          recallPrevious(&list);
+          writeToBuffer(&line, ac);
+          displayContent(&line);
+        }
+        else if(ac == ARROW_DOWN)
+        {
+          recallNext(&list);
+          writeToBuffer(&line, ac);
+          displayContent(&line);
         }
       }
       else if(c == KEY_BACKSPACE)
@@ -80,23 +93,15 @@ void getKeyPressed(void)
         insertTab(&line);
         displayContent(&line);
       }
-      /*else if(c == ARROW_UP)
-      {
-        recallPrevious();
-      }
-      else if(c == ARROW_DOWN)
-      {
-        recallNext();
-      }*/
       else
       {
         writeToBuffer(&line, c);
         displayContent(&line);
+        processLine(&list, &line);
       }
     }
     else
     {
-      //processLine(&line);
       clearConsoleLine(line.index);
       clearBuffer(&line);
     }
