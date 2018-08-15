@@ -61,7 +61,7 @@ void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
   TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
 }
 
-void test_processLine_given_4_line_expect_4_line_insert_to_linkedlist(void)
+void test_processLine_given_4_line_expect_the_first_list_deleted(void)
 {
   LinkedList history;
   Line line1, line2, line3, line4;
@@ -79,10 +79,10 @@ void test_processLine_given_4_line_expect_4_line_insert_to_linkedlist(void)
   processLine(&history, &line3);
   processLine(&history, &line4);
 
-  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
-  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->data);
   TEST_ASSERT_EQUAL_STRING(line4.buffer, history.tail->data);
 }
+
 //backspace for 1 time
 //before               after
 //"happy"              "happ"
@@ -92,7 +92,7 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 
   processBackspace(&line);
 
-  printf("buffer : %s", line.buffer);
+  //printf("buffer : %s", line.buffer);
   TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(4, line.index);
 }
@@ -200,13 +200,6 @@ void test_moveRight_given_happy_and_move_right_6_time(void)
   TEST_ASSERT_EQUAL(5, line.index);
 }
 
-void test_printTillIndex_given_happy_should_print_happy(void)
-{
-  char buffer[] = "happy";
-
-  printBufferTill(buffer,5);
-}
-
 void test_writeToBuffer_given_empty_list_expect_happy_write_to_buffer(void)
 {
   Line line = {'\0',0,0};
@@ -236,7 +229,7 @@ void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_bu
   writeToBuffer(&line, 'l');
   writeToBuffer(&line, 'e');
 
-  printf("buffer : %s\n",line.buffer);
+  //printf("buffer : %s\n",line.buffer);
 
   TEST_ASSERT_EQUAL_STRING("hellosmile", line.buffer);
   TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
@@ -248,20 +241,12 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
 {
   Line line = {{'h','e','l','l','o'},5};
 
-  printf("before clear buffer : %s\n",line.buffer);
+  //printf("before clear buffer : %s\n",line.buffer);
   clearBuffer(&line);
-  printf("after clear buffer : %s",line.buffer);
+  //printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
   TEST_ASSERT_EQUAL(5,line.last_index);
-}
-
-void test_displayContent(void)
-{
-  Line line = {{'\0'},0,0};
-
-  writeToBuffer(&line, 's');
-  displayContent(&line);
 }
 
 /*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
@@ -280,4 +265,11 @@ void test_clearConsoleLine_given_NULL_expect_clear_in_console_line(void)
   clearConsoleLine(&Line, Line.last_index);
 
   TEST_ASSERT_EQUAL(0,Line.index);
+}
+
+void test_printTillIndex_given_happy_should_print_happy(void)
+{
+  char buffer[] = "happy";
+
+  printBufferTill(buffer,5);
 }*/

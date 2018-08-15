@@ -13,12 +13,11 @@ void processLine(LinkedList *list, Line *line)
   ListItem *item = CreateListItem((void *)input);
   LinkedListAddToTail(list,item);
 
-  /*if(list->count > Max_History)
+  if(list->count > Max_History)
   {
     list->head = list->head->next;
-    //list->next = NULL;
     list->count--;
-  }*/
+  }
 }
 
 void processBackspace(Line *line)

@@ -8,6 +8,7 @@
 
 ListItem *recalledItem = NULL;
 
+/*Initialize for storing the data*/
 ListItem *CreateListItem(void *data)
 {
   ListItem *NewList = malloc(sizeof(ListItem*));
@@ -19,12 +20,26 @@ ListItem *CreateListItem(void *data)
   return NewList;
 }
 
+/*
+* 1. if head is NULL display error message
+* 2. create a newList
+* 3. free the previous head, assign it to NULL
+* 4. update the head, change the head to the next of the head
+* 5. always assign the next of the tail to the head of the list
+* 6. update the count, everytime decrease by 1
+*/
 ListItem *LinkedListRemoveFromHead(LinkedList *list)
 {
   LinkedList *NewList;
 
   if(list->head == NULL)
     printf("Deletion is not possible..");
+  else if(list->count == 1)
+  {
+    list->tail = NULL;
+    list->head = NULL;
+    list->count--;
+  }
   else
   {
     NewList = list->head->next;
@@ -35,14 +50,17 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
   }
 }
 
-//find the last node
-//put in data
-//next -> NULL
+/*
+* 1. check the head, if is NULL
+* 2. assign the newList to add into list
+* 3. update the head tail and count for the list
+* 4. if head not NULL
+* 5. find the last node to insert the input data
+* 6. update the tail and count of the list evrytime input
+*/
 int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
   ListItem *NewList = malloc(sizeof(ListItem));
-  ListItem *temp_list = malloc(sizeof(ListItem));
-  ListItem *temp = malloc(sizeof(ListItem));
 
   if(list->count == 1)
     list->head->next = NewList;
@@ -53,7 +71,6 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
       list->tail = NewList;
       NewList->data = ItemToAdd->data; // Link the data part
       NewList->next = NewList;
-      //NewList = NewList->next;
       NewList->prev = list->tail;
       list->count++;
   }
@@ -71,22 +88,10 @@ int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
   return NewList;
 }
 
-//get the index of the end of string
-/*int indexOfString(line *Line)
-{
-  int len = strlen(Line->buffer);
-
-  if (Line != NULL)
-  {
-    Line->index = len;
-    Line->last_index = len + 1;
-  }
-  else
-    return Line;
-
-  return Line;
-}*/
-
+/*
+* 1. assign the recalledItem as head at fisrt if the given recalledItem was NULL
+* 2. assign the recalledItem to the next previous recalledItem
+*/
 char *recallPrevious(LinkedList *list)
 {
   if(recalledItem == NULL)
@@ -97,6 +102,10 @@ char *recallPrevious(LinkedList *list)
   return (char *)(recalledItem->data);
 }
 
+/*
+* 1. assign the recalledItem as tail at fisrt if the given recalledItem was NULL
+* 2. assign the recalledItem to the next recalledItem
+*/
 char *recallNext(LinkedList *list)
 {
   if(recalledItem == NULL)
@@ -107,11 +116,13 @@ char *recallNext(LinkedList *list)
   return (char *)(recalledItem->data);
 }
 
+/*set the recalledItem back to head of the list to start over*/
 void resetRecalledItem(LinkedList *list)
 {
   recalledItem = list->head;
 }
 
+/*Initialize the linked list*/
 void LinkedListInit(LinkedList *list)
 {
   list->head = NULL;
