@@ -12,35 +12,77 @@ void setUp(void){}
 
 void tearDown(void){}
 
-/*void test_processKeyPress_given_item1_expect_string_copied(void)
+void test_processLine_given_1_data_expect_inserted(void)
 {
-  //int *addr;
-  char *buffer = "hello";
-  //LinkedList list = {NULL, NULL, 0};
-  char *string = processKeyPress(buffer);
+  LinkedList history;
+  Line line;
+  strcpy(line.buffer, "hello");
+  line.index = 5;
+  LinkedListInit(&history);
+  processLine(&history, &line);
+  //printf("history data : %s",history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->data);
+}
 
-  TEST_ASSERT_EQUAL_STRING("hello",string);
-
-  //ListItem item = {(void *)string, NULL};
-  //line Line = {string,0,0};
-  //addr = LinkedListAddToTail(&list,&item);
-  //indexOfString(&Line);
-
-  //TEST_ASSERT_EQUAL(5, Line.index);
-  //TEST_ASSERT_EQUAL(6, Line.last_index);
-  //TEST_ASSERT_EQUAL(addr, list.head);
-  //TEST_ASSERT_EQUAL(addr, list.tail);
-  //TEST_ASSERT_EQUAL(NULL, item.next);
-}*/
-
-/*void xtest_processLine_given_cool_expect_cool_inside_linked_list(void)
+void test_processLine_given_2_line_expect_both_insert_to_linkedlist(void)
 {
-  Line input = {"cool"};
-  processLine(&input);
+  LinkedList history;
+  Line line1, line2;
+  strcpy(line1.buffer, "hello");
+  line1.index = 5;
+  strcpy(line2.buffer, "world");
+  line2.index = 5;
+  LinkedListInit(&history);
+  processLine(&history, &line1);
+  processLine(&history, &line2);
 
-  TEST_ASSERT_EQUAL_STRING("cool",input.buffer);
-}*/
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->data);
+}
 
+void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
+{
+  LinkedList history;
+  Line line1, line2,line3;
+  strcpy(line1.buffer, "hello");
+  line1.index = 5;
+  strcpy(line2.buffer, "world");
+  line2.index = 5;
+  strcpy(line3.buffer, "haha");
+  line3.index = 4;
+  LinkedListInit(&history);
+  processLine(&history, &line1);
+  processLine(&history, &line2);
+  processLine(&history, &line3);
+
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
+}
+
+void test_processLine_given_4_line_expect_4_line_insert_to_linkedlist(void)
+{
+  LinkedList history;
+  Line line1, line2, line3, line4;
+  strcpy(line1.buffer, "hello");
+  line1.index = 5;
+  strcpy(line2.buffer, "world");
+  line2.index = 5;
+  strcpy(line3.buffer, "haha");
+  line3.index = 4;
+  strcpy(line4.buffer, "hey");
+  line4.index = 3;
+  LinkedListInit(&history);
+  processLine(&history, &line1);
+  processLine(&history, &line2);
+  processLine(&history, &line3);
+  processLine(&history, &line4);
+
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.tail->data);
+}
 //backspace for 1 time
 //before               after
 //"happy"              "happ"
@@ -222,53 +264,6 @@ void test_displayContent(void)
   displayContent(&line);
 }
 
-void test_processLine(void)
-{
-  LinkedList history;
-  Line line;
-  strcpy(line.buffer, "hello");
-  line.index = 5;
-  LinkedListInit(&history);
-  processLine(&history, &line);
-  //printf("history data : %s",history.head->data);
-  TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->data);
-}
-
-void test_processLine_given_2_line_expect_both_insert_to_linkedlist(void)
-{
-  LinkedList history;
-  Line line1, line2;
-  strcpy(line1.buffer, "hello");
-  line1.index = 5;
-  strcpy(line2.buffer, "world");
-  line2.index = 5;
-  LinkedListInit(&history);
-  processLine(&history, &line1);
-  processLine(&history, &line2);
-  //printf("history data : %s\n",history.head->data);
-  //printf("history data : %s",history.head->next->data);
-  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
-}
-
-void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
-{
-  LinkedList history;
-  Line line1, line2,line3;
-  strcpy(line1.buffer, "hello");
-  line1.index = 5;
-  strcpy(line2.buffer, "world");
-  line2.index = 5;
-  strcpy(line3.buffer, "haha");
-  line3.index = 4;
-  LinkedListInit(&history);
-  processLine(&history, &line1);
-  processLine(&history, &line2);
-  processLine(&history, &line3);
-  //printf("history data1 : %s\n",history.head->data);
-  //printf("history data2 : %s\n",history.head->next->data);
-  //printf("history data3 : %s",history.tail->data);
-  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
-}
 /*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)
 {
   line Line = {"happy",5,6};

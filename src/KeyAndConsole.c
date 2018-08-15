@@ -18,7 +18,7 @@ void displayContent(Line *line)
 
 void clearConsoleLine(int num)
 {
-  while(num != 0)
+  while(num >= 0)
   {
     backspaceOnConsole();
     num--;
@@ -50,7 +50,13 @@ void getKeyPressed(void)
 {
   uint8_t c, ac;
   Line line = {{'\0'}, 0, 0};
-  LinkedList list = {NULL, NULL, 0};
+  char *buffer1 = "hello";
+  char *buffer2 = "hi";
+  ListItem item2 = {(void *)buffer2};
+  ListItem item1 = {(void *)buffer1, &item2, &item2};
+  LinkedList list = {&item1, &item2, 1};
+  item2.next = &item1;
+  item2.prev = &item1;
 
   do{
     c = getch();
@@ -59,29 +65,33 @@ void getKeyPressed(void)
     {
       if(isEscapeKey(c))
       {
-        ac = getch();
-        if(ac == ARROW_LEFT)
-        {
-          moveLeftOnConsole();
-          moveLeft(&line);
-        }
-        else if(ac == ARROW_RIGHT)
-        {
-          moveRightOnConsole(&line);
-          moveRight(&line);
-        }
-        else if(ac == ARROW_UP)
-        {
-          recallPrevious(&list);
-          writeToBuffer(&line, ac);
-          displayContent(&line);
-        }
-        /*else if(ac == ARROW_DOWN)
-        {
-          recallNext(&list);
-          writeToBuffer(&line, ac);
-          displayContent(&line);
-        }*/
+          ac = getch();
+          if(ac == ARROW_LEFT)
+          {
+            moveLeftOnConsole();
+            moveLeft(&line);
+          }
+          else if(ac == ARROW_RIGHT)
+          {
+            moveRightOnConsole(&line);
+            moveRight(&line);
+          }
+          else if(ac == ARROW_UP)
+          {
+            char *prev_str = recallPrevious(&list);
+            strcpy(line.buffer, prev_str);
+            line.index = strlen(prev_str);
+            clearConsoleLine(line.index);
+            displayContent(&line);
+          }
+          else if(ac == ARROW_DOWN)
+          {
+            char *next_str = recallNext(&list);
+            strcpy(line.buffer, next_str);
+            line.index = strlen(next_str);
+            clearConsoleLine(line.index);
+            displayContent(&line);
+          }
       }
       else if(c == KEY_BACKSPACE)
       {

@@ -120,8 +120,8 @@ void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_ite
 
     TEST_ASSERT_EQUAL(list.head, addr);
     TEST_ASSERT_EQUAL(list.tail, addr);
-    TEST_ASSERT_EQUAL_STRING("hello",addr->data);
-    TEST_ASSERT_EQUAL(NULL, item.next);
+    TEST_ASSERT_EQUAL_STRING("hello", addr->data);
+    TEST_ASSERT_EQUAL_STRING("hello", addr->next->data);
     TEST_ASSERT_EQUAL(1, list.count);
 
     //printf("tail : %s",addr->prev->data);
