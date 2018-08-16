@@ -10,6 +10,7 @@
 #define KEY_BACKSPACE	 	   8
 #define ENTER             13
 #define KEY_TAB            9
+#define ESC               27
 
 void backspaceOnConsole();
 void displayContent(Line *line);

@@ -15,9 +15,10 @@ char *processKeyPress(char *key);
 void processBackspace(Line *line);
 void moveLeft(Line *line);
 void moveRight(Line *line);
-void printBufferTill(char buffer[], int length);
+void printBufferTill(Line *line);
 void writeToBuffer(Line *line, char ch);
 void clearBuffer(Line *line);
 void processLine(LinkedList *list, Line *line);
+void copyStringToLine(Line *line, char *str);
 
 #endif // _CLI_H

@@ -78,17 +78,13 @@ void getKeyPressed(void)
           }
           else if(ac == ARROW_UP)
           {
-            char *prev_str = recallPrevious(&list);
-            strcpy(line.buffer, prev_str);
-            line.index = strlen(prev_str);
+            copyStringToLine(&line, recallPrevious(&list));
             clearConsoleLine(line.index);
             displayContent(&line);
           }
           else if(ac == ARROW_DOWN)
           {
-            char *next_str = recallNext(&list);
-            strcpy(line.buffer, next_str);
-            line.index = strlen(next_str);
+            copyStringToLine(&line, recallNext(&list));
             clearConsoleLine(line.index);
             displayContent(&line);
           }
@@ -106,8 +102,8 @@ void getKeyPressed(void)
       else
       {
         writeToBuffer(&line, c);
-        displayContent(&line);
         processLine(&list, &line);
+        displayContent(&line);
       }
     }
     else
@@ -115,7 +111,7 @@ void getKeyPressed(void)
       clearConsoleLine(line.index);
       clearBuffer(&line);
     }
-  }while(c != ENTER);
+  }while(c != ESC);
 }
 
 int isEscapeKey(int code)

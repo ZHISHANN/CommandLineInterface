@@ -16,7 +16,7 @@ struct LinkedList{
 };
 
 ListItem *LinkedListRemoveFromHead(LinkedList *list);
-int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
+ListItem *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
 char *recallPrevious(LinkedList *list);
 char *recallNext(LinkedList *list);
 void resetRecalledItem(LinkedList *list);

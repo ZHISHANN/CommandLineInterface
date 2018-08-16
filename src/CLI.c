@@ -17,6 +17,7 @@ void processLine(LinkedList *list, Line *line)
   {
     list->head = list->head->next;
     list->count--;
+    LinkedListAddToTail(list,item);
   }
 }
 
@@ -27,16 +28,6 @@ void processBackspace(Line *line)
 
   if(line->index < 0)
     line->index = 0;
-}
-
-void printBufferTill(char buffer[], int length)
-{
-	int i;
-
-	for(i=0; i<=length ;i++)
-	{
-		printf("%c", buffer[i]);
-	}
 }
 
 void moveLeft(Line *line)
@@ -77,3 +68,18 @@ void clearBuffer(Line *line)
   line->index = 0;
   line->buffer[line->index] = '\0';
 }
+
+void copyStringToLine(Line *line, char *str)
+{
+  strcpy(line->buffer, str);
+  line->index = strlen(str);
+  line->buffer[line->index] = '\0';
+}
+
+/*void printBufferTill(Line *line)
+{
+	for(int i=0; i<=line->index ;i++)
+	{
+		printf("%c", line->buffer[i]);
+	}
+}*/

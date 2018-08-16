@@ -12,6 +12,29 @@ void setUp(void){}
 
 void tearDown(void){}
 
+void test_LinkedListAddToTail_given_third_item_expect_inserted(void)
+{
+  Line line1 = {"Hello", 5, 0};
+  Line line2 = {"Hi", 2, 0};
+  Line line3 = {"Dummy", 5, 0};
+  LinkedList list = {NULL, NULL, 0};
+
+  LinkedListAddToTail(&list, &line1);
+  LinkedListAddToTail(&list, &line2);
+  recallPrevious(&list);
+  LinkedListAddToTail(&list, &line3);
+
+  TEST_ASSERT_EQUAL_STRING(&line3, list.tail);
+  TEST_ASSERT_EQUAL_STRING(&line1, list.tail->next);
+  TEST_ASSERT_EQUAL_STRING(&line2, list.tail->prev);
+  TEST_ASSERT_EQUAL_STRING(&line1, list.tail->prev->prev);
+  TEST_ASSERT_EQUAL_STRING(&line3, list.head->prev);
+  TEST_ASSERT_EQUAL_STRING(&line2, list.head->next);
+  TEST_ASSERT_EQUAL_STRING(&line3, list.head->next->next);
+  TEST_ASSERT_EQUAL_STRING(&line1, list.head);
+  TEST_ASSERT_EQUAL(3, list.count);
+}
+
 void test_processLine_given_1_data_expect_inserted(void)
 {
   LinkedList history;
@@ -45,6 +68,7 @@ void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
 {
   LinkedList history;
   Line line1, line2,line3;
+  ListItem *temp;
   strcpy(line1.buffer, "hello");
   line1.index = 5;
   strcpy(line2.buffer, "world");
@@ -55,10 +79,19 @@ void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
   processLine(&history, &line1);
   processLine(&history, &line2);
   processLine(&history, &line3);
+  //temp = list->head;
+  //(char *)(temp->data) = line1.buffer;
+  //temp = temp->next;
 
   TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
-  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->next->next->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
   TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL(3, history.count);
 }
 
 void test_processLine_given_4_line_expect_the_first_list_deleted(void)
@@ -247,6 +280,16 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
   TEST_ASSERT_EQUAL(5,line.last_index);
+}
+
+void test_copyStringToLine_given_space_and_insert_new_data_expect_data_inserted(void)
+{
+  Line line = {"       ", '\0', '\0'};
+  copyStringToLine(&line, "smile");
+
+  TEST_ASSERT_EQUAL('\0', line.buffer[5]);
+  TEST_ASSERT_EQUAL_STRING("smile", line.buffer);
+  TEST_ASSERT_EQUAL(5, line.index);
 }
 
 /*void test_clearConsoleLine_given_happy_expect_happy_clear_in_console_line(void)

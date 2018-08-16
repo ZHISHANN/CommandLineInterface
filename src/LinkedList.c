@@ -58,32 +58,27 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
 * 5. find the last node to insert the input data
 * 6. update the tail and count of the list evrytime input
 */
-int *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
+ListItem *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
-  ListItem *NewList = malloc(sizeof(ListItem));
-
-  if(list->count == 1)
-    list->head->next = NewList;
+  ListItem *NewList = ItemToAdd;
 
   if(list->head == NULL)
   {
-      list->head = NewList;
-      list->tail = NewList;
-      NewList->data = ItemToAdd->data; // Link the data part
-      NewList->next = NewList;
-      NewList->prev = list->tail;
-      list->count++;
+    list->head = ItemToAdd;
+    list->tail = ItemToAdd;
+    NewList->next = list->head;
+    NewList->prev = list->tail;
+    list->count++;
   }
   else
   {
-     if(list->tail->next == NULL)
-      list->tail->next = NewList;
-
-     NewList->prev = list->tail;
-     list->tail = NewList;
-     NewList->data = ItemToAdd->data; // Link the data part
-     NewList->next = list->head;
-     list->count++;
+    list->tail->next = ItemToAdd;
+    NewList->prev = list->tail;
+    list->tail = ItemToAdd;
+    NewList->next = list->head;
+    list->head->prev = list->tail;
+    NewList->data = ItemToAdd->data; // Link the data part
+    list->count++;
   }
   return NewList;
 }
