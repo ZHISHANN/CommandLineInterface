@@ -11,6 +11,8 @@ struct Line{
   int last_index;
 };
 
+extern int Max_History;
+
 char *processKeyPress(char *key);
 void processBackspace(Line *line);
 void moveLeft(Line *line);

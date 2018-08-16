@@ -7,6 +7,8 @@
 #include <ctype.h>
 #include <malloc.h>
 
+int Max_History = 3;
+
 void processLine(LinkedList *list, Line *line)
 {
   char *input = strdup(line->buffer);

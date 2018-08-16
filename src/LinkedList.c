@@ -42,12 +42,17 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
   }
   else
   {
+    list->head->prev = NULL;
     NewList = list->head->next;
     list->head->next = NULL;          //assign first item->next to NULL
     list->head = NewList;             //change the head
     list->tail->next = list->head;
-    list->count--;                   //decrease count
+    list->head->prev = list->tail;
+    list->count--;                     //decrease count
   }
+
+  if(list->count <= 0)
+    list->count = 0;
 }
 
 /*
@@ -60,27 +65,26 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
 */
 ListItem *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
-  ListItem *NewList = ItemToAdd;
+  //ListItem *NewList = ItemToAdd;
 
   if(list->head == NULL)
   {
     list->head = ItemToAdd;
     list->tail = ItemToAdd;
-    NewList->next = list->head;
-    NewList->prev = list->tail;
+    ItemToAdd->next = list->head;
+    ItemToAdd->prev = list->tail;
     list->count++;
   }
   else
   {
     list->tail->next = ItemToAdd;
-    NewList->prev = list->tail;
+    ItemToAdd->prev = list->tail;
     list->tail = ItemToAdd;
-    NewList->next = list->head;
+    ItemToAdd->next = list->head;
     list->head->prev = list->tail;
-    NewList->data = ItemToAdd->data; // Link the data part
     list->count++;
   }
-  return NewList;
+  return ItemToAdd;
 }
 
 /*

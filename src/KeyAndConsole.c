@@ -54,7 +54,7 @@ void getKeyPressed(void)
   char *buffer2 = "hi";
   ListItem item2 = {(void *)buffer2};
   ListItem item1 = {(void *)buffer1, &item2, &item2};
-  LinkedList list = {&item1, &item2, 1};
+  LinkedList list = {&item1, &item2, 2};
   item2.next = &item1;
   item2.prev = &item1;
 
@@ -102,12 +102,12 @@ void getKeyPressed(void)
       else
       {
         writeToBuffer(&line, c);
-        processLine(&list, &line);
         displayContent(&line);
       }
     }
     else
     {
+      processLine(&list, &line);
       clearConsoleLine(line.index);
       clearBuffer(&line);
     }
