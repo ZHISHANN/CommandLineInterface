@@ -11,6 +11,7 @@
 #define ENTER             13
 #define KEY_TAB            9
 #define ESC               27
+#define BREAK              3
 
 void backspaceOnConsole();
 void displayContent(Line *line);

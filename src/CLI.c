@@ -16,11 +16,7 @@ void processLine(LinkedList *list, Line *line)
   LinkedListAddToTail(list,item);
 
   if(list->count > Max_History)
-  {
-    list->head = list->head->next;
-    list->count--;
-    LinkedListAddToTail(list,item);
-  }
+    LinkedListRemoveFromHead(list);
 }
 
 void processBackspace(Line *line)
@@ -45,7 +41,7 @@ void moveRight(Line *line)
   if (line->index == 0 && line->last_index == 0)
     line->last_index = strlen(line->buffer);
 
-  if (line->index >= line->last_index)
+  if (line->index > line->last_index || line->buffer[line->index] == '\0')
     line->index = line->last_index;
   else
     line->index++;

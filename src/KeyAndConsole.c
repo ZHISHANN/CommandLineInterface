@@ -99,6 +99,10 @@ void getKeyPressed(void)
         insertTab(&line);
         displayContent(&line);
       }
+      else if(c == ESC)
+      {
+        displayContent(&line);
+      }
       else
       {
         writeToBuffer(&line, c);
@@ -111,7 +115,7 @@ void getKeyPressed(void)
       clearConsoleLine(line.index);
       clearBuffer(&line);
     }
-  }while(c != ESC);
+  }while(c != BREAK);
 }
 
 int isEscapeKey(int code)

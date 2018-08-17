@@ -20,20 +20,19 @@ void tearDown(void){}
 void test_LinkedListAddToTail_given_an_empty_inked_list_add_1_to_head_expect_item_inserted(void)
 {
     char *buffer = "hello";
-    ListItem *addr;
-    LinkedList list = {NULL, NULL, 0};      //head tail count
     ListItem item = {(void *)buffer};
+    LinkedList list = {NULL, NULL, 0};      //head tail count
 
-    addr = LinkedListAddToTail(&list,&item);
+    LinkedListAddToTail(&list,&item);
 
-    TEST_ASSERT_EQUAL(list.head, addr);
-    TEST_ASSERT_EQUAL(list.tail, addr);
-    TEST_ASSERT_EQUAL(list.head->next, addr);
-    TEST_ASSERT_EQUAL(list.head->prev, addr);
-    TEST_ASSERT_EQUAL(list.tail->next, addr);
-    TEST_ASSERT_EQUAL(list.tail->prev, addr);
-    TEST_ASSERT_EQUAL_STRING("hello", addr->data);
-    TEST_ASSERT_EQUAL_STRING("hello", addr->next->data);
+    TEST_ASSERT_EQUAL_STRING("hello", list.head->data);
+    TEST_ASSERT_EQUAL_STRING("hello", list.tail->data);
+    TEST_ASSERT_EQUAL(&item, list.head);
+    TEST_ASSERT_EQUAL(&item, list.tail);
+    TEST_ASSERT_EQUAL(&item, list.head->next);
+    TEST_ASSERT_EQUAL(&item, list.head->prev);
+    TEST_ASSERT_EQUAL(&item, list.tail->next);
+    TEST_ASSERT_EQUAL(&item, list.tail->prev);
     TEST_ASSERT_EQUAL(1, list.count);
 }
 
@@ -49,21 +48,20 @@ void test_LinkedListAddToTail_given_next_character_expect_item_inserted(void)
 {
     char *buffer1 = "hello";
     char *buffer2 = "hi";
-    ListItem *addr;
-    ListItem item1 = {(void *)buffer1, NULL};
+    ListItem item1 = {(void *)buffer1};
     ListItem item2 = {(void *)buffer2};
     LinkedList list = {&item1, &item1, 1};
 
-    addr = LinkedListAddToTail(&list,&item2);
+    LinkedListAddToTail(&list,&item2);
 
     TEST_ASSERT_EQUAL_STRING("hello", list.head->data);
-    TEST_ASSERT_EQUAL_STRING("hi", addr->data);
+    TEST_ASSERT_EQUAL_STRING("hi", list.tail->data);
     TEST_ASSERT_EQUAL(&item1, list.head);
-    TEST_ASSERT_EQUAL(list.tail, addr);
-    TEST_ASSERT_EQUAL(list.head->next, addr);
-    TEST_ASSERT_EQUAL(list.head->prev, addr);
-    TEST_ASSERT_EQUAL(&item1, addr->next);
-    TEST_ASSERT_EQUAL(&item1, addr->prev);
+    TEST_ASSERT_EQUAL(&item2, list.tail);
+    TEST_ASSERT_EQUAL(&item2, list.head->next);
+    TEST_ASSERT_EQUAL(&item2, list.head->prev);
+    TEST_ASSERT_EQUAL(&item1, list.tail->next);
+    TEST_ASSERT_EQUAL(&item1, list.tail->prev);
     TEST_ASSERT_EQUAL(2, list.count);
 }
 
@@ -79,19 +77,18 @@ void test_LinkedListAddToTail_given_3_character_expect_next_item_inserted(void)
     char *buffer1 = "hello";
     char *buffer2 = "hi";
     char *buffer3 = "hey";
-    ListItem *addr;
     ListItem item3 = {(void *)buffer3};
     ListItem item2 = {(void *)buffer2};
     ListItem item1 = {(void *)buffer1, &item2};
     LinkedList list = {&item1, &item2, 2};
     item2.prev = &item1;
 
-    addr = LinkedListAddToTail(&list,&item3);
+    LinkedListAddToTail(&list,&item3);
 
     TEST_ASSERT_EQUAL_STRING("hello", list.head->data);
-    TEST_ASSERT_EQUAL_STRING("hey", addr->data);
+    TEST_ASSERT_EQUAL_STRING("hey", list.tail->data);
     TEST_ASSERT_EQUAL(&item1, list.head);
-    TEST_ASSERT_EQUAL(list.tail, addr);
+    TEST_ASSERT_EQUAL(&item3, list.tail);
     TEST_ASSERT_EQUAL(&item2, list.head->next);
     TEST_ASSERT_EQUAL(&item3, list.head->next->next);
     TEST_ASSERT_EQUAL(&item1, list.tail->next);
@@ -151,10 +148,12 @@ void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expec
 
   LinkedListRemoveFromHead(&list);
 
+  TEST_ASSERT_EQUAL_STRING("smile", list.head->data);
+  TEST_ASSERT_EQUAL_STRING("smile", list.tail->data);
   TEST_ASSERT_EQUAL(&item2, list.head);
   TEST_ASSERT_EQUAL(&item2, list.tail);
-  TEST_ASSERT_EQUAL(&item2, item2.next);
-  TEST_ASSERT_EQUAL(&item2, item2.prev);
+  TEST_ASSERT_EQUAL(&item2, list.head->next);
+  TEST_ASSERT_EQUAL(&item2, list.tail->prev);
   TEST_ASSERT_EQUAL(NULL, item1.next);
   TEST_ASSERT_EQUAL(NULL, item1.prev);
   TEST_ASSERT_EQUAL(1, list.count);
@@ -182,14 +181,16 @@ void test_LinkedListRemoveFromHead_given_char_type_item1_and_item2_and_item3_wit
 
   LinkedListRemoveFromHead(&list);
 
+  TEST_ASSERT_EQUAL_STRING("hi", list.head->data);
+  TEST_ASSERT_EQUAL_STRING("hey", list.tail->data);
   TEST_ASSERT_EQUAL(&item2, list.head);
   TEST_ASSERT_EQUAL(&item3, list.tail);
   TEST_ASSERT_EQUAL(NULL, item1.next);
   TEST_ASSERT_EQUAL(NULL, item1.prev);
-  TEST_ASSERT_EQUAL(&item3, item2.next);
-  TEST_ASSERT_EQUAL(&item3, item2.prev);
-  TEST_ASSERT_EQUAL(&item2, item3.next);
-  TEST_ASSERT_EQUAL(&item2, item3.prev);
+  TEST_ASSERT_EQUAL(&item3, list.head->next);
+  TEST_ASSERT_EQUAL(&item3, list.head->prev);
+  TEST_ASSERT_EQUAL(&item2, list.tail->next);
+  TEST_ASSERT_EQUAL(&item2, list.tail->prev);
   TEST_ASSERT_EQUAL(2, list.count);
 }
 

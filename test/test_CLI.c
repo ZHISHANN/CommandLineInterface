@@ -50,38 +50,46 @@ void test_processLine_given_1_data_expect_inserted(void)
 
   LinkedListInit(&history);
   processLine(&history, &line);
-  //printf("history data : %s",history.head->data);
+
+  TEST_ASSERT_EQUAL_STRING("hello", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("hello", history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.tail->data);
   TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL(1, history.count);
 }
 
 void test_processLine_given_2_line_expect_both_insert_to_linkedlist(void)
 {
   LinkedList history;
-  Line line1, line2;
-  strcpy(line1.buffer, "hello");
-  line1.index = 5;
-  strcpy(line2.buffer, "world");
-  line2.index = 5;
+  Line line1 = {"hello", 5, 0};
+  Line line2 = {"world", 5, 0};
+
   LinkedListInit(&history);
   processLine(&history, &line1);
   processLine(&history, &line2);
 
+  TEST_ASSERT_EQUAL_STRING("hello", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("world", history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->data);
   TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
-  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL(2, history.count);
 }
 
 void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
 {
   LinkedList history;
-  Line line1, line2,line3;
-  ListItem *temp;
-  strcpy(line1.buffer, "hello");
-  line1.index = 5;
-  strcpy(line2.buffer, "world");
-  line2.index = 5;
-  strcpy(line3.buffer, "haha");
-  line3.index = 4;
+  Line line1 = {"hello", 5, 0};
+  Line line2 = {"world", 5, 0};
+  Line line3 = {"haha", 4, 0};
+
   LinkedListInit(&history);
   processLine(&history, &line1);
   processLine(&history, &line2);
@@ -90,37 +98,44 @@ void test_processLine_given_3_line_expect_3_line_insert_to_linkedlist(void)
   //(char *)(temp->data) = line1.buffer;
   //temp = temp->next;
 
+  TEST_ASSERT_EQUAL_STRING("hello", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("haha", history.tail->data);
   TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
   TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->next->next->data);
-  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->prev->data);
   TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
   TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->prev->data);
-  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->prev->data);
   TEST_ASSERT_EQUAL(3, history.count);
 }
 
 void test_processLine_given_4_line_expect_the_first_list_deleted(void)
 {
   LinkedList history;
-  Line line1, line2, line3, line4;
-  strcpy(line1.buffer, "hello");
-  line1.index = 5;
-  strcpy(line2.buffer, "world");
-  line2.index = 5;
-  strcpy(line3.buffer, "haha");
-  line3.index = 4;
-  strcpy(line4.buffer, "hey");
-  line4.index = 3;
+  Line line1 = {"hello", 5, 0};
+  Line line2 = {"world", 5, 0};
+  Line line3 = {"haha", 4, 0};
+  Line line4 = {"smile", 5, 0};
+
   LinkedListInit(&history);
   processLine(&history, &line1);
   processLine(&history, &line2);
   processLine(&history, &line3);
   processLine(&history, &line4);
 
+  TEST_ASSERT_EQUAL_STRING("world", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("smile", history.tail->data);
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.head->next->next->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.head->prev->data);
   TEST_ASSERT_EQUAL_STRING(line4.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->prev->data);
+  TEST_ASSERT_EQUAL(3, history.count);
 }
 
 //backspace for 1 time
@@ -133,6 +148,7 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
   processBackspace(&line);
 
   //printf("buffer : %s", line.buffer);
+  TEST_ASSERT_EQUAL_STRING("happ", line.buffer);
   TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(4, line.index);
 }
@@ -144,6 +160,7 @@ void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
   processBackspace(&line);
   processBackspace(&line);
 
+  TEST_ASSERT_EQUAL_STRING("hap", line.buffer);
   TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(3, line.index);
 }
@@ -157,6 +174,7 @@ void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
   processBackspace(&line);
   processBackspace(&line);
 
+  TEST_ASSERT_EQUAL_STRING("", line.buffer);
   TEST_ASSERT_EQUAL(3, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
@@ -167,7 +185,6 @@ void test_moveLeft_given_happy_and_move_left_1_time(void)
 
   moveLeft(&line);
 
-  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(4, line.index);
 }
 
@@ -181,7 +198,6 @@ void test_moveLeft_given_happy_and_move_left_5_time(void)
   moveLeft(&line);
   moveLeft(&line);
 
-  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
@@ -196,7 +212,6 @@ void test_moveLeft_given_happy_and_move_left_6_time(void)
   moveLeft(&line);
   moveLeft(&line);
 
-  //TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
