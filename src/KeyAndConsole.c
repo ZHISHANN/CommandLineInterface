@@ -44,7 +44,7 @@ void moveLeftOnConsole(Line *line)
 void moveRightOnConsole(Line *line)
 {
   if(line->buffer[line->index] != '\0')
-    printf("%c",line->buffer);
+    printf("%c",line->buffer[line->index]);
 }
 
 void getKeyPressed(void)
@@ -56,6 +56,7 @@ void getKeyPressed(void)
   ListItem item2 = {(void *)buffer2};
   ListItem item1 = {(void *)buffer1, &item2, &item2};
   LinkedList list = {&item1, &item2, 2};
+  //LinkedList list = {NULL, NULL, 0};
   item2.next = &item1;
   item2.prev = &item1;
 
@@ -105,7 +106,7 @@ void getKeyPressed(void)
         clearConsoleLine(line.index);
         clearBuffer(&line);
       }
-      else
+      else if(c != ENTER || c != ESC || c != BREAK)
       {
         writeToBuffer(&line, c);
         displayContent(&line);

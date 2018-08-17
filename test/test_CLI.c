@@ -284,7 +284,7 @@ void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_bu
   writeToBuffer(&line, 'l');
   writeToBuffer(&line, 'e');
 
-  //printf("buffer : %s\n",line.buffer);
+  //printf("buffer : %s\n",line.buffer[line.index]);
 
   TEST_ASSERT_EQUAL_STRING("hellosmile", line.buffer);
   TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
