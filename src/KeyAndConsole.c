@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <conio.h>
+#include <ctype.h>
 
 void backspaceOnConsole()
 {
@@ -106,7 +107,7 @@ void getKeyPressed(void)
         clearConsoleLine(line.index);
         clearBuffer(&line);
       }
-      else if(c != ENTER || c != ESC || c != BREAK)
+      else if(c != CTRL_C)
       {
         writeToBuffer(&line, c);
         displayContent(&line);
@@ -114,11 +115,19 @@ void getKeyPressed(void)
     }
     else
     {
-      processLine(&list, &line);
-      clearConsoleLine(line.index);
-      clearBuffer(&line);
+      if(isLineEmpty(&line))
+      {
+        clearConsoleLine(line.index);
+        clearBuffer(&line);
+      }
+      else
+      {
+        processLine(&list, &line);
+        clearConsoleLine(line.index);
+        clearBuffer(&line);
+      }
     }
-  }while(c != BREAK);
+  }while(c != CTRL_C);
 }
 
 int isEscapeKey(int code)
@@ -127,4 +136,17 @@ int isEscapeKey(int code)
     return 1;
   else
     return 0;
+}
+
+int isLineEmpty(Line *line)
+{
+  if(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
+  {
+    while(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
+      line->index++;
+  }
+  else
+    return 0;
+
+  return 1;
 }
