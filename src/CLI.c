@@ -41,7 +41,7 @@ void moveRight(Line *line)
   if (line->index == 0 && line->last_index == 0)
     line->last_index = strlen(line->buffer);
 
-  if (line->index > line->last_index || line->buffer[line->index] == '\0')
+  if (line->index >= line->last_index || (line->buffer[line->index] == '\0'))
     line->index = line->last_index;
   else
     line->index++;

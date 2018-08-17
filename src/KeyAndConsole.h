@@ -16,7 +16,7 @@
 void backspaceOnConsole();
 void displayContent(Line *line);
 void clearConsoleLine(int num);
-void moveLeftOnConsole();
+void moveLeftOnConsole(Line *line);
 void moveRightOnConsole(Line *line);
 void getKeyPressed(void);
 int isEscapeKey(int code);

@@ -36,14 +36,15 @@ void insertTab(Line *line)
   }
 }
 
-void moveLeftOnConsole()
+void moveLeftOnConsole(Line *line)
 {
   printf("\b");
 }
 
 void moveRightOnConsole(Line *line)
 {
-  printf("%c",line->buffer[line->index]);
+  if(line->buffer[line->index] != '\0')
+    printf("%c",line->buffer);
 }
 
 void getKeyPressed(void)
@@ -68,7 +69,7 @@ void getKeyPressed(void)
           ac = getch();
           if(ac == ARROW_LEFT)
           {
-            moveLeftOnConsole();
+            moveLeftOnConsole(&line);
             moveLeft(&line);
           }
           else if(ac == ARROW_RIGHT)
@@ -78,14 +79,14 @@ void getKeyPressed(void)
           }
           else if(ac == ARROW_UP)
           {
-            copyStringToLine(&line, recallPrevious(&list));
             clearConsoleLine(line.index);
+            copyStringToLine(&line, recallPrevious(&list));
             displayContent(&line);
           }
           else if(ac == ARROW_DOWN)
           {
-            copyStringToLine(&line, recallNext(&list));
             clearConsoleLine(line.index);
+            copyStringToLine(&line, recallNext(&list));
             displayContent(&line);
           }
       }
@@ -101,7 +102,8 @@ void getKeyPressed(void)
       }
       else if(c == ESC)
       {
-        displayContent(&line);
+        clearConsoleLine(line.index);
+        clearBuffer(&line);
       }
       else
       {
