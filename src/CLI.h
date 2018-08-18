@@ -22,5 +22,6 @@ void writeToBuffer(Line *line, char ch);
 void clearBuffer(Line *line);
 void processLine(LinkedList *list, Line *line);
 void copyStringToLine(Line *line, char *str);
+void moveCursorToEnd(Line *line);
 
 #endif // _CLI_H

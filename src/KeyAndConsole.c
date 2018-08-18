@@ -14,7 +14,8 @@ void backspaceOnConsole()
 
 void displayContent(Line *line)
 {
-  printf("\r%s",line->buffer);
+  if(line->buffer[line->index] == '\0')
+    printf("\r%s",line->buffer);
 }
 
 void clearConsoleLine(int num)
@@ -24,6 +25,14 @@ void clearConsoleLine(int num)
     backspaceOnConsole();
     num--;
   }
+}
+
+void clearPreviousRecord()
+{
+  int i;
+  for(i = 0; i < 100 ; i++)
+    printf("  ");
+  printf("\r");
 }
 
 void insertTab(Line *line)
@@ -81,12 +90,14 @@ void getKeyPressed(void)
           }
           else if(ac == ARROW_UP)
           {
+            //moveCursorToEnd(&line);
             clearConsoleLine(line.index);
             copyStringToLine(&line, recallPrevious(&list));
             displayContent(&line);
           }
           else if(ac == ARROW_DOWN)
           {
+            //moveCursorToEnd(&line);
             clearConsoleLine(line.index);
             copyStringToLine(&line, recallNext(&list));
             displayContent(&line);

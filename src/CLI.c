@@ -74,6 +74,12 @@ void copyStringToLine(Line *line, char *str)
   line->buffer[line->index] = '\0';
 }
 
+void moveCursorToEnd(Line *line)
+{
+  while(line->buffer[line->index] != '\0')
+    line->index++;
+}
+
 /*void printBufferTill(Line *line)
 {
 	for(int i=0; i<=line->index ;i++)

@@ -22,5 +22,6 @@ void getKeyPressed(void);
 int isEscapeKey(int code);
 void insertTab(Line *line);
 int isLineEmpty(Line *line);
+void clearPreviousRecord();
 
 #endif // _KEYANDCONSOLE_H

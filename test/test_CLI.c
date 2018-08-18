@@ -12,7 +12,7 @@ void setUp(void){}
 
 void tearDown(void){}
 
-void xtest_LinkedListAddToTail_given_third_item_expect_inserted(void)
+void test_LinkedListAddToTail_given_third_item_expect_inserted(void)
 {
   char *str;
   Line line1 = {"Hello", 5, 0};
@@ -123,6 +123,57 @@ void test_processLine_given_4_line_expect_the_first_list_deleted(void)
   processLine(&history, &line1);
   processLine(&history, &line2);
   processLine(&history, &line3);
+  processLine(&history, &line4);
+
+  TEST_ASSERT_EQUAL_STRING("world", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("smile", history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.head->next->next->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line4.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->prev->data);
+  TEST_ASSERT_EQUAL(3, history.count);
+}
+
+void test_processLine_given_4_line_seperately_expect_the_first_list_deleted(void)
+{
+  LinkedList history;
+  Line line1 = {"hello", 5, 0};
+  Line line2 = {"world", 5, 0};
+  Line line3 = {"haha", 4, 0};
+  Line line4 = {"smile", 5, 0};
+
+  LinkedListInit(&history);
+  processLine(&history, &line1);
+  processLine(&history, &line2);
+
+  TEST_ASSERT_EQUAL_STRING("hello", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("world", history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL(2, history.count);
+
+  processLine(&history, &line3);
+
+  TEST_ASSERT_EQUAL_STRING("hello", history.head->data);
+  TEST_ASSERT_EQUAL_STRING("haha", history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.head->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.head->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->next->next->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.head->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, history.tail->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->next->data);
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
+  TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->prev->data);
+  TEST_ASSERT_EQUAL(3, history.count);
+
   processLine(&history, &line4);
 
   TEST_ASSERT_EQUAL_STRING("world", history.head->data);
@@ -296,9 +347,9 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
 {
   Line line = {{'h','e','l','l','o'},5};
 
-  //printf("before clear buffer : %s\n",line.buffer);
+  printf("before clear buffer : %s\n",line.buffer);
   clearBuffer(&line);
-  //printf("after clear buffer : %s",line.buffer);
+  printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL(0, line.buffer[line.index]);
   TEST_ASSERT_EQUAL(5,line.last_index);
