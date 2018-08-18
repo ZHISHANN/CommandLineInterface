@@ -140,13 +140,13 @@ int isEscapeKey(int code)
 
 int isLineEmpty(Line *line)
 {
-  if(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
-  {
-    while(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
-      line->index++;
-  }
-  else
-    return 0;
+  line->index--;
+  do{
+    if(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
+      line->index--;
+    else
+      return 0;
+  }while(line->buffer[line->index] != 0);
 
   return 1;
 }
