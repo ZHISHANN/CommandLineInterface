@@ -154,8 +154,6 @@ void test_LinkedListRemoveFromHead_given_item1_and_item2_with_delete_item1_expec
   TEST_ASSERT_EQUAL(&item2, list.tail);
   TEST_ASSERT_EQUAL(&item2, list.head->next);
   TEST_ASSERT_EQUAL(&item2, list.tail->prev);
-  TEST_ASSERT_EQUAL(NULL, item1.next);
-  TEST_ASSERT_EQUAL(NULL, item1.prev);
   TEST_ASSERT_EQUAL(1, list.count);
 }
 
@@ -185,8 +183,6 @@ void test_LinkedListRemoveFromHead_given_char_type_item1_and_item2_and_item3_wit
   TEST_ASSERT_EQUAL_STRING("hey", list.tail->data);
   TEST_ASSERT_EQUAL(&item2, list.head);
   TEST_ASSERT_EQUAL(&item3, list.tail);
-  TEST_ASSERT_EQUAL(NULL, item1.next);
-  TEST_ASSERT_EQUAL(NULL, item1.prev);
   TEST_ASSERT_EQUAL(&item3, list.head->next);
   TEST_ASSERT_EQUAL(&item3, list.head->prev);
   TEST_ASSERT_EQUAL(&item2, list.tail->next);

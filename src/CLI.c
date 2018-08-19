@@ -11,8 +11,8 @@ int Max_History = 3;
 
 void processLine(LinkedList *list, Line *line)
 {
-  char *input = strdup(line->buffer);
-  ListItem *item = CreateListItem((void *)input);
+  //const char *input = strdup(line->buffer);
+  ListItem *item = CreateListItem((void *)(line->buffer));
   LinkedListAddToTail(list,item);
 
   if(list->count > Max_History)
@@ -30,6 +30,8 @@ void processBackspace(Line *line)
 
 void moveLeft(Line *line)
 {
+  line->last_index = strlen(line->buffer);
+
   if (line->index <= 0)
     line->index = 0;
   else
@@ -52,7 +54,7 @@ void writeToBuffer(Line *line, char ch)
   line->buffer[line->index] = ch;
   line->index++;
   line->buffer[line->index] = '\0';
-  line->last_index = line->index;
+  line->last_index = strlen(line->buffer);
 }
 
 //update last index
@@ -62,7 +64,7 @@ void writeToBuffer(Line *line, char ch)
 //to know how many to clear
 void clearBuffer(Line *line)
 {
-  line->last_index = line->index;
+  line->last_index = strlen(line->buffer);
   line->index = 0;
   line->buffer[line->index] = '\0';
 }
@@ -70,7 +72,7 @@ void clearBuffer(Line *line)
 void copyStringToLine(Line *line, char *str)
 {
   strcpy(line->buffer, str);
-  line->index = strlen(str);
+  line->index = line->last_index = strlen(str);
   line->buffer[line->index] = '\0';
 }
 
