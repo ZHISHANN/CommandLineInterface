@@ -23,5 +23,6 @@ int isEscapeKey(int code);
 void insertTab(Line *line);
 int isLineEmpty(Line *line);
 void clearPreviousRecord();
+void moveCursorToEnd(Line *line);
 
 #endif // _KEYANDCONSOLE_H

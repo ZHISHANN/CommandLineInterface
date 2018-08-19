@@ -42,13 +42,13 @@
   :commmon: &common_defines []
   :test:
     - *common_defines
-    - CEXCEPTION_USE_CONFIG_FILE
+    #- CEXCEPTION_USE_CONFIG_FILE
     - TEST
   :test_preprocess:
     - *common_defines
     - TEST
   :source:
-    - CEXCEPTION_USE_CONFIG_FILE
+    #- CEXCEPTION_USE_CONFIG_FILE
 
 :cmock:
   :mock_prefix: mock_

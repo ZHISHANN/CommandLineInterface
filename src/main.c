@@ -10,6 +10,6 @@ void getKeyPressed(void);
 
 int main()
 {
-  printf("Hello\n");
+  printf("Hello ~ Please Enter Anything.. ^^\n");
   getKeyPressed();
 }

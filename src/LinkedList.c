@@ -9,7 +9,7 @@
 ListItem *recalledItem = NULL;
 
 /*Initialize for storing the data*/
-ListItem *CreateListItem(void *data)
+ListItem *createListItem(void *data)
 {
   ListItem *NewList = malloc(sizeof(ListItem*));
 
@@ -22,13 +22,12 @@ ListItem *CreateListItem(void *data)
 
 /*
 * 1. if head is NULL display error message
-* 2. create a newList
-* 3. free the previous head, assign it to NULL
-* 4. update the head, change the head to the next of the head
-* 5. always assign the next of the tail to the head of the list
-* 6. update the count, everytime decrease by 1
+* 2. if head not NULL, free the previous head, assign it to NULL
+* 3. update the head, change the head to the next of the head
+* 4. always assign the next of the tail to the head of the list
+* 5. update the count, everytime decrease by 1
 */
-ListItem *LinkedListRemoveFromHead(LinkedList *list)
+ListItem *linkedListRemoveFromHead(LinkedList *list)
 {
   LinkedList *NewList;
 
@@ -54,13 +53,19 @@ ListItem *LinkedListRemoveFromHead(LinkedList *list)
 
 /*
 * 1. check the head, if is NULL
-* 2. assign the newList to add into list
-* 3. update the head tail and count for the list
-* 4. if head not NULL
-* 5. find the last node to insert the input data
-* 6. update the tail and count of the list evrytime input
+* 2. assign the ItemToAdd to add into head and tail of list
+* 3. assign the ItemToAdd to head previous and tail
+* 4. assign the ItemToAdd to tail previous and tail
+* 5. update the count for the list
+* 6. if head not NULL
+* 7. insert the new data(ItemToAdd) to the next of the tail
+* 8. assign next of new data to head of list
+* 9. assign prev of new data to tail of list before update the tail of list
+* 10. update the tail of list to new data;
+* 11. assign the previous of head to tail of list
+* 12. update the count of the list evrytime input, increase the count by 1
 */
-ListItem *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
+ListItem *linkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
 
   if(list->head == NULL)
@@ -119,7 +124,7 @@ void resetRecalledItem(LinkedList *list)
 }
 
 /*Initialize the linked list*/
-void LinkedListInit(LinkedList *list)
+void linkedListInit(LinkedList *list)
 {
   list->head = NULL;
   list->tail = NULL;

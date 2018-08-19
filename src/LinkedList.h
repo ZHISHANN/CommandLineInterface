@@ -15,12 +15,12 @@ struct LinkedList{
   int count;
 };
 
-ListItem *LinkedListRemoveFromHead(LinkedList *list);
-ListItem *LinkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
+ListItem *linkedListRemoveFromHead(LinkedList *list);
+ListItem *linkedListAddToTail(LinkedList *list, ListItem *ItemToAdd);
 char *recallPrevious(LinkedList *list);
 char *recallNext(LinkedList *list);
 void resetRecalledItem(LinkedList *list);
-ListItem *CreateListItem(void *data);
-void LinkedListInit(LinkedList *list);
+ListItem *createListItem(void *data);
+void linkedListInit(LinkedList *list);
 
 #endif // _LINKEDLIST_H
