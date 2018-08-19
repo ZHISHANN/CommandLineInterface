@@ -42,12 +42,16 @@ void processBackspace(Line *line)
 }
 
 /*
-*  1. decrease line index if line index does not reach 0
-*  2. set line index cannot less than 0
+*  1. check the user input
+*  2. decrease line index if line index does not reach 0
+*  3. set line index cannot less than 0
 */
 void moveLeft(Line *line)
 {
   line->last_index = strlen(line->buffer);
+
+  if(line->buffer == '\0')
+    line->index = 0;
 
   if (line->index <= 0)
     line->index = 0;
@@ -76,10 +80,13 @@ void moveRight(Line *line)
 */
 void writeToBuffer(Line *line, char ch)
 {
-  line->buffer[line->index] = ch;
-  line->index++;
-  line->buffer[line->index] = '\0';
-  line->last_index = strlen(line->buffer);
+  if(ch != '\0')
+  {
+    line->buffer[line->index] = ch;
+    line->index++;
+    line->buffer[line->index] = '\0';
+    line->last_index = strlen(line->buffer);
+  }
 }
 
 /* 1. update last index, when index move to front
@@ -95,11 +102,15 @@ void clearBuffer(Line *line)
 }
 
 /*
-*  1. copy every input data to buffer
+*  1. check the input data
+*  2. copy every input data to buffer
 */
 void copyStringToLine(Line *line, char *str)
 {
-  strcpy(line->buffer, str);
-  line->index = line->last_index = strlen(str);
-  line->buffer[line->index] = '\0';
+  if(str != '\0')
+  {
+    strcpy(line->buffer, str);
+    line->index = line->last_index = strlen(str);
+    line->buffer[line->index] = '\0';
+  }
 }

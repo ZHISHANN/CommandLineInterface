@@ -12,7 +12,7 @@ void setUp(void){}
 
 void tearDown(void){}
 
-/*void test_given_happy_eat_hahahahahaha_then_move_left_2_time_and_recallPrevious_1_time_expect_return_eat(void)
+void test_given_happy_eat_hahahahahaha_then_move_left_2_time_and_recallPrevious_2_time_expect_return_eat(void)
 {
   LinkedList history;
   Line line1 = {"happy", 5, 5};
@@ -36,12 +36,15 @@ void tearDown(void){}
   TEST_ASSERT_EQUAL_STRING(line2.buffer, history.tail->prev->data);
   TEST_ASSERT_EQUAL_STRING(line1.buffer, history.tail->prev->prev->data);
   TEST_ASSERT_EQUAL(3, history.count);
+
+  moveLeft(&line3);
+  moveLeft(&line3);
+
+  TEST_ASSERT_EQUAL(10, line3.index);
+
+  TEST_ASSERT_EQUAL_STRING(line3.buffer, recallPrevious(&history));
+  TEST_ASSERT_EQUAL_STRING(line2.buffer, recallPrevious(&history));
 }
-
-void xtest_given_happy_eat_hahahahha_then_move_left_3_time_and_escape_expect_blank_shown(void)
-{
-
-}*/
 
 void test_linkedListAddToTail_given_third_item_expect_inserted(void)
 {
@@ -53,6 +56,7 @@ void test_linkedListAddToTail_given_third_item_expect_inserted(void)
   ListItem item2 = {"Hi"};
   ListItem item1 = {"Hello"};
   LinkedList list = {NULL, NULL, 0};
+  resetRecalledItem(&list);
 
   linkedListAddToTail(&list, &item1);
   linkedListAddToTail(&list, &item2);
@@ -261,6 +265,37 @@ void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
+void test_processBackspace_given_empty_line(void)
+{
+  Line line = {{'\0'},0,0};
+
+  processBackspace(&line);
+  processBackspace(&line);
+
+  TEST_ASSERT_EQUAL_STRING("", line.buffer);
+  TEST_ASSERT_EQUAL(0, line.index);
+}
+
+void test_moveLeft_given_empty_line_but_at_index_2_expect_index_equal_0(void)
+{
+  Line line = {{'\0'},2,0};
+
+  moveLeft(&line);
+  moveLeft(&line);
+
+  TEST_ASSERT_EQUAL(0, line.index);
+}
+
+void test_moveLeft_given_empty_line(void)
+{
+  Line line = {{'\0'},0,0};
+
+  moveLeft(&line);
+  moveLeft(&line);
+
+  TEST_ASSERT_EQUAL(0, line.index);
+}
+
 void test_moveLeft_given_happy_and_move_left_1_time(void)
 {
   Line line = {{'h','e','l','l','o'}, 5};
@@ -301,6 +336,26 @@ void test_moveLeft_given_happy_and_move_left_6_time(void)
   TEST_ASSERT_EQUAL(0, line.index);
   TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL('\0', line.buffer[5]);
+}
+
+void test_moveRight_given_empty_line_but_at_index_2_expect_index_equal_0(void)
+{
+  Line line = {{'\0'},2,0};
+
+  moveRight(&line);
+  moveRight(&line);
+
+  TEST_ASSERT_EQUAL(0, line.index);
+}
+
+void test_moveRight_given_empty_line(void)
+{
+  Line line = {{'\0'},0,0};
+
+  moveRight(&line);
+  moveRight(&line);
+
+  TEST_ASSERT_EQUAL(0, line.index);
 }
 
 void test_moveRight_given_happy_and_move_right_1_time(void)
@@ -378,6 +433,30 @@ void test_writeToBuffer_given_hello_and_smile_in_line_expect_smile_write_into_bu
   TEST_ASSERT_EQUAL(10,line.last_index);
 }
 
+void test_writeToBuffer_given_smile_and_insert_NULL_expect_smile_in_buffer(void)
+{
+  Line line = {"smile",5,5};
+
+  writeToBuffer(&line,'\0');
+
+  TEST_ASSERT_EQUAL_STRING("smile", line.buffer);
+  TEST_ASSERT_EQUAL('\0',line.buffer[5]);
+  TEST_ASSERT_EQUAL(5,line.index);
+  TEST_ASSERT_EQUAL(5,line.last_index);
+}
+
+void test_clearBuffer_given_empty_line(void)
+{
+  Line line = {{'\0'},5,0};
+
+  printf("before clear buffer : %s\n",line.buffer);
+  clearBuffer(&line);
+  printf("after clear buffer : %s",line.buffer);
+  TEST_ASSERT_EQUAL(0,line.index);
+  TEST_ASSERT_EQUAL('\0', line.buffer[line.index]);
+  TEST_ASSERT_EQUAL(0,line.last_index);
+}
+
 void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
 {
   Line line = {{'h','e','l','l','o'},5};
@@ -398,6 +477,15 @@ void test_copyStringToLine_given_space_and_insert_new_data_expect_data_inserted(
   TEST_ASSERT_EQUAL('\0', line.buffer[5]);
   TEST_ASSERT_EQUAL_STRING("smile", line.buffer);
   TEST_ASSERT_EQUAL(5, line.index);
+}
+
+void test_copyStringToLine_given_good_and_insert_empty_line_expect_good_display(void)
+{
+  Line line = {"good",4,4};
+  copyStringToLine(&line,'\0');
+
+  TEST_ASSERT_EQUAL_STRING("good", line.buffer);
+  TEST_ASSERT_EQUAL(4, line.index);
 }
 
 void test_copyStringToLine_given_happy_and_together_data_expect_happy_display(void)

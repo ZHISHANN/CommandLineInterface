@@ -7,57 +7,6 @@
 #include <conio.h>
 #include <ctype.h>
 
-void backspaceOnConsole()
-{
-  printf("\b \b");
-}
-
-void displayContent(Line *line)
-{
-  printf("\r%s",line->buffer);
-}
-
-void clearConsoleLine(int num)
-{
-  while(num >= 0)
-  {
-    backspaceOnConsole();
-    num--;
-  }
-}
-
-void clearPreviousRecord()
-{
-	printf("\r");
-	for(int i=0; i<79; i++)
-	{
-		printf(" ");
-	}
-  printf("\r");
-}
-
-void insertTab(Line *line)
-{
-  int num = 0;
-
-  while(num <= 4)
-  {
-    writeToBuffer(line, ' ');
-    num++;
-  }
-}
-
-void moveLeftOnConsole(Line *line)
-{
-  printf("\b");
-}
-
-void moveRightOnConsole(Line *line)
-{
-  if(line->buffer[line->index] != '\0')
-    printf("%c",line->buffer[line->index]);
-}
-
 void getKeyPressed(void)
 {
   uint8_t c, ac;
@@ -67,7 +16,6 @@ void getKeyPressed(void)
   ListItem item2 = {(void *)buffer2};
   ListItem item1 = {(void *)buffer1, &item2, &item2};
   LinkedList list = {&item1, &item2, 2};
-  //LinkedList list = {NULL, NULL, 0};
   item2.next = &item1;
   item2.prev = &item1;
 
@@ -136,7 +84,8 @@ void getKeyPressed(void)
       else
       {
         processLine(&list, &line);
-        clearConsoleLine(line.index);
+        moveCursorToEnd(&line);
+        clearPreviousRecord();
         clearBuffer(&line);
       }
     }
@@ -168,4 +117,55 @@ void moveCursorToEnd(Line *line)
 {
   while(line->buffer[line->index] != '\0')
     line->index++;
+}
+
+void backspaceOnConsole()
+{
+  printf("\b \b");
+}
+
+void displayContent(Line *line)
+{
+  printf("\r%s",line->buffer);
+}
+
+void clearConsoleLine(int num)
+{
+  while(num >= 0)
+  {
+    backspaceOnConsole();
+    num--;
+  }
+}
+
+void clearPreviousRecord()
+{
+	printf("\r");
+	for(int i=0; i<79; i++)
+	{
+		printf(" ");
+	}
+  printf("\r");
+}
+
+void insertTab(Line *line)
+{
+  int num = 0;
+
+  while(num <= 4)
+  {
+    writeToBuffer(line, ' ');
+    num++;
+  }
+}
+
+void moveLeftOnConsole(Line *line)
+{
+  printf("\b");
+}
+
+void moveRightOnConsole(Line *line)
+{
+  if(line->buffer[line->index] != '\0')
+    printf("%c",line->buffer[line->index]);
 }
