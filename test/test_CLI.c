@@ -276,16 +276,6 @@ void test_processBackspace_given_empty_line(void)
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
-void test_moveLeft_given_empty_line_but_at_index_2_expect_index_equal_0(void)
-{
-  Line line = {{'\0'},2,0};
-
-  moveLeft(&line);
-  moveLeft(&line);
-
-  TEST_ASSERT_EQUAL(0, line.index);
-}
-
 void test_moveLeft_given_empty_line(void)
 {
   Line line = {{'\0'},0,0};
@@ -294,6 +284,15 @@ void test_moveLeft_given_empty_line(void)
   moveLeft(&line);
 
   TEST_ASSERT_EQUAL(0, line.index);
+}
+
+void test_moveLeft_given_me_then_moveLeft_1_time_expect_index_equal_1(void)
+{
+  Line line = {"me" ,2};
+
+  moveLeft(&line);
+
+  TEST_ASSERT_EQUAL(1, line.index);
 }
 
 void test_moveLeft_given_happy_and_move_left_1_time(void)
@@ -338,14 +337,15 @@ void test_moveLeft_given_happy_and_move_left_6_time(void)
   TEST_ASSERT_EQUAL('\0', line.buffer[5]);
 }
 
-void test_moveRight_given_empty_line_but_at_index_2_expect_index_equal_0(void)
+void test_moveRight_and_moveLeft_given_me_then_move_left_2_time_move_right_1_time_expect_index_equal_1(void)
 {
-  Line line = {{'\0'},2,0};
+  Line line = {"me", 2};
 
-  moveRight(&line);
+  moveLeft(&line);
+  moveLeft(&line);
   moveRight(&line);
 
-  TEST_ASSERT_EQUAL(0, line.index);
+  TEST_ASSERT_EQUAL(1, line.index);
 }
 
 void test_moveRight_given_empty_line(void)

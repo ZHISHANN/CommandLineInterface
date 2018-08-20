@@ -7,6 +7,20 @@
 #include <conio.h>
 #include <ctype.h>
 
+/*
+*  1. Initialize line as empty
+*  2. pre-define some item in the linked list
+*  3. get the user input
+*  4. check th user input ctrl c key or not
+*  5. if not, check the user input is enter or not
+*  6. if not enter, check the user input is special key or not
+*  7. after that, check user input is backspace/tab key/escape key/ctrl c key or not
+*  8. do the relevant process for each user input
+*  9. if user input enter, check the user input with an empty line or not
+*  10. if user enter with an empty line, do not save it in buffer
+*  11. else save the user input into buffer
+*  12. if the user input ctrl c key, stop the process and get out from the loop
+*/
 void getKeyPressed(void)
 {
   uint8_t c, ac;
