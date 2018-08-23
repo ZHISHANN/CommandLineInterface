@@ -116,13 +116,14 @@ int isEscapeKey(int code)
 
 int isLineEmpty(Line *line)
 {
-  line->index--;
+  int index = line->index;
+  index--;
   do{
-    if(line->buffer[line->index] == '\n' || line->buffer[line->index] == '\t' || line->buffer[line->index] == ' ' || line->buffer[line->index] == '\0')
-      line->index--;
+    if(line->buffer[index] == '\n' || line->buffer[index] == '\t' || line->buffer[index] == ' ' || line->buffer[index] == '\0')
+      index--;
     else
       return 0;
-  }while(line->buffer[line->index] != 0);
+  }while(line->buffer[index] != 0);
 
   return 1;
 }
@@ -165,12 +166,30 @@ void clearPreviousRecord()
 void insertTab(Line *line)
 {
   int num = 0;
+  int i;
+  int index;
+  index = strlen(line->buffer) + 4;
+  char *temp_data;
+  temp_data = malloc(temp_data);
 
-  while(num <= 4)
+  if(line->index != strlen(line->buffer))
+    for(i = line->index; i < strlen(line->buffer); i++)
+      temp_data[i] = line->buffer[i];
+
+  while(num < 4)
   {
     writeToBuffer(line, ' ');
     num++;
   }
+
+  for(int j = line->index; j<= index; j++)
+  {
+    i--;
+    line->buffer[j] = temp_data[i];
+  }
+
+  line->index = index;
+  //free(temp_data);
 }
 
 void moveLeftOnConsole(Line *line)

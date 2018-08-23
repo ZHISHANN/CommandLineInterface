@@ -29,8 +29,6 @@ ListItem *createListItem(void *data)
 */
 ListItem *linkedListRemoveFromHead(LinkedList *list)
 {
-  LinkedList *NewList;
-
   if(list->head == NULL)
     printf("Deletion is not possible..");
   else if(list->count == 1)
@@ -67,7 +65,6 @@ ListItem *linkedListRemoveFromHead(LinkedList *list)
 */
 ListItem *linkedListAddToTail(LinkedList *list, ListItem *ItemToAdd)
 {
-
   if(list->head == NULL)
   {
     list->head = ItemToAdd;

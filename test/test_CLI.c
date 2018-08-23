@@ -548,3 +548,40 @@ void test_isLineEmpty_given_value_and_space_in_between_expect_return_0(void)
 
   TEST_ASSERT_EQUAL(0,rtn);
 }
+
+void test_insertTab_given_sad_moveLeft_once_then_tab_once_expect_index_equal_7(void)
+{
+  Line line = {"sad",3,3};
+
+  moveLeft(&line);
+  TEST_ASSERT_EQUAL(2, line.index);
+  printf("before : %s\n",line.buffer);
+  insertTab(&line);
+  printf("after : %s",line.buffer);
+  TEST_ASSERT_EQUAL(7, line.index);
+}
+
+void test_insertTab_given_sad_then_tab_once_expect_index_equal_7(void)
+{
+  Line line = {"sad",3,3};
+
+  TEST_ASSERT_EQUAL(3, line.index);
+  printf("before : %s\n",line.buffer);
+  insertTab(&line);
+  printf("after : %s",line.buffer);
+  TEST_ASSERT_EQUAL(7, line.index);
+}
+
+void test_insertTab_given_wanna_moveLeft_twice_then_tab_twice_expect_index_equal_13(void)
+{
+  Line line = {"wanna",5,5};
+
+  moveLeft(&line);
+  moveLeft(&line);
+  TEST_ASSERT_EQUAL(3, line.index);
+  printf("before : %s\n",line.buffer);
+  insertTab(&line);
+  //insertTab(&line);
+  printf("after : %s",line.buffer);
+  TEST_ASSERT_EQUAL(13, line.index);
+}
