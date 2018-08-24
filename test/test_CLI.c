@@ -558,7 +558,7 @@ void test_insertTab_given_sad_moveLeft_once_then_tab_once_expect_index_equal_7(v
   printf("before : %s\n",line.buffer);
   insertTab(&line);
   printf("after : %s",line.buffer);
-  TEST_ASSERT_EQUAL(7, line.index);
+  TEST_ASSERT_EQUAL(6, line.index);
 }
 
 void test_insertTab_given_sad_then_tab_once_expect_index_equal_7(void)
@@ -572,21 +572,16 @@ void test_insertTab_given_sad_then_tab_once_expect_index_equal_7(void)
   TEST_ASSERT_EQUAL(7, line.index);
 }
 
-void test_insertTab_given_wanna_moveLeft_twice_then_tab_twice_expect_index_equal_13(void)
+void test_insertTab_given_wanna_moveLeft_twice_then_tab_twice_expect_index_equal_11(void)
 {
   Line line = {"wanna",5,5};
 
   moveLeft(&line);
   moveLeft(&line);
   TEST_ASSERT_EQUAL(3, line.index);
-  //printf("before : %s\n",line.buffer);
+  printf("before : %s\n",line.buffer);
   insertTab(&line);
-  //printf("after : %s\n",line.buffer);
-  TEST_ASSERT_EQUAL(9, line.index);
-  moveLeft(&line);
-  moveLeft(&line);
-  TEST_ASSERT_EQUAL(7, line.index);
   insertTab(&line);
-  //printf("after : %s\n",line.buffer);
-  TEST_ASSERT_EQUAL(13, line.index);
+  printf("after : %s\n",line.buffer);
+  TEST_ASSERT_EQUAL(11, line.index);
 }

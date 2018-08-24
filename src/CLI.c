@@ -53,10 +53,10 @@ void moveLeft(Line *line)
   if(line->buffer == '\0')
     line->index = 0;
 
-  if (line->index <= 0)
-    line->index = 0;
-  else
+  if(line->index != 0)
     line->index--;
+  else
+    line->index = 0;
 }
 
 /*
@@ -65,12 +65,9 @@ void moveLeft(Line *line)
 */
 void moveRight(Line *line)
 {
-  if (line->index == 0 && line->last_index == 0)
-    line->last_index = strlen(line->buffer);
-
-  if (line->index >= line->last_index || (line->buffer[line->index] == '\0'))
-    line->index = line->last_index;
-  else
+  line->last_index = strlen(line->buffer);
+  
+  if(line->buffer[line->index] != '\0')
     line->index++;
 }
 

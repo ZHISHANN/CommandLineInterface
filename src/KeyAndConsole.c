@@ -45,13 +45,13 @@ void getKeyPressed(void)
           ac = getch();
           if(ac == ARROW_LEFT)
           {
-            moveLeftOnConsole(&line);
             moveLeft(&line);
+            displayCursor(&line);
           }
           else if(ac == ARROW_RIGHT)
           {
-            moveRightOnConsole(&line);
             moveRight(&line);
+            displayCursor(&line);
           }
           else if(ac == ARROW_UP)
           {
@@ -77,6 +77,7 @@ void getKeyPressed(void)
       {
         insertTab(&line);
         displayContent(&line);
+        displayCursor(&line);
       }
       else if(c == ESC)
       {
@@ -143,7 +144,16 @@ void backspaceOnConsole()
 
 void displayContent(Line *line)
 {
-  printf("\r%s",line->buffer);
+  printf("\r%s", line->buffer);
+}
+
+void displayCursor(Line *line)
+{
+  printf("\r");
+	for(int i = 0; i < line->index; i++)
+	{
+		printf("%c", line->buffer[i]);
+	}
 }
 
 void clearConsoleLine(int num)
@@ -165,6 +175,13 @@ void clearPreviousRecord()
   printf("\r");
 }
 
+/*
+*  1. check the index is at the last index or not
+*  2. if not, save all the character in the current index until the last index
+*  3. do the tab process, with increase the index by 4
+*  4. take out the character that save before tab process, save all of it to the buffer again
+*  5. update the index
+*/
 void insertTab(Line *line)
 {
   int num;
@@ -196,16 +213,4 @@ void insertTab(Line *line)
     line->buffer[j] = temp_data[i];
     i++;
   }
-  line->index = j;
-}
-
-void moveLeftOnConsole(Line *line)
-{
-  printf("\b");
-}
-
-void moveRightOnConsole(Line *line)
-{
-  if(line->buffer[line->index] != '\0')
-    printf("%c",line->buffer[line->index]);
 }
