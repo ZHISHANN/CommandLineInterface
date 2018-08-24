@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include <conio.h>
 #include <ctype.h>
+#include <string.h>
+#include <malloc.h>
 
 /*
 *  1. Initialize line as empty
@@ -165,31 +167,36 @@ void clearPreviousRecord()
 
 void insertTab(Line *line)
 {
-  int num = 0;
-  int i;
+  int num;
+  int i, j;
   int index;
   index = strlen(line->buffer) + 4;
   char *temp_data;
-  temp_data = malloc(temp_data);
+  temp_data = malloc(4096);
+  int current_index = line->index;
 
   if(line->index != strlen(line->buffer))
-    for(i = line->index; i < strlen(line->buffer); i++)
-      temp_data[i] = line->buffer[i];
+  {
+    i = 0;
+    do{
+      temp_data[i] = line->buffer[current_index];
+      current_index++;
+      i++;
+    }while(line->buffer[current_index] != '\0');
+  }
 
-  while(num < 4)
+  for(num = 0; num < 4; num++)
   {
     writeToBuffer(line, ' ');
-    num++;
   }
 
-  for(int j = line->index; j<= index; j++)
+  i = 0;
+  for(j = line->index; j < index; j++)
   {
-    i--;
     line->buffer[j] = temp_data[i];
+    i++;
   }
-
-  line->index = index;
-  //free(temp_data);
+  line->index = j;
 }
 
 void moveLeftOnConsole(Line *line)

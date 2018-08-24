@@ -579,9 +579,14 @@ void test_insertTab_given_wanna_moveLeft_twice_then_tab_twice_expect_index_equal
   moveLeft(&line);
   moveLeft(&line);
   TEST_ASSERT_EQUAL(3, line.index);
-  printf("before : %s\n",line.buffer);
+  //printf("before : %s\n",line.buffer);
   insertTab(&line);
-  //insertTab(&line);
-  printf("after : %s",line.buffer);
+  //printf("after : %s\n",line.buffer);
+  TEST_ASSERT_EQUAL(9, line.index);
+  moveLeft(&line);
+  moveLeft(&line);
+  TEST_ASSERT_EQUAL(7, line.index);
+  insertTab(&line);
+  //printf("after : %s\n",line.buffer);
   TEST_ASSERT_EQUAL(13, line.index);
 }
