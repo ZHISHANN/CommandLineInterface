@@ -445,6 +445,17 @@ void test_writeToBuffer_given_smile_and_insert_NULL_expect_smile_in_buffer(void)
   TEST_ASSERT_EQUAL(5,line.last_index);
 }
 
+void test_writeToBuffer_given_abcd_moveLeft_twice_replace_c_with_a_expect_return_abac(void)
+{
+  Line line = {"abcd",4,4};
+
+  moveLeft(&line);
+  moveLeft(&line);
+  writeToBuffer(&line,'a');
+
+  TEST_ASSERT_EQUAL_STRING("abad", line.buffer);
+}
+
 void test_clearBuffer_given_empty_line(void)
 {
   Line line = {{'\0'},5,0};

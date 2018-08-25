@@ -20,6 +20,8 @@ int Max_History = 3;
 void processLine(LinkedList *list, Line *line)
 {
   char *input = malloc(4096);
+  while(line->buffer[line->index] != '\0')
+    line->index++;
   strcpy(input, line->buffer);
   ListItem *item = createListItem((void *)(input));
   linkedListAddToTail(list,item);
@@ -66,7 +68,7 @@ void moveLeft(Line *line)
 void moveRight(Line *line)
 {
   line->last_index = strlen(line->buffer);
-  
+
   if(line->buffer[line->index] != '\0')
     line->index++;
 }
@@ -77,13 +79,13 @@ void moveRight(Line *line)
 */
 void writeToBuffer(Line *line, char ch)
 {
-  if(ch != '\0')
+  if(ch != '\0' ||line->index != line->last_index)
   {
     line->buffer[line->index] = ch;
     line->index++;
-    line->buffer[line->index] = '\0';
-    line->last_index = strlen(line->buffer);
   }
+  line->last_index = strlen(line->buffer);
+  line->buffer[line->last_index] = '\0';
 }
 
 /* 1. update last index, when index move to front
