@@ -566,9 +566,9 @@ void test_insertTab_given_sad_moveLeft_once_then_tab_once_expect_index_equal_7(v
 
   moveLeft(&line);
   TEST_ASSERT_EQUAL(2, line.index);
-  printf("before : %s\n",line.buffer);
+  //printf("before : %s\n",line.buffer);
   insertTab(&line);
-  printf("after : %s",line.buffer);
+  //printf("after : %s",line.buffer);
   TEST_ASSERT_EQUAL(6, line.index);
 }
 
@@ -577,9 +577,9 @@ void test_insertTab_given_sad_then_tab_once_expect_index_equal_7(void)
   Line line = {"sad",3,3};
 
   TEST_ASSERT_EQUAL(3, line.index);
-  printf("before : %s\n",line.buffer);
+  //printf("before : %s\n",line.buffer);
   insertTab(&line);
-  printf("after : %s",line.buffer);
+  //printf("after : %s",line.buffer);
   TEST_ASSERT_EQUAL(7, line.index);
 }
 
@@ -590,9 +590,51 @@ void test_insertTab_given_wanna_moveLeft_twice_then_tab_twice_expect_index_equal
   moveLeft(&line);
   moveLeft(&line);
   TEST_ASSERT_EQUAL(3, line.index);
-  printf("before : %s\n",line.buffer);
+  //printf("before : %s\n",line.buffer);
   insertTab(&line);
   insertTab(&line);
-  printf("after : %s\n",line.buffer);
+  //printf("after : %s\n",line.buffer);
   TEST_ASSERT_EQUAL(11, line.index);
+}
+
+void test_insertKey_given_abde_moveLeft_twice_insert_c_expect_return_abcde(void)
+{
+  Line line = {"abde",4,4};
+
+  moveLeft(&line);
+  moveLeft(&line);
+  insertKey(&line);
+  writeToBuffer(&line,'c');
+
+  TEST_ASSERT_EQUAL_STRING("abcde", line.buffer);
+  TEST_ASSERT_EQUAL(3, line.index);
+  TEST_ASSERT_EQUAL(5, line.last_index);
+}
+
+void test_insertKey_given_abc_insert_d_expect_return_abcd(void)
+{
+  Line line = {"abc",3,3};
+
+  insertKey(&line);
+  writeToBuffer(&line,'d');
+
+  TEST_ASSERT_EQUAL_STRING("abcd", line.buffer);
+  TEST_ASSERT_EQUAL(4, line.index);
+  TEST_ASSERT_EQUAL(4, line.last_index);
+}
+
+void test_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
+{
+  Line line = {"abef",4,4};
+
+  moveLeft(&line);
+  moveLeft(&line);
+  insertKey(&line);
+  writeToBuffer(&line,'c');
+  insertKey(&line);
+  writeToBuffer(&line,'d');
+
+  TEST_ASSERT_EQUAL_STRING("abcdef", line.buffer);
+  TEST_ASSERT_EQUAL(4, line.index);
+  TEST_ASSERT_EQUAL(6, line.last_index);
 }

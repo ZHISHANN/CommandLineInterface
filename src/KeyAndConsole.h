@@ -24,5 +24,6 @@ int isLineEmpty(Line *line);
 void clearPreviousRecord();
 void moveCursorToEnd(Line *line);
 void displayCursor(Line *line);
+void insertKey(Line *line);
 
 #endif // _KEYANDCONSOLE_H

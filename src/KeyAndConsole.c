@@ -67,6 +67,10 @@ void getKeyPressed(void)
             copyStringToLine(&line, recallNext(&list));
             displayContent(&line);
           }
+          else if(ac == KEY_INSERT)
+          {
+            insertKey(&line);
+          }
       }
       else if(c == KEY_BACKSPACE)
       {
@@ -89,6 +93,7 @@ void getKeyPressed(void)
       {
         writeToBuffer(&line, c);
         displayContent(&line);
+        displayCursor(&line);
       }
     }
     else
@@ -212,5 +217,33 @@ void insertTab(Line *line)
   {
     line->buffer[j] = temp_data[i];
     i++;
+  }
+}
+
+/*
+*  1. 
+*/
+void insertKey(Line *line)
+{
+  char *temp_data;
+  temp_data = malloc(4096);
+  int current_index = line->index;
+  int new_index = line->index + 1;
+  int i,j;
+
+  if(line->index != strlen(line->buffer))
+  {
+    i = 0;
+    do{
+      temp_data[i] = line->buffer[current_index];
+      current_index++;
+      i++;
+    }while(line->buffer[current_index] != '\0');
+  }
+
+  for(j = 0; j < i ; j++)
+  {
+    line->buffer[new_index] = temp_data[j];
+    new_index++;
   }
 }

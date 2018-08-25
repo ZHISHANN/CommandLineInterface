@@ -79,7 +79,7 @@ void moveRight(Line *line)
 */
 void writeToBuffer(Line *line, char ch)
 {
-  if(ch != '\0' ||line->index != line->last_index)
+  if(ch != '\0' || line->index != line->last_index)
   {
     line->buffer[line->index] = ch;
     line->index++;
