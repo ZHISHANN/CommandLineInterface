@@ -92,7 +92,8 @@ void getKeyPressed(void)
       }
       else if(c == ESC)
       {
-        clearConsoleLine(line.index);
+        moveCursorToEnd(&line);
+        clearPreviousRecord();
         clearBuffer(&line);
       }
       else if(c != CTRL_C)

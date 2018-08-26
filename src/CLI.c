@@ -117,9 +117,15 @@ void writeToBuffer(Line *line, char ch)
 */
 void clearBuffer(Line *line)
 {
+  int i;
   line->last_index = strlen(line->buffer);
-  line->index = 0;
-  line->buffer[line->index] = '\0';
+  for(i = 0; i <= line->last_index; i++)
+  {
+    line->buffer[i] = '\0';
+    line->index--;
+  }
+  if(line->index <= 0)
+    line->index = 0;
 }
 
 /*

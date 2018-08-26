@@ -2,11 +2,11 @@
 #include "CLI.h"
 #include "LinkedList.h"
 #include "UserDefined.h"
+#include "KeyAndConsole.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
-#include "KeyAndConsole.h"
 
 void setUp(void){}
 
@@ -467,9 +467,22 @@ void test_writeToBuffer_given_abcd_moveLeft_twice_replace_c_with_a_expect_return
   TEST_ASSERT_EQUAL_STRING("abad", line.buffer);
 }
 
+void test_writeToBuffer_given_abcd_then_clearBuffer_and_add_mama_expect_return_mama(void)
+{
+  Line line = {"abcd",4,4};
+
+  clearBuffer(&line);
+  writeToBuffer(&line,'m');
+  writeToBuffer(&line,'a');
+  writeToBuffer(&line,'m');
+  writeToBuffer(&line,'a');
+
+  TEST_ASSERT_EQUAL_STRING("mama", line.buffer);
+}
+
 void test_clearBuffer_given_empty_line(void)
 {
-  Line line = {{'\0'},5,0};
+  Line line = {{'\0'},0,0};
 
   printf("before clear buffer : %s\n",line.buffer);
   clearBuffer(&line);
@@ -488,7 +501,7 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
   printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL('\0', line.buffer[line.index]);
-  TEST_ASSERT_EQUAL(5,line.last_index);
+  //TEST_ASSERT_EQUAL(5,line.last_index);
 }
 
 void test_copyStringToLine_given_space_and_insert_new_data_expect_data_inserted(void)
