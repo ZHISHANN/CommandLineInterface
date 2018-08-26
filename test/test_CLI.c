@@ -276,6 +276,17 @@ void test_processBackspace_given_empty_line(void)
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
+void test_processBackspace_given_abcd_moveLeft_twice_then_backspace_once_expect_return_acd(void)
+{
+  Line line = {"abcd",4,4};
+
+    moveLeft(&line);
+    moveLeft(&line);
+    processBackspace(&line);
+
+    TEST_ASSERT_EQUAL_STRING("acd", line.buffer);
+}
+
 void test_moveLeft_given_empty_line(void)
 {
   Line line = {{'\0'},0,0};

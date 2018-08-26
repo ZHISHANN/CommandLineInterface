@@ -31,16 +31,38 @@ void processLine(LinkedList *list, Line *line)
 }
 
 /*
-*  1. replace all the data in buffer to NULL
-*  2. set line index cannot less than 0
+*  1. check the index must not equal to 0
+*  2. check the wheather the index is equal to last index or not
+*  3. if not, replace all the data in index with the data of next of the index
+*  4. put a NULL to data in index when index was larger than last index
+*  5. if index and last index was equal, decrease index by 1 and put in NULL
 */
 void processBackspace(Line *line)
 {
-  line->index--;
-  line->buffer[line->index] = '\0';
+  int index = line->index - 1;
+  int current_index = line->index;
 
-  if(line->index < 0)
-    line->index = 0;
+  if (line->index != 0)
+  {
+    if(line->index != line->last_index)
+    {
+      while(line->index < line->last_index)
+      {
+        line->buffer[index] = line->buffer[line->index];
+        line->index++;
+        index = line->index - 1;
+      }
+      line->index--;
+      line->buffer[line->index] = '\0';
+      current_index--;
+      line->index = current_index;
+    }
+    else
+    {
+      line->index--;
+      line->buffer[line->index] = '\0';
+    }
+  }
 }
 
 /*

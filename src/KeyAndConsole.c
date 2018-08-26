@@ -79,8 +79,10 @@ void getKeyPressed(void)
       }
       else if(c == KEY_BACKSPACE)
       {
-        backspaceOnConsole();
         processBackspace(&line);
+        clearPreviousRecord();
+        displayContent(&line);
+        displayCursor(&line);
       }
       else if(c == KEY_TAB)
       {
@@ -90,14 +92,15 @@ void getKeyPressed(void)
       }
       else if(c == ESC)
       {
-        moveCursorToEnd(&line);
-        clearPreviousRecord();
+        clearConsoleLine(line.index);
         clearBuffer(&line);
       }
       else if(c != CTRL_C)
       {
         if(isInsert == 1)
+        {
           insertKey(&line);
+        }
         writeToBuffer(&line, c);
         displayContent(&line);
         displayCursor(&line);
@@ -149,11 +152,6 @@ void moveCursorToEnd(Line *line)
     line->index++;
 }
 
-void backspaceOnConsole()
-{
-  printf("\b \b");
-}
-
 void displayContent(Line *line)
 {
   printf("\r%s", line->buffer);
@@ -166,6 +164,11 @@ void displayCursor(Line *line)
 	{
 		printf("%c", line->buffer[i]);
 	}
+}
+
+void backspaceOnConsole()
+{
+  printf("\b \b");
 }
 
 void clearConsoleLine(int num)
@@ -228,7 +231,8 @@ void insertTab(Line *line)
 }
 
 /*
-*  1.
+*  1. save all the data of index to a temporary storage
+*  2. move all the data from temporary storage to next of the index
 */
 void insertKey(Line *line)
 {
