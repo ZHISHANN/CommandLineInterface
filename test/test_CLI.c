@@ -623,7 +623,7 @@ void test_insertKey_given_abc_insert_d_expect_return_abcd(void)
   TEST_ASSERT_EQUAL(4, line.last_index);
 }
 
-void test_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
+void xtest_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
 {
   Line line = {"abef",4,4};
 

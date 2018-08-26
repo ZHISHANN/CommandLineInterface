@@ -9,6 +9,8 @@
 #include <string.h>
 #include <malloc.h>
 
+int isInsert = 0;
+
 /*
 *  1. Initialize line as empty
 *  2. pre-define some item in the linked list
@@ -69,7 +71,10 @@ void getKeyPressed(void)
           }
           else if(ac == KEY_INSERT)
           {
-            insertKey(&line);
+            if(isInsert == 0)
+              isInsert = 1;
+            else
+              isInsert = 0;
           }
       }
       else if(c == KEY_BACKSPACE)
@@ -91,6 +96,8 @@ void getKeyPressed(void)
       }
       else if(c != CTRL_C)
       {
+        if(isInsert == 1)
+          insertKey(&line);
         writeToBuffer(&line, c);
         displayContent(&line);
         displayCursor(&line);
@@ -221,7 +228,7 @@ void insertTab(Line *line)
 }
 
 /*
-*  1. 
+*  1.
 */
 void insertKey(Line *line)
 {
