@@ -57,16 +57,18 @@ void getKeyPressed(void)
           }
           else if(ac == ARROW_UP)
           {
+            clearBuffer(&line);
+            copyStringToLine(&line, recallPrevious(&list));
             moveCursorToEnd(&line);
             clearPreviousRecord();
-            copyStringToLine(&line, recallPrevious(&list));
             displayContent(&line);
           }
           else if(ac == ARROW_DOWN)
           {
+            clearBuffer(&line);
+            copyStringToLine(&line, recallNext(&list));
             moveCursorToEnd(&line);
             clearPreviousRecord();
-            copyStringToLine(&line, recallNext(&list));
             displayContent(&line);
           }
           else if(ac == KEY_INSERT)
@@ -99,9 +101,8 @@ void getKeyPressed(void)
       else if(c != CTRL_C)
       {
         if(isInsert == 1)
-        {
           insertKey(&line);
-        }
+
         writeToBuffer(&line, c);
         displayContent(&line);
         displayCursor(&line);

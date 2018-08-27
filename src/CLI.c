@@ -119,7 +119,7 @@ void clearBuffer(Line *line)
 {
   int i;
   line->last_index = strlen(line->buffer);
-  for(i = 0; i <= line->last_index; i++)
+  for(i = 0; i < line->last_index; i++)
   {
     line->buffer[i] = '\0';
     line->index--;

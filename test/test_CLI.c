@@ -484,9 +484,7 @@ void test_clearBuffer_given_empty_line(void)
 {
   Line line = {{'\0'},0,0};
 
-  printf("before clear buffer : %s\n",line.buffer);
   clearBuffer(&line);
-  printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL('\0', line.buffer[line.index]);
   TEST_ASSERT_EQUAL(0,line.last_index);
@@ -501,7 +499,7 @@ void test_clearBuffer_given_happy_expect_happy_clear_in_buffer(void)
   printf("after clear buffer : %s",line.buffer);
   TEST_ASSERT_EQUAL(0,line.index);
   TEST_ASSERT_EQUAL('\0', line.buffer[line.index]);
-  //TEST_ASSERT_EQUAL(5,line.last_index);
+  TEST_ASSERT_EQUAL(5,line.last_index);
 }
 
 void test_copyStringToLine_given_space_and_insert_new_data_expect_data_inserted(void)
@@ -647,18 +645,25 @@ void test_insertKey_given_abc_insert_d_expect_return_abcd(void)
   TEST_ASSERT_EQUAL(4, line.last_index);
 }
 
-void xtest_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
+void test_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
 {
-  Line line = {"abef",4,4};
+  Line line = {'\0'};
 
+  copyStringToLine(&line, "happy");
+  //moveCursorToEnd(&line);
+  //clearPreviousRecord();
+  displayContent(&line);
   moveLeft(&line);
-  moveLeft(&line);
-  insertKey(&line);
-  writeToBuffer(&line,'c');
+  //displayCursor(&line);
   insertKey(&line);
   writeToBuffer(&line,'d');
-
-  TEST_ASSERT_EQUAL_STRING("abcdef", line.buffer);
-  TEST_ASSERT_EQUAL(4, line.index);
-  TEST_ASSERT_EQUAL(6, line.last_index);
+  displayContent(&line);
+  clearBuffer(&line);
+  //displayCursor(&line);
+  copyStringToLine(&line, "hey");
+  moveLeft(&line);
+  insertKey(&line);
+  writeToBuffer(&line,'d');
+  displayContent(&line);
+  //displayCursor(&line);
 }
