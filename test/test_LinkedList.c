@@ -362,3 +362,38 @@ void test_recallNext_given_item1_item2_item3_recallNext_4_time_expect_item2_disp
   TEST_ASSERT_EQUAL_STRING(item1.data, recallNext(&list));
   TEST_ASSERT_EQUAL_STRING(item2.data, recallNext(&list));
 }
+
+void test_recallPrevious(void)
+{
+  char *buffer1 = "hello";
+  char *buffer2 = "hi";
+  char *buffer3 = "hey";
+  char *buffer4 = "yoyo";
+  char *buffer5 = "keke";
+  char *string_return;
+  ListItem item5 = {(void *)buffer5, NULL};
+  ListItem item4 = {(void *)buffer4, NULL};
+  ListItem item3 = {(void *)buffer3};
+  ListItem item2 = {(void *)buffer2, &item3};
+  ListItem item1 = {(void *)buffer1, &item2, &item3};
+  item2.prev = &item1;
+  item3.prev = &item2;
+  item3.next = &item1;
+  LinkedList list = {&item1, &item3, 3};
+  linkedListAddToTail(&list,&item4);
+  linkedListAddToTail(&list,&item5);
+
+  resetRecalledItem(&list);
+  TEST_ASSERT_EQUAL_STRING("keke", recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING("yoyo", recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING("hey", recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING("hi", recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING("hello", recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING("keke", recallPrevious(&list));
+
+  /*resetRecalledItem(&list);
+  TEST_ASSERT_EQUAL_STRING(item2.data, recallNext(&list));
+  TEST_ASSERT_EQUAL_STRING(item3.data, recallNext(&list));
+  TEST_ASSERT_EQUAL_STRING(item1.data, recallNext(&list));
+  TEST_ASSERT_EQUAL_STRING(item2.data, recallNext(&list));*/
+}

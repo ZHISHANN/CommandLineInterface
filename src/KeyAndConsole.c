@@ -94,6 +94,7 @@ void getKeyPressed(void)
       }
       else if(c == ESC)
       {
+        resetRecalledItem(&list);
         moveCursorToEnd(&line);
         clearPreviousRecord();
         clearBuffer(&line);
@@ -185,7 +186,7 @@ void clearConsoleLine(int num)
 void clearPreviousRecord()
 {
 	printf("\r");
-	for(int i=0; i<79; i++)
+	for(int i=0; i<118; i++)
 	{
 		printf(" ");
 	}
