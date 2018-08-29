@@ -250,11 +250,21 @@ void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
 
 void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
 {
-  Line line = {"dam", 3, 3};
+  Line line = {"dam",3,3};
 
   processBackspace(&line);
   processBackspace(&line);
   processBackspace(&line);
+  processBackspace(&line);
+
+  TEST_ASSERT_EQUAL_STRING("", line.buffer);
+  TEST_ASSERT_EQUAL(0, line.index);
+}
+
+void test_processBackspace_given_m_and_backspace_1_time_expect_empty(void)
+{
+  Line line = {"m",1,1};
+
   processBackspace(&line);
 
   TEST_ASSERT_EQUAL_STRING("", line.buffer);
