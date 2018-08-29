@@ -41,6 +41,7 @@ void processBackspace(Line *line)
 {
   int index = line->index - 1;
   int current_index = line->index;
+  line->last_index = strlen(line->buffer);
 
   if (line->index != 0)
   {

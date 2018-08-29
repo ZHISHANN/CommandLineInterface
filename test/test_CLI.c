@@ -233,9 +233,7 @@ void test_processBackspace_given_happy_and_backspace_1_time_expect_happ(void)
 
   processBackspace(&line);
 
-  //printf("buffer : %s", line.buffer);
   TEST_ASSERT_EQUAL_STRING("happ", line.buffer);
-  TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(4, line.index);
 }
 
@@ -247,7 +245,6 @@ void test_processBackspace_given_happy_and_backspace_2_time_expect_hap(void)
   processBackspace(&line);
 
   TEST_ASSERT_EQUAL_STRING("hap", line.buffer);
-  TEST_ASSERT_EQUAL(5, line.last_index);
   TEST_ASSERT_EQUAL(3, line.index);
 }
 
@@ -261,7 +258,6 @@ void test_processBackspace_given_dam_and_backspace_4_time_expect_empty(void)
   processBackspace(&line);
 
   TEST_ASSERT_EQUAL_STRING("", line.buffer);
-  TEST_ASSERT_EQUAL(3, line.last_index);
   TEST_ASSERT_EQUAL(0, line.index);
 }
 
@@ -285,6 +281,20 @@ void test_processBackspace_given_abcd_moveLeft_twice_then_backspace_once_expect_
     processBackspace(&line);
 
     TEST_ASSERT_EQUAL_STRING("acd", line.buffer);
+    TEST_ASSERT_EQUAL(1, line.index);
+}
+
+void test_processBackspace_given_abcd_moveLeft_twice_then_tab_and_backspace_once_expect_return_ab___cd(void)
+{
+  Line line = {"abcd",4,4};
+
+  moveLeft(&line);
+  moveLeft(&line);
+  insertTab(&line);
+  processBackspace(&line);
+
+  TEST_ASSERT_EQUAL_STRING("ab   cd", line.buffer);
+  TEST_ASSERT_EQUAL(5, line.index);
 }
 
 void test_moveLeft_given_empty_line(void)
