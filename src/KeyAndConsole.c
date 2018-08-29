@@ -113,12 +113,14 @@ void getKeyPressed(void)
     {
       if(isLineEmpty(&line))
       {
+        resetRecalledItem(&list);
         clearConsoleLine(line.index);
         clearBuffer(&line);
       }
       else
       {
         processLine(&list, &line);
+        resetRecalledItem(&list);
         moveCursorToEnd(&line);
         clearPreviousRecord();
         clearBuffer(&line);
