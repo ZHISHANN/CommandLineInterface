@@ -391,9 +391,11 @@ void test_recallPrevious(void)
   TEST_ASSERT_EQUAL_STRING("hello", recallPrevious(&list));
   TEST_ASSERT_EQUAL_STRING("keke", recallPrevious(&list));
 
-  /*resetRecalledItem(&list);
-  TEST_ASSERT_EQUAL_STRING(item2.data, recallNext(&list));
-  TEST_ASSERT_EQUAL_STRING(item3.data, recallNext(&list));
-  TEST_ASSERT_EQUAL_STRING(item1.data, recallNext(&list));
-  TEST_ASSERT_EQUAL_STRING(item2.data, recallNext(&list));*/
+  resetRecalledItem(&list);
+  TEST_ASSERT_EQUAL_STRING(item5.data, recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING(item4.data, recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING(item3.data, recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING(item2.data, recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING(item1.data, recallPrevious(&list));
+  TEST_ASSERT_EQUAL_STRING(item5.data, recallPrevious(&list));
 }

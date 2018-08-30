@@ -8,7 +8,7 @@
 #include <malloc.h>
 
 /*limit the history storage*/
-int Max_History = 6;
+int Max_History = 3;
 
 /*
 *  1. create a dynamic location to store data from line buffer

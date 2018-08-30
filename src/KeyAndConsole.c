@@ -71,6 +71,13 @@ void getKeyPressed(void)
             clearPreviousRecord();
             displayContent(&line);
           }
+          else if(ac == KEY_DELETE)
+          {
+            deleteKey(&line);
+            clearPreviousRecord();
+            displayContent(&line);
+            displayCursor(&line);
+          }
           else if(ac == KEY_INSERT)
           {
             if(isInsert == 0)
@@ -262,4 +269,31 @@ void insertKey(Line *line)
     line->buffer[new_index] = temp_data[j];
     new_index++;
   }
+}
+
+void deleteKey(Line *line)
+{
+  char *temp_data;
+  temp_data = malloc(4096);
+  int new_index = line->index + 1;
+  int index = line->index;
+  int i,j;
+
+  if(line->index != strlen(line->buffer))
+  {
+    i = 0;
+    do{
+      temp_data[i] = line->buffer[new_index];
+      new_index++;
+      i++;
+    }while(line->buffer[new_index] != '\0');
+  }
+
+  for (j = 0; j < i ; j++)
+  {
+    line->buffer[index] = temp_data[j];
+    index++;
+  }
+
+  line->buffer[index] = '\0';
 }

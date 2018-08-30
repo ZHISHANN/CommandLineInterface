@@ -665,25 +665,47 @@ void test_insertKey_given_abc_insert_d_expect_return_abcd(void)
   TEST_ASSERT_EQUAL(4, line.last_index);
 }
 
-void test_insertKey_given_abef_moveLeft_twice_insert_c_and_d_expect_return_abcdef(void)
+void test_insertKey_given_empty_line_enter_happy_moveLeft_once_then_insert_d_expect_return_happdy_and_clearBuffer_given_hey_moveLeft_once_insert_d_expect_return_hedy(void)
 {
   Line line = {'\0'};
 
   copyStringToLine(&line, "happy");
-  //moveCursorToEnd(&line);
-  //clearPreviousRecord();
   displayContent(&line);
   moveLeft(&line);
-  //displayCursor(&line);
   insertKey(&line);
   writeToBuffer(&line,'d');
   displayContent(&line);
+
+  TEST_ASSERT_EQUAL_STRING("happdy", line.buffer);
+
   clearBuffer(&line);
-  //displayCursor(&line);
   copyStringToLine(&line, "hey");
   moveLeft(&line);
   insertKey(&line);
   writeToBuffer(&line,'d');
   displayContent(&line);
-  //displayCursor(&line);
+
+  TEST_ASSERT_EQUAL_STRING("hedy", line.buffer);
+}
+
+void test_deleteKey_given_coco_moveLeft_once_then_delete_expect_return_coo(void)
+{
+  Line line = {"coco" ,4,4};
+
+  moveLeft(&line);
+  deleteKey(&line);
+
+  TEST_ASSERT_EQUAL_STRING("coc", line.buffer);
+}
+
+void test_deleteKey_given_bunny_moveLeft_twice_then_delete_twice_expect_return_bun(void)
+{
+   Line line = {"bunny",5,5};
+
+   moveLeft(&line);
+   moveLeft(&line);
+   deleteKey(&line);
+   deleteKey(&line);
+
+   TEST_ASSERT_EQUAL_STRING("bun", line.buffer);
 }

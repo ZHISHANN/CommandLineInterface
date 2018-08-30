@@ -13,6 +13,7 @@
 #define ESC               27
 #define CTRL_C             3
 #define KEY_INSERT        82
+#define KEY_DELETE        83
 
 void backspaceOnConsole();
 void displayContent(Line *line);
@@ -25,5 +26,6 @@ void clearPreviousRecord();
 void moveCursorToEnd(Line *line);
 void displayCursor(Line *line);
 void insertKey(Line *line);
+void deleteKey(Line *line);
 
 #endif // _KEYANDCONSOLE_H
