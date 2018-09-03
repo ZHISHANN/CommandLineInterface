@@ -78,7 +78,7 @@ void moveLeft(Line *line)
 {
   line->last_index = strlen(line->buffer);
 
-  if(line->buffer == '\0')
+  if(line->buffer == NULL)
     line->index = 0;
 
   if(line->index != 0)
@@ -138,7 +138,7 @@ void clearBuffer(Line *line)
 */
 void copyStringToLine(Line *line, char *str)
 {
-  if(str != '\0')
+  if(str != NULL)
   {
     strcpy(line->buffer, str);
     line->index = line->last_index = strlen(str);
